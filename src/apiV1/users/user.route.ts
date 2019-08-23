@@ -6,15 +6,8 @@ const user: Router = Router();
 const controller = new Controller();
 
 // Retrieve all Users
-user.get('/', controller.findAll);
-
-// Retrieve a Specific User
-user.get('/:id', verifyToken, controller.findOne);
-
-// Update a User with Id
-user.put('/:id', controller.update);
-
-// Delete a User with Id
-user.delete('/:id', controller.remove);
+user.get('/profile', verifyToken, controller.getProfile);
+user.post('/update-profile', verifyToken, controller.updateProfile);
+user.get('/active-users', verifyToken, controller.activeUsers);
 
 export default user;

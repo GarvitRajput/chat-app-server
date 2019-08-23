@@ -1,38 +1,26 @@
-import * as bcrypt from 'bcrypt';
-import { Request, Response } from 'express';
-import * as jwt from 'jwt-then';
-import config from '../../config/config';
-import User from '../users/user.model';
+import * as bcrypt from "bcrypt";
+import { Request, Response } from "express";
+import config from "../../config/config";
+import db from "../../config/db";
+import crypto from "../../helpers/crypto";
+import Authentication from "./auth.model";
 
-export default class UserController {
+export default class AuthController {
   public authenticate = async (req: Request, res: Response): Promise<any> => {
-    const { email, password } = req.body;
+    let { email, password } = req.body;
     try {
-      const user = await User.findOne({ email: req.body.email });
-      if (!user) {
-        return res.status(404).send({
-          success: false,
-          message: 'User not found'
+      password = crypto.hash(password+email+password);
+      let user = await new Authentication().auth(email, password);
+      if (user) {
+        res.status(200).send({
+          success: true,
+          data: { user, token: AuthController.generateToken(user.userId, req) }
         });
+      } else {
+        res
+          .status(400)
+          .send({ success: false, error: "Invalid Email or Password!" });
       }
-
-      const matchPasswords = await bcrypt.compare(password, user.password);
-      if (!matchPasswords) {
-        return res.status(401).send({
-          success: false,
-          message: 'Not authorized'
-        });
-      }
-
-      const token = await jwt.sign({ email }, config.JWT_ENCRYPTION, {
-        expiresIn: config.JWT_EXPIRATION
-      });
-
-      res.status(200).send({
-        success: true,
-        message: 'Token generated Successfully',
-        data: token
-      });
     } catch (err) {
       res.status(500).send({
         success: false,
@@ -42,29 +30,32 @@ export default class UserController {
   };
 
   public register = async (req: Request, res: Response): Promise<any> => {
-    const { name, lastName, email, password } = req.body;
-    try {
-      const hash = await bcrypt.hash(password, config.SALT_ROUNDS);
-
-      const user = new User({
-        name,
-        lastName,
-        email,
-        password: hash
+    let { firstName, lastName, email, password } = req.body;
+    password = crypto.hash(password+email+password);
+    let user = await new Authentication().register(
+      firstName,
+      lastName,
+      email,
+      password
+    );
+    if (user) {
+      res.status(200).send({
+        success: true,
+        data: {
+          user,
+          token: AuthController.generateToken(user.userId, req)
+        }
       });
-
-      const newUser = await user.save();
-
-      res.status(201).send({
-        success: false,
-        message: 'User Successfully created',
-        data: newUser
-      });
-    } catch (err) {
-      res.status(500).send({
-        success: false,
-        message: err.toString()
-      });
+    } else {
+      res.status(400).send({ success: false, error: "User Already Exists!" });
     }
   };
+
+  static generateToken(userId, req) {
+    var auth = {
+      id: userId,
+      agent: req.useragent
+    };
+    return crypto.encrypt(JSON.stringify(auth));
+  }
 }

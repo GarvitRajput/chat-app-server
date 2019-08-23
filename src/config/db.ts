@@ -1,19 +1,15 @@
-import * as mongoose from 'mongoose';
 import CONFIG from './config';
+import config from './config';
 
-mongoose.set('useCreateIndex', true);
 
-// Connecting to the database
-export default (async () => {
-  try {
-    await mongoose.connect(
-      CONFIG.DB_HOST,
-      { useNewUrlParser: true }
-    );
-    // listen for requests
-    console.log('The Conection is Ok');
-  } catch (err) {
-    console.log(`${err} Could not Connect to the Database. Exiting Now...`);
-    process.exit();
-  }
-})();
+var db = require('knex')({  
+  client: config.DB_DIALECT,  
+   connection: {  
+    user: config.DB_USER,  
+    password: config.DB_PASSWORD,  
+    server: config.DB_HOST,  
+    database: config.DB_NAME 
+   }  
+ }); 
+
+export default db;

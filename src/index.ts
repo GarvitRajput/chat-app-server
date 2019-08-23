@@ -1,13 +1,15 @@
-import app from './App';
-import CONFIG from './config/config';
-import './config/db';
+import app from "./App";
+import CONFIG from "./config/config";
+//import './config/db';
 
 const PORT = CONFIG.PORT;
 
-app.listen(PORT, err => {
-  if (err) {
-    return console.log(err);
-  }
+var http = require("http").createServer(app);
+var io = require("socket.io")(http);
 
-  console.log(`Server is listening on ${PORT}`);
+require("./helpers/socket")(io);
+
+
+http.listen(PORT, function() {
+  console.log("server is listening on *:" + PORT);
 });

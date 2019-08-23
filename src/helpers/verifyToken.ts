@@ -1,20 +1,24 @@
-import * as jwt from 'jwt-then';
-import config from '../config/config';
+import Crypto from "./crypto";
+
 const verifyToken = async (req, res, next): Promise<any> => {
   // check header or url parameters or post parameters for token
-  const token: string = req.headers.authorization.split(' ')[1];
-
-  if (!token) {
-    return res.status(403).send({ auth: false, message: 'No token provided.' });
-  }
 
   try {
+    const token: string = req.headers.authorization;
+
+    if (!token) {
+      return res
+        .status(401)
+        .send({ success: false, message: "No token provided." });
+    }
     // verifies secret and checks exp
-    const decoded = await jwt.verify(token, config.JWT_ENCRYPTION);
-    req.email = decoded.email;
+    const decoded = JSON.parse(Crypto.decrypt(token));
+    if (JSON.stringify(req.useragent) !== JSON.stringify(decoded.agent))
+      throw "Invalid Token";
+    req.userId = decoded.id;
     next();
   } catch (err) {
-    res.status(500).send({ auth: false, message: err });
+    res.status(401).send({ success: false, message: "Invalid Token" });
   }
 };
 
