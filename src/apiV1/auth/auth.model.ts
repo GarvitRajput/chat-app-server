@@ -1,5 +1,6 @@
 import db from "../../config/db";
 import user from "./auth.route";
+import crypto from "../../helpers/crypto";
 
 export default class Authentication {
   public async auth(email, password) {
@@ -35,5 +36,20 @@ export default class Authentication {
           CreatedOn: new Date()
         });
     return { userId: user[0], firstName, lastName, email };
+  }
+  public async updateUserConnection(data) {
+    let id = JSON.parse(crypto.decrypt(data.token)).id;
+    await db("users")
+      .where("UserId", id)
+      .update({
+        ConnectionId: data.connectionId
+      });
+  }
+  public async removeUserConnection(id) {
+    await db("users")
+      .where("ConnectionId", id)
+      .update({
+        ConnectionId: null
+      });
   }
 }

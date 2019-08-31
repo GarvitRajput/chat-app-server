@@ -1,9 +1,10 @@
 import { Response } from "express";
 import db from "../../config/db";
-import User from "./group.model";
-import Group from "./group.model";
+import User from "./chat.model";
+import Group from "./chat.model";
+import Chat from "./chat.model";
 
-export default class GroupController {
+export default class ChatController {
   async create(req, res: Response) {
     try {
       let data = req.body;
@@ -31,17 +32,18 @@ export default class GroupController {
       res.status(401).send({ success: false, error: "Unauthorized" });
     }
   }
-  async getJoinedGroups(req, res: Response) {
+
+  async getAvailableChats(req, res: Response) {
     try {
-      let data = await new Group().getJoinedGroups(req.userId);
+      let activeChats = await new Chat().getAvailableChats(req.userId);
       res.status(200).send({
         success: true,
         data: {
-          groups: data
+          activeChats
         }
       });
     } catch (e) {
-      console.log(e);
+      console.error(e);
       res.status(401).send({ success: false, error: "Unauthorized" });
     }
   }

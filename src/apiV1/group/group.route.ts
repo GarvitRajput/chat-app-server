@@ -8,5 +8,6 @@ const controller = new Controller();
 // Retrieve all Users
 group.post('/create', verifyToken, controller.create);
 group.post('/update', verifyToken, controller.update);
+group.get('/list', verifyToken, controller.getJoinedGroups);
 
 export default group;

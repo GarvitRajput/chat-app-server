@@ -1,4 +1,5 @@
 import db from "../../config/db";
+import { deflateRawSync } from "zlib";
 
 export default class Group {
   async create(data) {
@@ -36,12 +37,10 @@ export default class Group {
           Description: data.description
         });
       let members = (await db("groupMembers")
-      .where({ GroupId: data.groupId})
-      .select(["MemberId"])).map(id=>id.MemberId);
+        .where({ GroupId: data.groupId })
+        .select(["MemberId"])).map(id => id.MemberId);
       console.log(members);
-      let toBeInserted = data.users.filter(
-        id => !members.includes(id)
-      );
+      let toBeInserted = data.users.filter(id => !members.includes(id));
       let groupMembers = [];
       toBeInserted.forEach(id => {
         groupMembers.push({
@@ -60,5 +59,27 @@ export default class Group {
     } else {
       return false;
     }
+  }
+
+  async getGroupInfo(id) {
+    let data = (await db("Groups")
+      .where("GroupId", "=", id)
+      .select(["groupId", "GroupName", "Description"]))[0];
+    data.users = (await db("GroupMembers")
+      .where("GroupId", "=", id)
+      .orderBy("MemberId")
+      .select(["MemberId"])).map(member => Number(member.MemberId));
+    return data;
+  }
+
+  async getJoinedGroups(id) {
+    let data = await db("GroupMembers")
+      .where("MemberId", "=", id)
+      .select(["GroupId"]);
+    let groups = [];
+    for (let count = 0; count < data.length; count++) {
+      groups.push(await this.getGroupInfo(data[count].GroupId));
+    }
+    return groups;
   }
 }
