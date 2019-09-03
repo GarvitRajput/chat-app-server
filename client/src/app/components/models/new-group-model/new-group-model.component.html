@@ -1,0 +1,126 @@
+<!-- new group modal -->
+<div
+  class="modal fade"
+  id="newGroup"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog modal-dialog-centered modal-dialog-zoom"
+    role="document"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="fa fa-users"></i> New Group</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <i class="ti-close"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="form">
+          <div class="form-group">
+            <label for="group_name" class="col-form-label">Group name</label>
+            <input
+              type="text"
+              formControlName="groupName"
+              [ngClass]="{
+                'form-control-invalid':
+                  submitted && f.groupName.errors && f.groupName.errors.required
+              }"
+              class="form-control"
+              id="group_name"
+            />
+          </div>
+          <div class="form-group dropdown">
+            <label for="users" class="col-form-label">Users</label>
+            <input
+              #el
+              (click)="open()"
+              (blur)="close()"
+              (input)="inputChange()"
+              type="text"
+              class="form-control"
+              id="users"
+              placeholder="Find user"
+            />
+            <p class="text-danger">{{ message }}</p>
+            <ng-template #tpl>
+              <div class="user-list-container">
+                <ul class="list-group list-group-flush">
+                  <li
+                    (click)="addUser(user)"
+                    *ngFor="let user of filteredUsers"
+                    class="list-group-item open-chat"
+                  >
+                    <div (click)="addUser(user)">
+                      <figure class="avatar">
+                        <img
+                          class="rounded-circle"
+                          [src]="user.profileImagePath"
+                        />
+                      </figure>
+                    </div>
+                    <div class="users-list-body">
+                      <p class="title">
+                        {{ user.firstName + " " + user.lastName }}
+                      </p>
+                      <p class="email">
+                        {{ user.email }}
+                      </p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </ng-template>
+          </div>
+          <div *ngIf="selectedUsers.length" class="form-group">
+            <div class="avatar-group">
+              <figure
+                *ngFor="let user of selectedUsers"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                data-html="true"
+                title="{{
+                  user.firstName + ' ' + user.lastName
+                }} </br> Click to remove"
+                class="avatar"
+                (click)="removeUser(user)"
+              >
+                <img [src]="user.profileImagePath" class="rounded-circle" />
+              </figure>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="description" class="col-form-label">Description</label>
+            <textarea
+              class="form-control"
+              formControlName="description"
+              [ngClass]="{
+                'form-control-invalid':
+                  submitted &&
+                  f.description.errors &&
+                  f.description.errors.required
+              }"
+              class="form-control"
+              id="group_name"
+              id="description"
+            ></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="submit()" class="btn btn-primary">
+          Create Group
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ./ new group modal -->

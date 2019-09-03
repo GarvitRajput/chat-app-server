@@ -1,0 +1,26 @@
+<ng-container *ngIf="user">
+  <div>
+    <figure class="avatar">
+      <img [src]="user.profileImagePath" class="rounded-circle" />
+    </figure>
+  </div>
+  <div class="users-list-body">
+    <h5>{{ user.firstName + " " + user.lastName }}</h5>
+    <p>{{ user.bio }}</p>
+    <div class="users-list-action action-toggle">
+      <div class="dropdown">
+        <a data-toggle="dropdown">
+          <i class="ti-more"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right">
+          <a class="dropdown-item">Open</a>
+          <a data-navigation-target="contact-information" class="dropdown-item"
+            >Profile</a
+          >
+          <a class="dropdown-item">Add to archive</a>
+          <a class="dropdown-item">Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

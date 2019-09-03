@@ -1,0 +1,7 @@
+<div
+  [ngClass]="{ 'outgoing-message': message.to === activeUser?.userId }"
+  class="message-item"
+  app-message
+  *ngFor="let message of messages"
+  [message]="message"
+></div>

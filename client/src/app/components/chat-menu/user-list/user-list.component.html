@@ -1,0 +1,10 @@
+<ul class="list-group list-group-flush">
+  <li
+    app-user-list-item
+    class="list-group-item"
+    [ngClass]="{ 'open-chat': user.opened }"
+    *ngFor="let user of users; let i = index"
+    [user]="user"
+    (click)="updateActiveUser(i)"
+  ></li>
+</ul>

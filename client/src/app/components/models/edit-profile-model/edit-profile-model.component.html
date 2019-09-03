@@ -1,0 +1,317 @@
+<!-- edit profile modal -->
+<div
+  class="modal fade"
+  id="editProfileModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog modal-dialog-centered modal-dialog-zoom"
+    role="document"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="ti-pencil"></i> Profile Edit</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <i class="ti-close"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item">
+            <a
+              class="nav-link active"
+              data-toggle="tab"
+              href="#personal"
+              role="tab"
+              aria-controls="personal"
+              aria-selected="true"
+              >Personal</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              data-toggle="tab"
+              href="#about"
+              role="tab"
+              aria-controls="about"
+              aria-selected="false"
+              >About</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              data-toggle="tab"
+              href="#social-links"
+              role="tab"
+              aria-controls="social-links"
+              aria-selected="false"
+              >Social Links</a
+            >
+          </li>
+        </ul>
+        <form [formGroup]="profileForm">
+          <div class="tab-content">
+            <div class="tab-pane show active" id="personal" role="tabpanel">
+              <div class="form-group">
+                <label for="fullname" class="col-form-label">First Name</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="ti-user"></i>
+                    </span>
+                  </div>
+                  <input
+                    formControlName="firstName"
+                    [ngClass]="{
+                      'form-control-invalid':
+                        submitted &&
+                        f.firstName.errors &&
+                        f.firstName.errors.required
+                    }"
+                    type="text"
+                    class="form-control"
+                    id="fullname"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fullname" class="col-form-label">Last Name</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="ti-user"></i>
+                    </span>
+                  </div>
+                  <input
+                    type="text"
+                    formControlName="lastName"
+                    [ngClass]="{
+                      'form-control-invalid':
+                        submitted &&
+                        f.lastName.errors &&
+                        f.lastName.errors.required
+                    }"
+                    class="form-control"
+                    id="fullname"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-form-label">Avatar</label>
+                <div class="d-flex align-items-center">
+                  <div>
+                    <figure class="avatar mr-3 item-rtl">
+                      <img
+                        [src]="profileImagePath"
+                        class="rounded-circle"
+                      />
+                    </figure>
+                  </div>
+                  <div class="custom-file">
+                    <input
+                      type="file"
+                      class="custom-file-input"
+                      id="customFile"
+                      (change)="selectImage($event)"
+                    />
+                    <label class="custom-file-label" for="customFile"
+                      >Choose file</label
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="website" class="col-form-label">Website</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="ti-link"></i>
+                    </span>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="website"
+                    id="website"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="phone" class="col-form-label">Phone</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="ti-mobile"></i>
+                    </span>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="mobile"
+                    id="phone"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="about" role="tabpanel">
+              <div class="form-group">
+                <label for="website" class="col-form-label">City</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="ti-map-alt"></i>
+                    </span>
+                  </div>
+                  <input
+                    type="text"
+                    formControlName="city"
+                    class="form-control"
+                    id="website"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="website" class="col-form-label">State</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="ti-map-alt"></i>
+                    </span>
+                  </div>
+                  <input
+                    type="text"
+                    formControlName="state"
+                    class="form-control"
+                    id="website"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="website" class="col-form-label">Country</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="ti-map-alt"></i>
+                    </span>
+                  </div>
+                  <input
+                    type="text"
+                    formControlName="country"
+                    class="form-control"
+                    id="website"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="about-text" class="col-form-label"
+                  >Write a few words that describe you</label
+                >
+                <textarea class="form-control" formControlName="bio" id="about-text"></textarea>
+              </div>
+            </div>
+            <div class="tab-pane" id="social-links" role="tabpanel">
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text bg-facebook">
+                      <i class="ti-facebook"></i>
+                    </span>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="facebookProfileUrl"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text bg-twitter">
+                      <i class="ti-twitter"></i>
+                    </span>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="twitterProfileUrl"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text bg-instagram">
+                      <i class="ti-instagram"></i>
+                    </span>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="instagramProfileUrl"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text bg-linkedin">
+                      <i class="ti-linkedin"></i>
+                    </span>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="linkedInProfileUrl"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text bg-dribbble">
+                      <i class="ti-dribbble"></i>
+                    </span>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="dribbleProfileUrl"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text bg-google">
+                      <i class="ti-google"></i>
+                    </span>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="googlePlusProfileUrl"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="submit()" class="btn btn-primary">{{button_text}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ./ edit profile modal -->
