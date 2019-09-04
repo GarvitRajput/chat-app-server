@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "build:server": "node ./dist/index.js",
-    "start": "npm run build:server",
+    "start": "node ./dist/index.js",
     "dev": "nodemon --exec ts-node -- ./server/index.ts",
     "prod": "npm run build && npm run start",
     "clean": "rm -rf node_modules coverage dist .nyc_output",
@@ -54,7 +53,6 @@
     "pg": "^7.12.1",
     "puppeteer": "^1.19.0",
     "socket.io": "^2.2.0",
-    "morgan": "^1.9.1",
     "tedious": "^6.3.0"
   },
   "devDependencies": {

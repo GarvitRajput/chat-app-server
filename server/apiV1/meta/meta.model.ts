@@ -5,7 +5,7 @@ import fetchMetadata from "./../../helpers/metadata";
 export default class Meta {
   async getMetadata(url) {
     let metadata = await db("linkMetadata")
-      .where("URL", url)
+      .where("url", url)
       .select([
         "author",
         "date",
@@ -21,7 +21,7 @@ export default class Meta {
     else {
       metadata = await fetchMetadata(url);
       await db("linkMetadata").insert({
-        URL:url,
+        url:url,
         author: metadata.author,
         date: metadata.date,
         description: metadata.description,

@@ -6,7 +6,7 @@
 
 export const environment = {
          production: true,
-         SERVER_URL: "https://soho-chat.herokuapp.com",
+         SERVER_URL: "http://localhost:3000",
          API_PATH: "/v1"
        };
 

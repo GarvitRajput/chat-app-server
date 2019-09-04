@@ -73,11 +73,11 @@ export class ChatService {
             response.data.messages.forEach(msg => {
               this.messages.users[this._activeUser.userId].chat.push(
                 this.formatMessage(
-                  msg.Message,
-                  msg.MessageType,
-                  msg.SenderId,
-                  msg.ReceiverId,
-                  new Date(msg.SendDate)
+                  msg.message,
+                  msg.messageType,
+                  msg.senderId,
+                  msg.receiverId,
+                  new Date(msg.sendDate)
                 )
               );
             });
