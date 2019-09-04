@@ -8,10 +8,7 @@ var db = require("knex")({
     host: config.DB_HOST,
     database: config.DB_NAME,
     ssl: true
-  },
-  migrations: {
-    directory: './db'
-  },
+  }
 });
 
 export default db;

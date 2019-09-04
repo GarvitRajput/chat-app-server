@@ -7,7 +7,6 @@ export default class GroupController {
   async create(req, res: Response) {
     try {
       let data = req.body;
-      console.log(data);
       data.userId = req.userId;
       await new Group().create(data);
       res.status(200).send({

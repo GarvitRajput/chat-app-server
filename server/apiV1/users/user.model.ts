@@ -3,45 +3,45 @@ import db from "../../config/db";
 export default class User {
   async getUserByUserId(userId) {
     let user = await db("users")
-      .where({ UserId: userId })
+      .where({ userId: userId })
       .select([
-        "UserId",
-        "FirstName",
-        "LastName",
-        "Email",
-        "City",
-        "State",
-        "Country",
-        "Bio",
-        "Mobile",
-        "Website",
-        "ProfileImagePath",
-        "FacebookProfileUrl",
-        "TwitterProfileUrl",
-        "LinkedInProfileUrl",
-        "GooglePlusProfileUrl",
-        "InstagramProfileUrl",
-        "DribbleProfileUrl"
+        "userId",
+        "firstName",
+        "lastName",
+        "email",
+        "city",
+        "state",
+        "country",
+        "bio",
+        "mobile",
+        "website",
+        "profileImagePath",
+        "facebookProfileUrl",
+        "twitterProfileUrl",
+        "linkedInProfileUrl",
+        "googlePlusProfileUrl",
+        "instagramProfileUrl",
+        "dribbleProfileUrl"
       ]);
     if (user.length) {
       return {
-        userId: user[0].UserId,
-        firstName: user[0].FirstName,
-        lastName: user[0].LastName,
-        email: user[0].Email,
-        mobile: user[0].Mobile,
-        website: user[0].Website,
-        city: user[0].City,
-        state: user[0].State,
-        country: user[0].Country,
-        bio: user[0].Bio,
-        profileImagePath: user[0].ProfileImagePath,
-        facebookProfileUrl: user[0].FacebookProfileUrl,
-        linkedInProfileUrl: user[0].LinkedInProfileUrl,
-        twitterProfileUrl: user[0].TwitterProfileUrl,
-        googlePlusProfileUrl: user[0].GooglePlusProfileUrl,
-        instagramProfileUrl: user[0].InstagramProfileUrl,
-        dribbleProfileUrl: user[0].DribbleProfileUrl
+        userId: user[0].userId,
+        firstName: user[0].firstName,
+        lastName: user[0].lastName,
+        email: user[0].email,
+        mobile: user[0].mobile,
+        website: user[0].website,
+        city: user[0].city,
+        state: user[0].state,
+        country: user[0].country,
+        bio: user[0].bio,
+        profileImagePath: user[0].profileImagePath,
+        facebookProfileUrl: user[0].facebookProfileUrl,
+        linkedInProfileUrl: user[0].linkedInProfileUrl,
+        twitterProfileUrl: user[0].twitterProfileUrl,
+        googlePlusProfileUrl: user[0].googlePlusProfileUrl,
+        instagramProfileUrl: user[0].instagramProfileUrl,
+        dribbleProfileUrl: user[0].dribbleProfileUrl
       };
     } else {
       return null;
@@ -50,69 +50,69 @@ export default class User {
 
   async updateUserProfile(id, data) {
     await db("users")
-      .where("UserId", id)
+      .where({ userId: id })
       .update({
-        FirstName: data.firstName,
-        LastName: data.lastName,
-        Email: data.email,
-        Mobile: data.mobile,
-        Website: data.website,
-        City: data.city,
-        State: data.state,
-        Country: data.country,
-        Bio: data.bio,
-        ProfileImagePath: data.profileImagePath,
-        FacebookProfileUrl: data.facebookProfileUrl,
-        LinkedInProfileUrl: data.linkedInProfileUrl,
-        TwitterProfileUrl: data.twitterProfileUrl,
-        GooglePlusProfileUrl: data.googlePlusProfileUrl,
-        InstagramProfileUrl: data.instagramProfileUrl,
-        DribbleProfileUrl: data.dribbleProfileUrl
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        mobile: data.mobile,
+        website: data.website,
+        city: data.city,
+        state: data.state,
+        country: data.country,
+        bio: data.bio,
+        profileImagePath: data.profileImagePath,
+        facebookProfileUrl: data.facebookProfileUrl,
+        linkedInProfileUrl: data.linkedInProfileUrl,
+        twitterProfileUrl: data.twitterProfileUrl,
+        googlePlusProfileUrl: data.googlePlusProfileUrl,
+        instagramProfileUrl: data.instagramProfileUrl,
+        dribbleProfileUrl: data.dribbleProfileUrl
       });
   }
 
   async getActiveUsers(id) {
     let users = [];
     let data = await db("users")
-      .where("UserId", "!=", id)
+      .where("userId", "!=", id)
       .select([
-        "UserId",
-        "FirstName",
-        "LastName",
-        "Email",
-        "City",
-        "State",
-        "Country",
-        "Bio",
-        "Mobile",
-        "Website",
-        "ProfileImagePath",
-        "FacebookProfileUrl",
-        "TwitterProfileUrl",
-        "LinkedInProfileUrl",
-        "GooglePlusProfileUrl",
-        "InstagramProfileUrl",
-        "DribbleProfileUrl"
+        "userId",
+        "firstName",
+        "lastName",
+        "email",
+        "city",
+        "state",
+        "country",
+        "bio",
+        "mobile",
+        "website",
+        "profileImagePath",
+        "facebookProfileUrl",
+        "twitterProfileUrl",
+        "linkedInProfileUrl",
+        "googlePlusProfileUrl",
+        "instagramProfileUrl",
+        "dribbleProfileUrl"
       ]);
     data.forEach(user => {
       users.push({
-        userId: user.UserId,
-        firstName: user.FirstName,
-        lastName: user.LastName,
-        email: user.Email,
-        mobile: user.Mobile,
-        website: user.Website,
-        city: user.City,
-        state: user.State,
-        country: user.Country,
-        bio: user.Bio,
-        profileImagePath: user.ProfileImagePath,
-        facebookProfileUrl: user.FacebookProfileUrl,
-        linkedInProfileUrl: user.LinkedInProfileUrl,
-        twitterProfileUrl: user.TwitterProfileUrl,
-        googlePlusProfileUrl: user.GooglePlusProfileUrl,
-        instagramProfileUrl: user.InstagramProfileUrl,
-        dribbleProfileUrl: user.DribbleProfileUrl
+        userId: user.userId,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        mobile: user.mobile,
+        website: user.website,
+        city: user.city,
+        state: user.state,
+        country: user.country,
+        bio: user.bio,
+        profileImagePath: user.profileImagePath,
+        facebookProfileUrl: user.facebookProfileUrl,
+        linkedInProfileUrl: user.linkedInProfileUrl,
+        twitterProfileUrl: user.twitterProfileUrl,
+        googlePlusProfileUrl: user.googlePlusProfileUrl,
+        instagramProfileUrl: user.instagramProfileUrl,
+        dribbleProfileUrl: user.dribbleProfileUrl
       });
     });
     return users;

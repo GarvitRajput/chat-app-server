@@ -1,86 +1,86 @@
 import db from "../config/db";
 
-  db.schema.hasTable("users").then( async function(exists) {
+  db.schema.hasTable("users").then(async function(exists) {
     if (!exists) {
       await db.schema.createTable("users", function(t) {
-        t.increments("UserId").primary();
-        t.string("FirstName", 100);
-        t.string("LastName", 100);
-        t.text("Email");
-        t.string("City", 100);
-        t.string("State", 100);
-        t.string("Country", 100);
-        t.text("Bio");
-        t.string("Mobile", 20);
-        t.text("Website");
-        t.text("Password");
-        t.text("ProfileImagePath");
-        t.text("FacebookProfileUrl");
-        t.text("TwitterrProfileUrl");
-        t.text("LinkedInProfileUrl");
-        t.text("GooglePlusProfileUrl");
-        t.text("InstagramProfileUrl");
-        t.text("YoutubeProfileUrl");
-        t.text("DribbleProfileUrl");
-        t.timestamp("LastLogin");
-        t.timestamp("CreatedOn");
+        t.increments("userId").primary();
+        t.string("firstName", 100);
+        t.string("lastName", 100);
+        t.text("email");
+        t.string("city", 100);
+        t.string("state", 100);
+        t.string("country", 100);
+        t.text("bio");
+        t.string("mobile", 20);
+        t.text("website");
+        t.text("password");
+        t.text("profileImagePath");
+        t.text("facebookProfileUrl");
+        t.text("twitterProfileUrl");
+        t.text("linkedInProfileUrl");
+        t.text("googlePlusProfileUrl");
+        t.text("instagramProfileUrl");
+        t.text("youtubeProfileUrl");
+        t.text("dribbleProfileUrl");
+        t.timestamp("lastLogin");
+        t.timestamp("createdOn");
       });
     }
   });
 
-  db.schema.hasTable("Groups").then( async function(exists) {
+  db.schema.hasTable("groups").then( async function(exists) {
     if (!exists) {
-      await db.schema.createTable("Groups", function(t) {
-        t.increments("GroupId").primary();
-        t.string("GroupName", 100);
-        t.text("Description");
-        t.timestamp("CreatedON");
-        t.integer("CreatedBy");
+      await db.schema.createTable("groups", function(t) {
+        t.increments("groupId").primary();
+        t.string("groupName", 100);
+        t.text("description");
+        t.timestamp("createdOn");
+        t.integer("createdBy");
       });
     }
   });
 
-  db.schema.hasTable("GroupMembers").then( async function(exists) {
+  db.schema.hasTable("groupMembers").then( async function(exists) {
     if (!exists) {
-      await db.schema.createTable("GroupMembers", function(t) {
-        t.increments("GroupMemberId").primary();
-        t.integer("GroupId");
-        t.integer("MemberId");
-        t.timestamp("AddedOn");
-        t.integer("AddedBy");
+      await db.schema.createTable("groupMembers", function(t) {
+        t.increments("groupMemberId").primary();
+        t.integer("groupId");
+        t.integer("memberId");
+        t.timestamp("addedOn");
+        t.integer("addedBy");
       });
     }
   });
 
-  db.schema.hasTable("Messages").then( async function(exists) {
+  db.schema.hasTable("messages").then( async function(exists) {
     if (!exists) {
-      await db.schema.createTable("Messages", function(t) {
-        t.increments("MessageId").primary();
-        t.integer("SenderId");
-        t.integer("ReceiverId");
-        t.boolean("IsGroupChat");
-        t.text("Message");
-        t.integer("MessageType");
-        t.timestamp("SendDate");
+      await db.schema.createTable("messages", function(t) {
+        t.increments("messageId").primary();
+        t.integer("senderId");
+        t.integer("receiverId");
+        t.boolean("isGroupChat");
+        t.text("message");
+        t.integer("messageType");
+        t.timestamp("sendDate");
       });
     }
   });
 
-  db.schema.hasTable("LinkMetadata").then( async function(exists) {
+  db.schema.hasTable("linkMetadata").then( async function(exists) {
     if (!exists) {
-      await db.schema.createTable("LinkMetadata", function(t) {
+      await db.schema.createTable("linkMetadata", function(t) {
         t.increments("Id").primary();
-        t.text("Url");
-        t.text("Author", 20);
-        t.timestamp("Date");
-        t.text("Description");
-        t.text("ImagePath");
-        t.text("Logo");
-        t.text("Publisher");
-        t.text("Title");
-        t.text("Audio");
-        t.text("Video");
-        t.timestamp("AddedDate");
+        t.text("url");
+        t.text("author", 20);
+        t.timestamp("date");
+        t.text("description");
+        t.text("imagePath");
+        t.text("logo");
+        t.text("publisher");
+        t.text("title");
+        t.text("audio");
+        t.text("video");
+        t.timestamp("addedDate");
       });
     }
   });

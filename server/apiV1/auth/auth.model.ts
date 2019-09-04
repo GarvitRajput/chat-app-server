@@ -4,45 +4,44 @@ import crypto from "../../helpers/crypto";
 export default class Authentication {
   public async auth(email, password) {
     let user = await db("users")
-      .where({ Email: email, Password: password })
-      .select(["UserId", "FirstName", "LastName", "Email"]);
+      .where({ email: email, password: password })
+      .select(["userId", "firstName", "lastName", "email"]);
     if (user[0]) {
       await db("users")
-        .where({ Email: email, Password: password })
+        .where({ email: email, password: password })
         .update({ lastLogin: new Date() });
       return {
-        userId: user[0].UserId,
-        firstName: user[0].FirstName,
-        lastName: user[0].LastName,
-        email: user[0].Email
+        userId: user[0].userId,
+        firstName: user[0].firstName,
+        lastName: user[0].lastName,
+        email: user[0].email
       };
     } else return null;
   }
   public async register(firstName, lastName, email, password) {
     let user = await db("users")
       .where({ email: email })
-      .select(["UserId"]);
+      .select(["userId"]);
     if (user.length) return null;
     else
       user = await db("users")
-        .returning(["UserId"])
+        .returning(["userId"])
         .insert({
-          FirstName: firstName,
-          LastName: lastName,
-          Email: email,
-          Password: password,
-          CreatedOn: new Date()
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          password: password,
+          createdOn: new Date()
         });
-    return { userId: user[0], firstName, lastName, email };
+    return { userId: user[0].userId, firstName, lastName, email };
   }
   public async updateUserConnection(data) {
     try {
       let id = JSON.parse(crypto.decrypt(data.token)).id;
-      console.log("connected", id, data.connectionId);
       await db("users")
-        .where("UserId", id)
+        .where({ "userId": id })
         .update({
-          ConnectionId: data.connectionId
+          connectionId: data.connectionId
         });
       return id;
     } catch (e) {
@@ -52,9 +51,9 @@ export default class Authentication {
   }
   public async removeUserConnection(id) {
     await db("users")
-      .where("ConnectionId", id)
+      .where({ "connectionId": id })
       .update({
-        ConnectionId: null
+        connectionId: null
       });
   }
 }

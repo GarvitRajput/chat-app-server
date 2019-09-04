@@ -4,7 +4,7 @@ import fetchMetadata from "./../../helpers/metadata";
 
 export default class Meta {
   async getMetadata(url) {
-    let metadata = await db("LinkMetadata")
+    let metadata = await db("linkMetadata")
       .where("URL", url)
       .select([
         "author",
@@ -20,23 +20,23 @@ export default class Meta {
     if (metadata.length) metadata = metadata[0];
     else {
       metadata = await fetchMetadata(url);
-      await db("LinkMetadata").insert({
+      await db("linkMetadata").insert({
         URL:url,
-        Author: metadata.author,
-        Date: metadata.date,
-        Description: metadata.description,
-        ImagePath: metadata.image,
-        Logo: metadata.logo,
-        Title: metadata.title,
-        Publisher: metadata.publisher,
-        Audio: metadata.audio,
-        Video: metadata.video,
-        AddedDate: new Date()
+        author: metadata.author,
+        date: metadata.date,
+        description: metadata.description,
+        imagePath: metadata.image,
+        logo: metadata.logo,
+        title: metadata.title,
+        publisher: metadata.publisher,
+        audio: metadata.audio,
+        video: metadata.video,
+        addedDate: new Date()
       });
       metadata = {
         author: metadata.author,
         date: metadata.date,
-        descriotion: metadata.description,
+        description: metadata.description,
         imagePath: metadata.image,
         logo: metadata.logo,
         title: metadata.title,

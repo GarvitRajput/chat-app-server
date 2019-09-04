@@ -11,7 +11,11 @@
     "prod": "npm run build && npm run start",
     "clean": "rm -rf node_modules coverage dist .nyc_output",
     "lint": "tslint -t stylish --project \"tsconfig.json\"",
-    "setup": "knex migrate:make ./initialize"
+    "migrate:create": "knex migrate:make",
+    "migrate:latest": "knex migrate:latest",
+    "migrate:rollback": " knex migrate:rollback",
+    "seed:make": "knex seed:make",
+    "seed:run": "knex seed:run"
   },
   "keywords": [],
   "author": "",
