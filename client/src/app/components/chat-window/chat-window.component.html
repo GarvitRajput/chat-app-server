@@ -51,18 +51,33 @@
         -->
   <div class="messages" app-message-list [messages]="chatMessages"></div>
 </div>
+<emoji-mart
+  class="emoji-mart"
+  set="apple"
+  (emojiSelect)="addEmoji($event)"
+  *ngIf="showEmojiPicker"
+  title="Pick your emoji…"
+></emoji-mart>
 <div class="chat-footer">
   <form (submit)="sendMessage()">
     <input
       [(ngModel)]="messageText"
       name="messageText"
       type="text"
+      id="message-input"
       class="form-control"
       placeholder="Recipient's username"
       aria-label="Recipient's username"
       aria-describedby="button-addon2"
     />
     <div class="form-buttons">
+      <button
+        class="btn btn-light btn-floating"
+        (click)="toggleEmojiPicker()"
+        type="button"
+      >
+        <i class="fa fa-smile-o"></i>
+      </button>
       <button
         class="btn btn-light btn-floating"
         #filePicker="ngxFilePicker"

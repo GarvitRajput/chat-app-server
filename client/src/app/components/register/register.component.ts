@@ -12,6 +12,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   registerForm: FormGroup;
   submitted = false;
   message: string = "";
+  waitingResponse=false;
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
@@ -35,8 +36,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
     if (this.registerForm.invalid) {
       return;
     }
+    this.waitingResponse=true;
     this.authService.register(this.registerForm.value)
       .subscribe((res: any) => {
+        this.waitingResponse=false;
         if (res) {
           this.router.navigate(["home"]);
         } else {

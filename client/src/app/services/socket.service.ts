@@ -12,7 +12,6 @@ export class SocketService {
     this.incomingMessages.next({});
     this.socket.fromEvent("message").subscribe((data: string) => {
       data = JSON.parse(data);
-      console.log(data);
       this.incomingMessages.next(data);
     });
   }

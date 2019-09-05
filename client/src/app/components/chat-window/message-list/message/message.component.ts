@@ -13,7 +13,6 @@ export class MessageComponent implements OnInit {
   constructor(private chatService: ChatService) {}
   @Input() message: Message;
   ngOnInit() {
-    console.log(this.message);
     this.message.relativeTimeStamp = this.chatService.getTimeStamp(
       this.message.timeStamp
     );

@@ -47,7 +47,6 @@
   <!-- ./ logo -->
 
   <h5>Sign in</h5>
-  <a routerLink="/home" class="btn btn-outline-light btn-sm">Sign In</a>
   
 
 
@@ -98,7 +97,10 @@
       <a href="./reset-password.html">Reset password</a>
     </div>
     <span class="text-danger">{{ message }}</span>
-    <button (click)="signIn()" class="btn btn-primary btn-lg btn-block">
+    <div *ngIf="waitingResponse" class="progress-bar">
+      <div class="progress-bar-value"></div>
+    </div>
+    <button *ngIf="!waitingResponse" (click)="signIn()" class="btn btn-primary btn-lg btn-block">
       Sign in
     </button>
     <hr />

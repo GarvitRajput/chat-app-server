@@ -6,9 +6,12 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./dashboard.component.scss"]
 })
 export class DashboardComponent implements OnInit {
-  constructor() {}
+  constructor() {
+    window["$"](".loader-container").show();}
 
   ngOnInit() {
-    //this.socketService.sendMessage("hello");
+    setTimeout(() => {
+      window["$"](".loader-container").hide();
+    }, 2000);
   }
 }

@@ -2,7 +2,7 @@
   {{ message.content }}
 </div>
 <div class="card" *ngIf="message.type == 2" style="width: 18rem;">
-  <img [src]="message.content" class="card-img-top" alt="message.content" />
+  <img [src]="message.content" class="card-img-top" [alt]="message.content" />
 </div>
 <div *ngIf="message.type == 3" class="message-content message-file">
   <div class="file-icon">
@@ -36,16 +36,15 @@
         }"
       >
         <img
-          *ngIf="!metadata.video"
+          *ngIf="metadata.imagePath"
           [src]="metadata.imagePath"
           class="card-img message-media"
           [alt]="metadata.title"
         />
         <video
-          *ngIf="metadata.video"
+          *ngIf="!metadata.imagePath"
           class="card-img  message-media"
           [src]="metadata.video"
-          autoplay
         ></video>
       </div>
       <div class="message-content" *ngIf="!metadata">

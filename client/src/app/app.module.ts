@@ -30,6 +30,9 @@ import { UserListComponent } from "./components/chat-menu/user-list/user-list.co
 import { MessageListComponent } from "./components/chat-window/message-list/message-list.component";
 import { MessageComponent } from "./components/chat-window/message-list/message/message.component";
 import { environment } from 'src/environments/environment';
+import { LoaderComponent } from './components/loader/loader.component';
+import { IconsModule } from './modules/icons/icons.module';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 @NgModule({
   declarations: [
@@ -50,13 +53,16 @@ import { environment } from 'src/environments/environment';
     UserListItemComponent,
     UserListComponent,
     MessageListComponent,
-    MessageComponent
+    MessageComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
+    IconsModule,
+    PickerModule,
     ReactiveFormsModule,
     SocketIoModule.forRoot(config),
     ToppyModule,

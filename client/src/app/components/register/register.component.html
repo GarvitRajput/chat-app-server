@@ -108,8 +108,10 @@
       />
     </div>
     <span class="text-danger">{{ message }}</span>
-
-    <button (click)="register()" class="btn btn-primary btn-lg btn-block">
+    <div *ngIf="waitingResponse" class="progress-bar">
+      <div class="progress-bar-value"></div>
+    </div>
+    <button *ngIf="!waitingResponse" (click)="register()" class="btn btn-primary btn-lg btn-block">
       Register
     </button>
     <hr />

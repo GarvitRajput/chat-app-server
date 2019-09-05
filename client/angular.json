@@ -29,13 +29,13 @@
             ],
             "styles": [
               "src/styles.scss",
-              "src/assets/css/bootstrap.min.scss"
+              "src/assets/css/bootstrap.min.scss",
+              "node_modules/@ctrl/ngx-emoji-mart/picker.css"
             ],
             "scripts": [
               "src/assets/js/jquery.min.js",
               "src/assets/js/popper.min.js",
               "src/assets/js/bootstrap.min.js",
-              "src/assets/js/jquery.nicescroll.min.js",
               "src/assets/js/main.min.js",
               "src/assets/js/example.js"
             ]

@@ -11,6 +11,7 @@ import { AuthService } from "src/app/services/auth.service";
 export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   submitted = false;
+  waitingResponse=false;
   message: string = "";
   constructor(
     private router: Router,
@@ -32,14 +33,15 @@ export class LoginComponent implements OnInit, OnDestroy {
   signIn() {
     this.message = "";
     this.submitted = true;
-
     // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
     }
+    this.waitingResponse=true;
     this.authService
       .authenticate(this.loginForm.value)
       .subscribe((res: any) => {
+        this.waitingResponse=false;
         if (res) {
           this.router.navigate(["home"]);
         } else {

@@ -3,7 +3,7 @@ import { ChatService } from "src/app/services/chat.service";
 import { Message, MessageType } from "src/app/models/message";
 import { UserService } from "src/app/services/user.service";
 import { ReadFile, FilePickerDirective } from "ngx-file-helpers";
-import { environment } from 'src/environments/environment.prod';
+import { environment } from "src/environments/environment.prod";
 
 @Component({
   selector: "[app-chat-window]",
@@ -16,6 +16,7 @@ export class ChatWindowComponent implements OnInit {
 
   @ViewChild("filePicker")
   private filePicker: FilePickerDirective;
+  showEmojiPicker = false;
   activeUser;
   messageText = "";
   chatMessages: Message[] = [];
@@ -34,8 +35,18 @@ export class ChatWindowComponent implements OnInit {
     this.user = this.userService.getUser();
   }
 
+  toggleEmojiPicker() {
+    this.showEmojiPicker = !this.showEmojiPicker;
+  }
+
+  addEmoji(event) {
+    this.messageText = `${this.messageText}${event.emoji.native}`;
+    this.showEmojiPicker = false;
+    window["$"]("#message-input").focus()
+  }
+
+
   ignoreTooBigFile(file: File): boolean {
-    console.log(file.size);
     if (file.size >= 1000000) console.log("large file");
     return file.size < 1000000;
   }
@@ -52,17 +63,14 @@ export class ChatWindowComponent implements OnInit {
   }
 
   onReadStart(fileCount: number) {
-    console.log("Read start");
     //file reading
   }
 
   onFilePicked(file: ReadFile) {
     this.picked = file;
-    console.log(file);
   }
 
   onReadEnd(fileCount: number) {
-    console.log("Read end");
     let messageType = MessageType.File;
     let content = this.picked.content;
     switch (this.picked.type.split("/")[0]) {
@@ -84,7 +92,6 @@ export class ChatWindowComponent implements OnInit {
       timeStamp: new Date()
     });
     this.chatService.uploadFile(this.picked.underlyingFile).subscribe(res => {
-      console.log(res.path);
       this.chatService.sendMessage(
         `${environment.SERVER_URL}/${res.path}`,
         messageType

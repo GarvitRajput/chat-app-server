@@ -54,6 +54,7 @@ export class AuthService {
     return Observable.create(o => {
       this.apiService.post("/authenticate", cred).subscribe((res: any) => {
         if (res.success) {
+          window["$"](".loader-container").show();
           this.cookieService.set("token", res.data.token);
           setTimeout(() => {
             this.registerUserOnSocker(res.data.token);
@@ -80,6 +81,7 @@ export class AuthService {
     return Observable.create(o => {
       this.apiService.post("/register", user).subscribe((res: any) => {
         if (res.success) {
+          window["$"](".loader-container").show();
           this.cookieService.set("token", res.data.token);
           this.registerUserOnSocker(res.data.token);
           this.userService.setUser(res.data.user);
