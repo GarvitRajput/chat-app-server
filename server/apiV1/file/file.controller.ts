@@ -12,7 +12,7 @@ export default class FileController {
             req.files.file.name.split(".").length - 1
           ]
         }`;
-        req.files.file.mv("./public/data/" + filename, function(err) {
+        req.files.file.mv("./data/data/" + filename, function(err) {
           if (err) console.log(err);
         });
         filePath = "/data/" + filename;

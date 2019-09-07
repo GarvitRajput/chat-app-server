@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { environment } from "src/environments/environment.prod";
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: "[app-user-list-item]",
@@ -8,7 +9,10 @@ import { environment } from "src/environments/environment.prod";
 })
 export class UserListItemComponent implements OnInit {
   @Input() user;
-  constructor() {}
+  constructor(private userService:UserService) {}
 
   ngOnInit() {}
+  viewProfile(){
+    this.userService.viewProfile(this.user.userId)
+  }
 }

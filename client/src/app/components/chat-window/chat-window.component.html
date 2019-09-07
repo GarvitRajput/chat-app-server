@@ -8,7 +8,7 @@
     <div>
       <h5>{{ activeUser.firstName + " " + activeUser.lastName }}</h5>
       <small class="text-muted">
-        <i>Online</i>
+        <i>{{activeUser.online?'Online':'Offline'}}</i>
       </small>
     </div>
   </div>
@@ -41,19 +41,26 @@
     </ul>
   </div>
 </div>
-<div class="chat-body">
+<div class="chat-body" [ngClass]="{ 'no-message': !chatMessages.length }">
   <!-- .no-message -->
-  <!--
-        <div class="no-message-container">
-            <i class="fa fa-comments-o"></i>
-            <p>Select a chat to read messages</p>
-        </div>
-        -->
-  <div class="messages" app-message-list [messages]="chatMessages"></div>
+
+  <div *ngIf="!chatMessages.length" class="no-message-container">
+    <i class="fa fa-comments-o"></i>
+    <p>Send message to start chat</p>
+  </div>
+
+  <div
+    class="messages"
+    *ngIf="chatMessages.length"
+    app-message-list
+    [messages]="chatMessages"
+  ></div>
 </div>
 <emoji-mart
   class="emoji-mart"
   set="apple"
+  color="#3db16b"
+  showPreview="false"
   (emojiSelect)="addEmoji($event)"
   *ngIf="showEmojiPicker"
   title="Pick your emoji…"
@@ -73,13 +80,6 @@
     <div class="form-buttons">
       <button
         class="btn btn-light btn-floating"
-        (click)="toggleEmojiPicker()"
-        type="button"
-      >
-        <i class="fa fa-smile-o"></i>
-      </button>
-      <button
-        class="btn btn-light btn-floating"
         #filePicker="ngxFilePicker"
         ngxFilePicker
         [filter]="ignoreTooBigFile"
@@ -90,9 +90,16 @@
       >
         <i class="fa fa-paperclip"></i>
       </button>
-      <button class="btn btn-light btn-floating" type="button">
-        <i class="fa fa-microphone"></i>
+      <button
+        class="btn btn-light btn-floating"
+        (click)="toggleEmojiPicker()"
+        type="button"
+      >
+        <i class="fa fa-smile-o"></i>
       </button>
+      <!-- <button class="btn btn-light btn-floating" type="button">
+        <i class="fa fa-microphone"></i>
+      </button> -->
       <button class="btn btn-primary btn-floating" type="submit">
         <i class="fa fa-send"></i>
       </button>

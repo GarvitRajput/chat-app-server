@@ -111,7 +111,7 @@
                 <div class="d-flex align-items-center">
                   <div>
                     <figure class="avatar mr-3 item-rtl">
-                      <img
+                      <img *ngIf="profileImagePath"
                         [src]="profileImagePath"
                         class="rounded-circle"
                       />

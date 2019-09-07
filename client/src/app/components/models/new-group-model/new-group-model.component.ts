@@ -56,7 +56,7 @@ export class NewGroupModelComponent implements OnInit {
   }
 
   fetchAllUsers() {
-    this.userService.getAllUsers().subscribe(res => {
+    this.userService.activeUsers.subscribe(res => {
       this.users = res;
       this.filteredUsers = res;
     });

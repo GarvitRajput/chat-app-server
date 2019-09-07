@@ -11,14 +11,9 @@
         </a>
       </li>
       <li class="list-inline-item">
-        <a
-          class="btn btn-light"
-          data-toggle="tooltip"
-          title="New Chat"
-          data-navigation-target="friends"
-        >
-          <i class="ti-comment-alt"></i>
-        </a>
+          <a class="btn btn-light" data-toggle="modal" data-target="#addFriends">
+            <i class="ti-plus btn-icon"></i> Add Friends
+          </a>
       </li>
       <li class="list-inline-item d-lg-none d-sm-block">
         <a class="btn btn-light sidebar-close">
@@ -35,32 +30,6 @@
   </div>
 </div>
 <!-- ./ Chats sidebar -->
-
-<!-- Friends sidebar -->
-<div id="friends" class="sidebar">
-  <header>
-    <span>Friends</span>
-    <ul class="list-inline">
-      <li class="list-inline-item">
-        <a class="btn btn-light" data-toggle="modal" data-target="#addFriends">
-          <i class="ti-plus btn-icon"></i> Add Friends
-        </a>
-      </li>
-      <li class="list-inline-item d-lg-none d-sm-block">
-        <a class="btn btn-light sidebar-close">
-          <i class="ti-close"></i>
-        </a>
-      </li>
-    </ul>
-  </header>
-  <form action="">
-    <input type="text" class="form-control" placeholder="Search chat" />
-  </form>
-  <div class="sidebar-body">
-    <app-user-list [users]="users" (updateUser)="updateActiveUser($event)" ></app-user-list>  
-  </div>
-</div>
-<!-- ./ Friends sidebar -->
 
 <!-- Favorites sidebar -->
 <div id="favorites" class="sidebar">

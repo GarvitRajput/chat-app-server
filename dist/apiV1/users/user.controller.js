@@ -33,7 +33,7 @@ class UserController {
                     let filename = req.userId +
                         "." +
                         req.files.file.name.split(".")[req.files.file.name.split(".").length - 1];
-                    req.files.file.mv("./public/images/" + filename, function (err) {
+                    req.files.file.mv("./data/images/" + filename, function (err) {
                         if (err)
                             console.log(err);
                     });

@@ -92,7 +92,7 @@ class Chat {
             }
         });
     }
-    getUserIdFromSocket(socket) {
+    getUserIdFromSocket(socket, io) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 let user = (yield db_1.default("users")
@@ -108,7 +108,7 @@ class Chat {
                         return yield new auth_model_1.default().updateUserConnection({
                             token: token,
                             connectionId: socket.id
-                        });
+                        }, io);
                     }
                 }
             }
@@ -118,10 +118,10 @@ class Chat {
             }
         });
     }
-    processMessage(signal, socket) {
+    processMessage(signal, socket, io) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                let userId = yield this.getUserIdFromSocket(socket);
+                let userId = yield this.getUserIdFromSocket(socket, io);
                 console.log("userid from socket", userId);
                 if (userId) {
                     yield db_1.default("messages").insert({

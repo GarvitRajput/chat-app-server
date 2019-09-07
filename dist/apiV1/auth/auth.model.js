@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const db_1 = require("../../config/db");
 const crypto_1 = require("../../helpers/crypto");
+const signal_1 = require("../../helpers/signal");
 class Authentication {
     auth(email, password) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -51,15 +52,19 @@ class Authentication {
             return { userId: user[0].userId, firstName, lastName, email };
         });
     }
-    updateUserConnection(data) {
+    updateUserConnection(data, io) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 let id = JSON.parse(crypto_1.default.decrypt(data.token)).id;
                 yield db_1.default("users")
-                    .where({ "userId": id })
+                    .where({ userId: id })
                     .update({
                     connectionId: data.connectionId
                 });
+                let status = new signal_1.UserStatusUpdate();
+                status.status = true;
+                status.userId = id;
+                io.sockets.emit("statusupdate", JSON.stringify(status));
                 return id;
             }
             catch (e) {
@@ -68,13 +73,20 @@ class Authentication {
             }
         });
     }
-    removeUserConnection(id) {
+    removeUserConnection(id, io) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield db_1.default("users")
-                .where({ "connectionId": id })
+            console.log(id);
+            let userId = (yield db_1.default("users")
+                .returning("userId")
+                .where({ connectionId: id })
                 .update({
                 connectionId: null
-            });
+            }))[0];
+            console.log(userId);
+            let status = new signal_1.UserStatusUpdate();
+            status.status = false;
+            status.userId = userId;
+            io.sockets.emit("statusupdate", JSON.stringify(status));
         });
     }
 }

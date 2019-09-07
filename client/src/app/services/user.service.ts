@@ -3,20 +3,45 @@ import { BehaviorSubject, Observable } from "rxjs";
 import { ApiService } from "./api.service";
 import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
+import { Socket } from "ngx-socket-io";
 
 @Injectable({
   providedIn: "root"
 })
 export class UserService {
-  userSubject = new BehaviorSubject<any>(null);
+  userSubject = new BehaviorSubject<any>([]);
+  activeUsers = new BehaviorSubject<any>(null);
+  openProfile = new BehaviorSubject<any>(null);
   private _user;
-  private users;
-  constructor(private apiService: ApiService, private router: Router) {}
+  private users = [];
+  constructor(
+    private apiService: ApiService,
+    private router: Router,
+    private socket: Socket
+  ) {
+    this.socket.fromEvent("statusupdate").subscribe((update: string) => {
+      let data = JSON.parse(update);
+      this.users.map(user => {
+        if (user.userId == data.userId) {
+          user.online = data.status;
+        }
+        return user;
+      });
+      this.activeUsers.next(this.users);
+    });
+  }
+
+  viewProfile(id) {
+    console.log(this.users.filter(u => u.userId == id));
+    this.openProfile.next(this.users.filter(u => u.userId == id)[0]);
+  }
+
   setUser(user) {
     this._user = user;
     this.populateUser();
     this.userSubject.next(user);
     document.title = `${user.firstName} ${user.lastName} - ChatApp`;
+    this.getAllUsers();
   }
 
   private populateUser() {
@@ -30,7 +55,7 @@ export class UserService {
     });
   }
 
-  getActiveUsers() {
+  private getActiveUsers() {
     return Observable.create(o => {
       this.apiService.get("/user/active-users").subscribe(res => {
         if (res.success) o.next(this.processUsers(res.data.users));
@@ -40,13 +65,11 @@ export class UserService {
   }
 
   getAllUsers() {
-    return Observable.create(o => {
-      this.apiService.get("/user/active-users").subscribe(res => {
-        if (res.success) {
-          this.users = res.data.users;
-          o.next(this.processUsers(this.users));
-        } else o.next([]);
-      });
+    this.apiService.get("/user/active-users").subscribe(res => {
+      if (res.success) {
+        this.users = this.processUsers(res.data.users);
+        this.activeUsers.next(this.users);
+      }
     });
   }
 

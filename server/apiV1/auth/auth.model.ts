@@ -1,5 +1,7 @@
 import db from "../../config/db";
 import crypto from "../../helpers/crypto";
+import { OutgoingSignal, UserStatusUpdate } from "../../helpers/signal";
+import user from "../users/user.route";
 
 export default class Authentication {
   public async auth(email, password) {
@@ -35,25 +37,36 @@ export default class Authentication {
         });
     return { userId: user[0].userId, firstName, lastName, email };
   }
-  public async updateUserConnection(data) {
+  public async updateUserConnection(data, io) {
     try {
       let id = JSON.parse(crypto.decrypt(data.token)).id;
       await db("users")
-        .where({ "userId": id })
+        .where({ userId: id })
         .update({
           connectionId: data.connectionId
         });
+      let status = new UserStatusUpdate();
+      status.status = true;
+      status.userId = id;
+      io.sockets.emit("statusupdate", JSON.stringify(status));
       return id;
     } catch (e) {
       console.log("error", e);
       return 0;
     }
   }
-  public async removeUserConnection(id) {
-    await db("users")
-      .where({ "connectionId": id })
+  public async removeUserConnection(id, io) {
+    console.log(id);
+    let userId = (await db("users")
+      .returning("userId")
+      .where({ connectionId: id })
       .update({
         connectionId: null
-      });
+      }))[0];
+      console.log(userId);
+    let status = new UserStatusUpdate();
+    status.status = false;
+    status.userId = userId;
+    io.sockets.emit("statusupdate", JSON.stringify(status));
   }
 }

@@ -19,7 +19,7 @@ class App {
   }
 
   private setMiddlewares(): void {
-    if (process.env.NODE_ENV === "development") {
+    if (process.env.NODE_ENV !== "development") {
       this.express.use(
         cors({ credentials: true, origin: "http://localhost:4200" })
       );

@@ -15,7 +15,7 @@ class FileController {
             try {
                 if (req.files) {
                     let filename = `${req.files.file.name.split(".")[0]}_${req.userId}_${new Date().getTime().toString()}.${req.files.file.name.split(".")[req.files.file.name.split(".").length - 1]}`;
-                    req.files.file.mv("./public/data/" + filename, function (err) {
+                    req.files.file.mv("./data/data/" + filename, function (err) {
                         if (err)
                             console.log(err);
                     });

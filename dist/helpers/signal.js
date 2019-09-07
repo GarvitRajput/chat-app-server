@@ -6,6 +6,9 @@ exports.IncomingSignal = IncomingSignal;
 class OutgoingSignal {
 }
 exports.OutgoingSignal = OutgoingSignal;
+class UserStatusUpdate {
+}
+exports.UserStatusUpdate = UserStatusUpdate;
 var SignalType;
 (function (SignalType) {
     SignalType[SignalType["register"] = 1] = "register";

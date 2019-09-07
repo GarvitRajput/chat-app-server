@@ -11,6 +11,11 @@ export class OutgoingSignal {
   to: number;
 }
 
+export class UserStatusUpdate {
+  userId: number;
+  status: boolean;
+}
+
 export enum SignalType {
   register = 1,
   message = 2

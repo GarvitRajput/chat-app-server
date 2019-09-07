@@ -17,7 +17,7 @@ class App {
         this.catchErrors();
     }
     setMiddlewares() {
-        if (process.env.NODE_ENV === "development") {
+        if (process.env.NODE_ENV !== "development") {
             this.express.use(cors({ credentials: true, origin: "http://localhost:4200" }));
         }
         this.express.use(bodyParser.json());

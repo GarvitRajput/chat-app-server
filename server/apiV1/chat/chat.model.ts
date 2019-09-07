@@ -87,7 +87,7 @@ export default class Chat {
     }
   }
 
-  async getUserIdFromSocket(socket) {
+  async getUserIdFromSocket(socket,io) {
     try {
       let user = (await db("users")
         .where({ connectionId: socket.id })
@@ -101,7 +101,7 @@ export default class Chat {
           return await new Authentication().updateUserConnection({
             token: token,
             connectionId: socket.id
-          });
+          },io);
         }
       }
     } catch (e) {
@@ -110,9 +110,9 @@ export default class Chat {
     }
   }
 
-  async processMessage(signal: IncomingSignalData, socket) {
+  async processMessage(signal: IncomingSignalData, socket,io) {
     try {
-      let userId = await this.getUserIdFromSocket(socket);
+      let userId = await this.getUserIdFromSocket(socket,io);
       console.log("userid from socket", userId);
       if (userId) {
         await db("messages").insert({

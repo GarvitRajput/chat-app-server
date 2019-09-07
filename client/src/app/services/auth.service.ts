@@ -47,6 +47,7 @@ export class AuthService {
 
   logOut(){
     this.cookieService.delete("token");
+    this.socketService.logout();
   }
 
   authenticate(cred) {

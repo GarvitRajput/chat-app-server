@@ -11,7 +11,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const signal_1 = require("./signal");
 const auth_model_1 = require("../apiV1/auth/auth.model");
 const chat_model_1 = require("../apiV1/chat/chat.model");
-exports = module.exports = function socket(io) {
+let io;
+exports = module.exports = function socket(_io) {
+    io = _io;
     io.on("connection", socketHandler);
 };
 function socketHandler(socket) {
@@ -22,11 +24,12 @@ function socketHandler(socket) {
                 if (signal.type === signal_1.SignalType.register) {
                     yield new auth_model_1.default().updateUserConnection({
                         token: signal.data.message,
-                        connectionId: socket.id
-                    });
+                        connectionId: socket.id,
+                        io
+                    }, io);
                 }
                 else {
-                    yield new chat_model_1.default().processMessage(signal.data, socket);
+                    yield new chat_model_1.default().processMessage(signal.data, socket, io);
                 }
             }
             catch (e) { }
@@ -34,7 +37,13 @@ function socketHandler(socket) {
         socket.on("disconnect", function () {
             return __awaiter(this, void 0, void 0, function* () {
                 console.log("disconnected", socket.id);
-                yield new auth_model_1.default().removeUserConnection(socket.id);
+                yield new auth_model_1.default().removeUserConnection(socket.id, io);
+            });
+        });
+        socket.on("logout", function () {
+            return __awaiter(this, void 0, void 0, function* () {
+                console.log("disconnected", socket.id);
+                yield new auth_model_1.default().removeUserConnection(socket.id, io);
             });
         });
         socket.on("reconnect", function () {
@@ -42,34 +51,34 @@ function socketHandler(socket) {
                 console.log("Reconnected", socket.id);
             });
         });
-        socket.on('connect', () => {
+        socket.on("connect", () => {
             console.log("connect", socket.id);
         });
-        socket.on('connect_error', () => {
+        socket.on("connect_error", () => {
             console.log("connect_error", socket.id);
         });
-        socket.on('connect_timeout', () => {
+        socket.on("connect_timeout", () => {
             console.log("connect_timeout", socket.id);
         });
-        socket.on('error', () => {
+        socket.on("error", () => {
             console.log("error", socket.id);
         });
-        socket.on('reconnect_attempt', () => {
+        socket.on("reconnect_attempt", () => {
             console.log("reconnect_attempt", socket.id);
         });
-        socket.on('reconnecting', () => {
+        socket.on("reconnecting", () => {
             console.log("reconnecting", socket.id);
         });
-        socket.on('reconnect_error', () => {
+        socket.on("reconnect_error", () => {
             console.log("reconnect_error", socket.id);
         });
-        socket.on('reconnect_failed', () => {
+        socket.on("reconnect_failed", () => {
             console.log("reconnect_failed", socket.id);
         });
-        socket.on('ping', () => {
+        socket.on("ping", () => {
             console.log("ping", socket.id);
         });
-        socket.on('ping', () => {
+        socket.on("ping", () => {
             console.log("ping", socket.id);
         });
     });

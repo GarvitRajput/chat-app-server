@@ -15,9 +15,11 @@ export class ChatMenuComponent implements OnInit {
   ) {}
   index = 0;
   ngOnInit() {
-    this.userService.getActiveUsers().subscribe(data => {
-      this.users = data;
-      if (this.users[this.index]) this.updateActiveUser(this.index);
+    this.userService.activeUsers.subscribe(data => {
+      if (data && data.length) {
+        this.users = data;
+        if (this.users[this.index]) this.updateActiveUser(this.index);
+      }
     });
   }
 

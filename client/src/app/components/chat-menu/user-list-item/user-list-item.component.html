@@ -1,6 +1,6 @@
 <ng-container *ngIf="user">
   <div>
-    <figure class="avatar">
+    <figure class="avatar" [ngClass]="{'avatar-state-success':user.online,'avatar-state-danger':!user.online}">
       <img [src]="user.profileImagePath" class="rounded-circle" />
     </figure>
   </div>
@@ -14,7 +14,7 @@
         </a>
         <div class="dropdown-menu dropdown-menu-right">
           <a class="dropdown-item">Open</a>
-          <a data-navigation-target="contact-information" class="dropdown-item"
+          <a (click)="viewProfile()" class="dropdown-item"
             >Profile</a
           >
           <a class="dropdown-item">Add to archive</a>
