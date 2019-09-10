@@ -7,13 +7,15 @@ import { BehaviorSubject } from "rxjs";
   providedIn: "root"
 })
 export class SocketService {
-  constructor(private socket: Socket) {
-    
+  constructor(private socket: Socket) {}
+
+  event(event: string) {
+    return this.socket.fromEvent(event);
   }
 
-  sendSignal(data: OutgoingSignal) {
+  sendSignal(data: OutgoingSignal, event: string = "message") {
     let signal = JSON.stringify(data);
-    this.socket.emit("message", signal);
+    this.socket.emit(event, signal);
   }
 
   logout() {

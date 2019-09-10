@@ -4,6 +4,7 @@ import { ApiService } from "./api.service";
 import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
 import { Socket } from "ngx-socket-io";
+import { SocketService } from './socket.service';
 
 @Injectable({
   providedIn: "root"
@@ -17,9 +18,9 @@ export class UserService {
   constructor(
     private apiService: ApiService,
     private router: Router,
-    private socket: Socket
+    private socketService: SocketService
   ) {
-    this.socket.fromEvent("statusupdate").subscribe((update: string) => {
+    this.socketService.event("statusupdate").subscribe((update: string) => {
       let data = JSON.parse(update);
       this.users.map(user => {
         if (user.userId == data.userId) {
@@ -62,6 +63,9 @@ export class UserService {
         else o.next([]);
       });
     });
+  }
+  getUserByUserId(id){
+    return this.users.filter(user=>user.userId==id)[0];
   }
 
   getAllUsers() {

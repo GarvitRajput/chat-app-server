@@ -30,6 +30,7 @@
             "styles": [
               "src/styles.scss",
               "src/assets/css/bootstrap.min.scss",
+              "src/assets/css/ambience.jquery.css",
               "node_modules/@ctrl/ngx-emoji-mart/picker.css"
             ],
             "scripts": [
@@ -37,7 +38,8 @@
               "src/assets/js/popper.min.js",
               "src/assets/js/bootstrap.min.js",
               "src/assets/js/main.min.js",
-              "src/assets/js/example.js"
+              "src/assets/js/example.js",
+              "src/assets/js/ambience.jquery.js"
             ]
           },
           "configurations": {

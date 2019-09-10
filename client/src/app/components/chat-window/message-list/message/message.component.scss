@@ -1,7 +1,14 @@
-.loader-img{
-    width: 40px;
-    height: 40px;
+.loader-img {
+  width: 40px;
+  height: 40px;
 }
-.message-media{
-    max-height: 200px;
+.message-media {
+  max-height: 200px;
+}
+
+.card,
+.col-md-4,
+.col-md-8,
+.col-md-12 {
+  position: inherit;
 }

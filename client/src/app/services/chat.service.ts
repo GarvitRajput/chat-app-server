@@ -9,6 +9,7 @@ import {
 } from "../models/signal";
 import { UserService } from "./user.service";
 import { Socket } from "ngx-socket-io";
+import { NotificationService } from "./notification.service";
 
 @Injectable({
   providedIn: "root"
@@ -21,16 +22,16 @@ export class ChatService {
   private messages = { users: {}, groups: {} };
   constructor(
     private apiService: ApiService,
-    private socket: Socket,
     private socketService: SocketService,
-    private userService: UserService
+    private userService: UserService,
+    private notificationService: NotificationService
   ) {
     this.user = this.userService.getUser();
     this.userService.userSubject.subscribe(user => {
       this.user = user;
     });
 
-    this.socket.fromEvent("message").subscribe((signal: string) => {
+    this.socketService.event("message").subscribe((signal: string) => {
       let msg = JSON.parse(signal);
       if (msg) {
         let message = this.formatMessage(
@@ -40,8 +41,14 @@ export class ChatService {
           msg.to
         );
         this.pushMessage(message, true);
+        if (msg.from !== this._activeUser.userId) this.trigerNotification(msg);
       }
     });
+  }
+
+  trigerNotification(msg) {
+    let user: any = this.userService.getUserByUserId(msg.from);
+    this.notificationService.info(user.firstName, msg.message);
   }
 
   createGroup(data) {

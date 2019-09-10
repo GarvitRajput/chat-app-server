@@ -34,6 +34,9 @@ export class ChatWindowComponent implements OnInit {
     });
     this.user = this.userService.getUser();
   }
+  viewProfile(){
+    this.userService.viewProfile(this.activeUser.userId)
+  }
 
   toggleEmojiPicker() {
     this.showEmojiPicker = !this.showEmojiPicker;

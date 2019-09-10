@@ -15,12 +15,14 @@ export class UserInfoComponent implements OnInit {
       if (user) {
         this.user = user;
         this.opened = true;
+        document.getElementById("user-info").classList.add("mobile-open");
       }
     });
   }
 
   closeSidebar() {
     this.opened = false;
+    document.getElementById("user-info").classList.remove("mobile-open");
   }
 
   ngOnInit() {}
