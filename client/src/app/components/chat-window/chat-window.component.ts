@@ -14,7 +14,7 @@ export class ChatWindowComponent implements OnInit {
   user;
   public picked: ReadFile;
 
-  @ViewChild("filePicker")
+  @ViewChild("filePicker", { static: true })
   private filePicker: FilePickerDirective;
   showEmojiPicker = false;
   activeUser;

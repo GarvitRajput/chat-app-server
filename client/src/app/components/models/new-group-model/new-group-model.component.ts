@@ -16,9 +16,9 @@ import { ChatService } from "src/app/services/chat.service";
   styleUrls: ["./new-group-model.component.scss"]
 })
 export class NewGroupModelComponent implements OnInit {
-  @ViewChild("tpl") tpl: TemplateRef<any>;
+  @ViewChild("tpl", { static: true }) tpl: TemplateRef<any>;
   overlay;
-  @ViewChild("el")
+  @ViewChild("el", { static: true })
   el: ElementRef;
   filteredUsers = [];
   users = [];
