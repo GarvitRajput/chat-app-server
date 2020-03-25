@@ -19,10 +19,11 @@ class App {
   }
 
   private setMiddlewares(): void {
+    if (process.env.NODE_ENV !== "development") {
       this.express.use(
-        cors({ credentials: true, origin: "http://localhost:4200,https://chat.logicspod.com" })
+        cors({ credentials: true, origin: "http://localhost:4200" })
       );
-    
+    }
     this.express.use(bodyParser.json());
     this.express.use(fileUpload());
     this.express.use(bodyParser.urlencoded({ extended: false }));
