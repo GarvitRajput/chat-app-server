@@ -22,7 +22,7 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "src/favicon.png",
               "src/assets"
@@ -55,7 +55,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -64,6 +63,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }
@@ -131,5 +134,8 @@
       }
     }
   },
-  "defaultProject": "chat-app"
+  "defaultProject": "chat-app",
+  "cli": {
+    "analytics": "6b6531ea-15d7-43e3-bcc3-ea9e2a413033"
+  }
 }
