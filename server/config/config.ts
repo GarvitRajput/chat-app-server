@@ -3,7 +3,7 @@ dotenv.config();
 
 export default {
   APP: process.env.APP || "development",
-  PORT: process.env.PORT || "3000",
+  PORT: process.env.PORT || "3001",
   ENV: process.env.NODE_ENV || "development",
   DB_DIALECT: process.env.DB_DIALECT || "pg",
   DB_HOST: process.env.DB_HOST || "ec2-54-204-35-248.compute-1.amazonaws.com",

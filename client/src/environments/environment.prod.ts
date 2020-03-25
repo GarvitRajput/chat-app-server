@@ -2,6 +2,6 @@
 
 export const environment = {
          production: true,
-         SERVER_URL: "https://soho-chat.herokuapp.com",
+         SERVER_URL: "https://chat-api.logicspod.com",
          API_PATH: "/v1"
        };
