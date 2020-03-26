@@ -10,7 +10,7 @@ import {
   SignalType,
   OutgoingSignalData
 } from "../models/signal";
-import { Router } from '@angular/router';
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: "root"
@@ -21,7 +21,7 @@ export class AuthService {
     private cookieService: CookieService,
     private userService: UserService,
     private socketService: SocketService,
-    private router:Router
+    private router: Router
   ) {}
 
   private loggedInUserId = 0;
@@ -33,7 +33,7 @@ export class AuthService {
         this.apiService.get("/user/profile").subscribe(res => {
           if (res.success) {
             this.userService.setUser(res.data.user);
-            this.registerUserOnSocker(this.cookieService.get('token'));
+            this.registerUserOnSocker(this.cookieService.get("token"));
             this.loggedInUserId = res.data.user.userId;
             ob.next(true);
           } else {
@@ -45,7 +45,7 @@ export class AuthService {
     });
   }
 
-  logOut(){
+  logOut() {
     this.cookieService.delete("token");
     this.socketService.logout();
   }
@@ -56,7 +56,7 @@ export class AuthService {
       this.apiService.post("/authenticate", cred).subscribe((res: any) => {
         if (res.success) {
           window["$"](".loader-container").show();
-          this.cookieService.set("token", res.data.token);
+          this.setToken(res.data.token);
           setTimeout(() => {
             this.registerUserOnSocker(res.data.token);
           }, 0);
@@ -67,6 +67,18 @@ export class AuthService {
         }
       });
     });
+  }
+
+  private setToken(token) {
+    this.cookieService.set(
+      "token",
+      token,
+      undefined,
+      undefined,
+      undefined,
+      true,
+      undefined
+    );
   }
 
   private registerUserOnSocker(token) {
@@ -83,7 +95,7 @@ export class AuthService {
       this.apiService.post("/register", user).subscribe((res: any) => {
         if (res.success) {
           window["$"](".loader-container").show();
-          this.cookieService.set("token", res.data.token);
+          this.setToken(res.data.token);
           this.registerUserOnSocker(res.data.token);
           this.userService.setUser(res.data.user);
           o.next(true);
