@@ -1285,3 +1285,95 @@ ul.footer-link li a {
   background-repeat: no-repeat;
   background-position: 50% 50%;
 }
+
+.display-none {
+  display: none;
+}
+
+.incoming-call-window {
+  padding: 25px;
+  margin-top: 25px;
+}
+
+.incoming-caller .animation-border {
+  padding: 0px;
+  border-radius: 50%;
+  margin-bottom: 25px;
+  /* border: 1px solid #ffcaca; */
+  animation: icomingCall 2s ease infinite;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.incoming-caller img {
+  width: 100%;
+  border-radius: 50%;
+}
+
+.incoming-call-window h4 {
+  font-size: 18px;
+  text-align: center;
+  font-weight: 500;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  color: #7c7c7c;
+}
+
+.incoming-call-window .call-option {
+  font-size: 12px;
+  text-align: center;
+  color: #bfbfbf;
+}
+
+.incoming-call-window .call-option span {
+  display: block;
+}
+
+.incoming-call-window .call-option a {
+  display: block;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  border: 1px solid #ebebeb;
+  /* background-color: #e14a3a;
+  background-image: url(../img/disconnect-icon.png); */
+  background-size: 25px 25px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  margin-bottom: 5px;
+}
+
+.incoming-call-window .call-option.accept {
+  float: left;
+}
+
+.incoming-call-window .call-option.accept a {
+  background-color: #10d879;
+  background-image: url(/assets/img/accept-call-icon.png);
+}
+
+.incoming-call-window .call-option.cancel {
+  float: right;
+}
+
+.incoming-call-window .call-option.cancel a {
+  background-color: #fa5657;
+  background-image: url(/assets/img/accept-call-icon.png);
+}
+
+@keyframes icomingCall {
+  0% {
+      transform: scale(1);
+  }
+  15% {
+      box-shadow: 0 0 0 5px rgba(16, 216, 121, 0.4);
+  }
+  25% {
+      box-shadow: 0 0 0 10px rgba(16, 216, 121, 0.4), 0 0 0 20px rgba(16, 216, 121, 0.2);
+  }
+  25% {
+      box-shadow: 0 0 0 15px rgba(16, 216, 121, 0.4), 0 0 0 30px rgba(16, 216, 121, 0.2);
+  }
+}
