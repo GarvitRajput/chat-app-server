@@ -8,12 +8,12 @@ import { SocketService } from "./socket.service";
 import {
   OutgoingSignal,
   SignalType,
-  OutgoingSignalData
+  OutgoingSignalData,
 } from "../models/signal";
 import { Router } from "@angular/router";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class AuthService {
   constructor(
@@ -27,10 +27,10 @@ export class AuthService {
   private loggedInUserId = 0;
 
   isLoggedIn(): Observable<boolean> {
-    return new Observable(ob => {
+    return new Observable((ob) => {
       if (this.loggedInUserId) ob.next(true);
       else {
-        this.apiService.get("/user/profile").subscribe(res => {
+        this.apiService.get("/user/profile").subscribe((res) => {
           if (res.success) {
             this.userService.setUser(res.data.user);
             this.registerUserOnSocker(this.cookieService.get("token"));
@@ -52,7 +52,7 @@ export class AuthService {
 
   authenticate(cred) {
     cred.password = CryptoJS.SHA256(cred.password).toString();
-    return Observable.create(o => {
+    return Observable.create((o) => {
       this.apiService.post("/authenticate", cred).subscribe((res: any) => {
         if (res.success) {
           window["$"](".loader-container").show();
@@ -60,6 +60,9 @@ export class AuthService {
           setTimeout(() => {
             this.registerUserOnSocker(res.data.token);
           }, 0);
+          if (!res.data.user.profileImagePath) {
+            res.data.user.profileImagePath = `https://ui-avatars.com/api/?name=${res.data.user.firstName}+${res.data.user.lastName}&background=0D8ABC&color=fff&rounded=true`;
+          }
           this.userService.setUser(res.data.user);
           o.next(true);
         } else {
@@ -70,15 +73,7 @@ export class AuthService {
   }
 
   private setToken(token) {
-    this.cookieService.set(
-      "token",
-      token,
-      undefined,
-      undefined,
-      undefined,
-      true,
-      undefined
-    );
+    this.cookieService.set("token", token);
   }
 
   private registerUserOnSocker(token) {
@@ -91,7 +86,7 @@ export class AuthService {
 
   register(user) {
     user.password = CryptoJS.SHA256(user.password).toString();
-    return Observable.create(o => {
+    return Observable.create((o) => {
       this.apiService.post("/register", user).subscribe((res: any) => {
         if (res.success) {
           window["$"](".loader-container").show();

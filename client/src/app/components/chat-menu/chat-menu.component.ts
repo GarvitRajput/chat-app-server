@@ -9,6 +9,7 @@ import { ChatService } from "src/app/services/chat.service";
 })
 export class ChatMenuComponent implements OnInit {
   users;
+  query="";
   constructor(
     private userService: UserService,
     private chatService: ChatService

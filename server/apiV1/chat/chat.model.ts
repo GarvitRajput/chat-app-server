@@ -3,7 +3,7 @@ import Group from "../group/group.model";
 import {
   IncomingSignalData,
   SignalDataType,
-  OutgoingSignal
+  OutgoingSignal,
 } from "../../helpers/signal";
 import User from "../users/user.model";
 import Authentication from "../auth/auth.model";
@@ -13,13 +13,13 @@ export default class Chat {
   async getAvailableChats(id) {
     let chat = [];
     let data = await db("users")
-      .whereIn("userId", function() {
+      .whereIn("userId", function () {
         this.select("senderId")
           .where("isGroupChat", "=", "0")
           .where("receiverId", "=", id)
           .from("messages");
       })
-      .orWhereIn("userId", function() {
+      .orWhereIn("userId", function () {
         this.select("receiverId")
           .where("isGroupChat", "=", "0")
           .where("senderId", "=", id)
@@ -27,28 +27,26 @@ export default class Chat {
       })
       .groupBy("userId")
       .select(["userId"]);
-    data.forEach(user => {
+    data.forEach((user) => {
       if (user.userId != id)
         chat.push({
           userId: user.userId,
-          IsGroup: 0
+          IsGroup: 0,
         });
     });
     data = [];
     data = await db("groups")
-      .whereIn("groupId", function() {
+      .whereIn("groupId", function () {
         this.select("receiverId")
           .where("isGroupChat", "=", "1")
           .from("messages");
       })
-      .whereIn("groupId", function() {
-        this.select("groupId")
-          .where("memberId", "=", id)
-          .from("groupMembers");
+      .whereIn("groupId", function () {
+        this.select("groupId").where("memberId", "=", id).from("groupMembers");
       })
       .select(["groupId"]);
 
-    data.forEach(async id => {
+    data.forEach(async (id) => {
       let groupInfo = await new Group().getGroupInfo(id);
       groupInfo.IsGroup = 1;
       chat.push(groupInfo);
@@ -66,14 +64,14 @@ export default class Chat {
           "senderId",
           "message",
           "messageType",
-          "sendDate"
+          "sendDate",
         ]);
     } else {
       return await db("messages")
-        .where(function() {
+        .where(function () {
           this.where("senderId", id).where("receiverId", userId);
         })
-        .orWhere(function() {
+        .orWhere(function () {
           this.where("receiverId", id).where("senderId", userId);
         })
         .select([
@@ -82,26 +80,29 @@ export default class Chat {
           "receiverId",
           "message",
           "messageType",
-          "sendDate"
+          "sendDate",
         ]);
     }
   }
 
-  async getUserIdFromSocket(socket,io) {
+  async getUserIdFromSocket(socket, io) {
     try {
-      let user = (await db("users")
+      let user = await db("users")
         .where({ connectionId: socket.id })
-        .select(["userId"]));
+        .select(["userId"]);
       console.log("user", user);
       console.log("socket", socket.id);
       if (user) return user[0].userId;
       else {
         let token = cookie.parse(socket.handshake.headers.cookie).token;
         if (token) {
-          return await new Authentication().updateUserConnection({
-            token: token,
-            connectionId: socket.id
-          },io);
+          return await new Authentication().updateUserConnection(
+            {
+              token: token,
+              connectionId: socket.id,
+            },
+            io
+          );
         }
       }
     } catch (e) {
@@ -110,9 +111,9 @@ export default class Chat {
     }
   }
 
-  async processMessage(signal: IncomingSignalData, socket,io) {
+  async processMessage(signal: IncomingSignalData, socket, io) {
     try {
-      let userId = await this.getUserIdFromSocket(socket,io);
+      let userId = await this.getUserIdFromSocket(socket, io);
       console.log("userid from socket", userId);
       if (userId) {
         await db("messages").insert({
@@ -121,7 +122,7 @@ export default class Chat {
           isGroupChat: signal.isGroupMessage,
           messageType: signal.type,
           message: signal.message,
-          sendDate: new Date()
+          sendDate: new Date(),
         });
         let receiver = await db("users")
           .where({ userId: signal.to })
@@ -142,5 +143,18 @@ export default class Chat {
     } catch (e) {
       console.error(socket.id, e);
     }
+  }
+
+  async lastMessage(senderId, receiverId) {
+    return await db("messages")
+      .where(function () {
+        this.where("senderId", senderId).where("receiverId", receiverId);
+      })
+      .orWhere(function () {
+        this.where("receiverId", senderId).where("senderId", receiverId);
+      })
+      .orderBy("sendDate", "desc")
+      .limit(1)
+      .select(["messageId", "message", "messageType", "sendDate"]);
   }
 }

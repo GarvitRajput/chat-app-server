@@ -1,109 +1,136 @@
-<!-- chat -->
-
-<div *ngIf="activeUser" class="chat-header">
-  <div class="chat-header-user">
-    <figure class="avatar avatar-lg">
-      <img [src]="activeUser.profileImagePath" class="rounded-circle" />
-    </figure>
-    <div>
-      <h5>{{ activeUser.firstName + " " + activeUser.lastName }}</h5>
-      <small class="text-muted">
-        <i>{{activeUser.online?'Online':'Offline'}}</i>
-      </small>
+<div class="col-md-7 col-md-offset-3 p-l-r-0 msg-chatbox">
+  <div *ngIf="activeUser" class="col-md-12 msg-chat-header">
+    <div class="col-md-1 msg-chatbox-img">
+      <img [src]="activeUser.profileImagePath" />
+      <span class="friends-status busy"></span>
+    </div>
+    <div class="col-md-3 friend-details">
+      <h4 class="friend-name">
+        {{ activeUser.firstName + " " + activeUser.lastName }}
+      </h4>
+    </div>
+    <div class="col-md-4 status-details">
+      <ul>
+        <li>{{ activeUser.online ? "Online" : "Offline" }}</li>
+        <li>
+          <span class="glyphicon glyphicon-time" aria-hidden="true"></span>Last
+          seen 2 hrs ago
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-4">
+      <ul class="setting">
+        <li>
+          <a href="javascript:void(0);" class="privatechat"> </a>
+        </li>
+        <li>
+          <a (click)="toggleCall()" class="call"> </a>
+        </li>
+        <li>
+          <a (click)="viewProfile()" class="settings"> </a>
+        </li>
+      </ul>
     </div>
   </div>
-  <div class="chat-header-action">
-    <ul class="list-inline">
-      <li class="list-inline-item">
-        <a class="btn btn-success">
-          <i class="fa fa-phone" aria-hidden="true"></i>
-        </a>
-      </li>
-      <li class="list-inline-item">
-        <a class="btn btn-secondary">
-          <i class="fa fa-video-camera" aria-hidden="true"></i>
-        </a>
-      </li>
-      <li class="list-inline-item">
-        <a class="btn btn-secondary" data-toggle="dropdown">
-          <i class="ti-more"></i>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right">
-          <a (click)="viewProfile()" class="dropdown-item"
-            >Profile</a
-          >
-          <a class="dropdown-item">Add to archive</a>
-          <a class="dropdown-item">Delete</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item">Block</a>
+
+  <div *ngIf="ongoingCall" class="col-md-12 audio-call">
+    <div class="col-md-12">
+      <p>
+        <span
+          class="glyphicon glyphicon-star fav-icon"
+          aria-hidden="true"
+        ></span>
+        <span class="caller-name">Garvit Rajput</span> |
+        <span class="call-time">14:28</span>
+      </p>
+    </div>
+    <div class="col-md-12 callers-section">
+      <div class="col-md-6"></div>
+      <div class="col-md-6 callers-list">
+        <div class="col-md-3 caller">
+          <img src="assets/img/user4.jpg" />
         </div>
-      </li>
-    </ul>
+        <div class="col-md-3 caller">
+          <img src="assets/img/user5.jpg" />
+        </div>
+        <div class="col-md-3 caller add-caller">
+          <img src="assets/img/add-call.png" />
+          <span></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <ul class="call-action">
+        <li>
+          <a href="javascript:void(0);" class="screenshare"> </a>
+        </li>
+        <li>
+          <a href="javascript:void(0);" class="mute"> </a>
+        </li>
+        <li>
+          <a href="javascript:void(0);" class="disconnect"> </a>
+        </li>
+        <li>
+          <a href="javascript:void(0);" class="chat"> </a>
+        </li>
+      </ul>
+    </div>
   </div>
-</div>
-<div class="chat-body" [ngClass]="{ 'no-message': !chatMessages.length }">
-  <!-- .no-message -->
-
-  <div *ngIf="!chatMessages.length" class="no-message-container">
-    <i class="fa fa-comments-o"></i>
-    <p>Send message to start chat</p>
-  </div>
-
   <div
-    class="messages"
-    *ngIf="chatMessages.length"
+    class="col-md-12 msg-container"
     app-message-list
     [messages]="chatMessages"
   ></div>
+
+  <emoji-mart
+    class="emoji-mart"
+    color="#3db16b"
+    [showPreview]="false"
+    [style]="{ position: 'absolute', bottom: '97px', right: '330px' }"
+    (emojiSelect)="addEmoji($event)"
+    *ngIf="showEmojiPicker"
+    title="Pick your emoji…"
+  ></emoji-mart>
+  <div class="col-md-12 msgbox-container">
+    <form class="m-0" (submit)="sendMessage()">
+      <div class="col-md-12">
+        <input
+          type="text"
+          class="msgbox"
+          placeholder="Type your message here..."
+          [(ngModel)]="messageText"
+          name="messageText"
+          id="message-input"
+        />
+        <ul class="action-item">
+          <li>
+            <a
+              href="javascript:void(0);"
+              class="attachment-icon"
+              #filePicker="ngxFilePicker"
+              ngxFilePicker
+              [filter]="ignoreTooBigFile"
+              (readStart)="onReadStart($event)"
+              (filePick)="onFilePicked($event)"
+              (readEnd)="onReadEnd($event)"
+            ></a>
+          </li>
+          <li>
+            <a
+              href="javascript:void(0);"
+              (click)="toggleEmojiPicker()"
+              class="smiley-icon"
+            ></a>
+          </li>
+          <li>
+            <a
+              href="javascript:void(0);"
+              (click)="sendMessage()"
+              class="send-icon"
+            ></a>
+          </li>
+        </ul>
+      </div>
+    </form>
+  </div>
 </div>
-<emoji-mart
-  class="emoji-mart"
-  set="apple"
-  color="#3db16b"
-  showPreview="false"
-  (emojiSelect)="addEmoji($event)"
-  *ngIf="showEmojiPicker"
-  title="Pick your emoji…"
-></emoji-mart>
-<div class="chat-footer">
-  <form (submit)="sendMessage()">
-    <input
-      [(ngModel)]="messageText"
-      name="messageText"
-      type="text"
-      id="message-input"
-      class="form-control"
-      placeholder="Recipient's username"
-      aria-label="Recipient's username"
-      aria-describedby="button-addon2"
-    />
-    <div class="form-buttons">
-      <button
-        class="btn btn-light btn-floating"
-        #filePicker="ngxFilePicker"
-        ngxFilePicker
-        [filter]="ignoreTooBigFile"
-        (readStart)="onReadStart($event)"
-        (filePick)="onFilePicked($event)"
-        (readEnd)="onReadEnd($event)"
-        type="button"
-      >
-        <i class="fa fa-paperclip"></i>
-      </button>
-      <button
-        class="btn btn-light btn-floating"
-        (click)="toggleEmojiPicker()"
-        type="button"
-      >
-        <i class="fa fa-smile-o"></i>
-      </button>
-      <!-- <button class="btn btn-light btn-floating" type="button">
-        <i class="fa fa-microphone"></i>
-      </button> -->
-      <button class="btn btn-primary btn-floating" type="submit">
-        <i class="fa fa-send"></i>
-      </button>
-    </div>
-  </form>
-</div>
-<!-- ./ chat -->

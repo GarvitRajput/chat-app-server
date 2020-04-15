@@ -1,39 +1,33 @@
-<body>
-<!--The content below is only a placeholder and can be replaced.-->
 
-<!-- page loading -->
-<!-- <div class="page-loading"></div> -->
-<!-- ./ page loading -->
+  <!--The content below is only a placeholder and can be replaced.-->
 
-<!-- models start -->
+  <!-- page loading -->
+  <!-- <div class="page-loading"></div> -->
+  <!-- ./ page loading -->
 
-<app-disconnected-model></app-disconnected-model>
-<app-call-model></app-call-model>
-<app-add-friend-model></app-add-friend-model>
-<app-new-group-model></app-new-group-model>
-<app-settings-model></app-settings-model>
-<app-edit-profile-model></app-edit-profile-model>
+  <!-- models start -->
 
-<!-- models end -->
-<!-- layout -->
-<div class="layout">
+  <app-disconnected-model></app-disconnected-model>
+  <app-call-model></app-call-model>
+  <app-add-friend-model></app-add-friend-model>
+  <app-new-group-model></app-new-group-model>
+  <app-settings-model></app-settings-model>
+  <app-edit-profile-model></app-edit-profile-model>
 
-    <app-side-menu></app-side-menu>
+  <!-- models end -->
+  <!-- layout -->
+  <div class="layout">
 
     <!-- content -->
     <div class="content">
-        <div app-chat-menu class="sidebar-group"></div>
-        <div app-chat-window class="chat"></div>
-        <div app-user-info id="user-info" class="sidebar-group"></div>
-
-
-
-
+      <div app-chat-menu class="sidebar-group"></div>
+      <div app-chat-window class="chat"></div>
+      <!-- <div app-user-info id="user-info" class="sidebar-group"></div> -->
+      <div
+      app-right-panel
+        class="col-md-2 col-md-offset-10 p-l-r-0 profile-panel"
+      ></div>
     </div>
     <!-- ./ content -->
-
-</div>
-<!-- ./ layout -->
-
-
-</body>
+  </div>
+  <!-- ./ layout -->

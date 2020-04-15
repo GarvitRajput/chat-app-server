@@ -2,6 +2,6 @@
 
 export const environment = {
          production: true,
-         SERVER_URL: "https://chat.logicspod.com",
+         SERVER_URL: "http://localhost:3000",
          API_PATH: "/v1"
        };

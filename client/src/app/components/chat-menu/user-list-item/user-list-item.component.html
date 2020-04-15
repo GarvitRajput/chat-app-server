@@ -1,5 +1,5 @@
 <ng-container *ngIf="user">
-  <div>
+  <!-- <div>
     <figure class="avatar" [ngClass]="{'avatar-state-success':user.online,'avatar-state-danger':!user.online}">
       <img [src]="user.profileImagePath" class="rounded-circle" />
     </figure>
@@ -22,5 +22,27 @@
         </div>
       </div>
     </div>
+  </div> -->
+
+  <div class="col-md-3 user-img">
+    <img [src]="user.profileImagePath" />
+    <span
+      class="friends-status"
+      [ngClass]="{ available: user.online, busy: !user.online }"
+    ></span>
   </div>
+  <div class="col-md-9 friend-details">
+    <h4 class="friend-name">
+      {{ user.firstName + " " + user.lastName }}
+    </h4>
+    <p *ngIf="user.lastMessage" class="friend-msg">
+      {{ user.lastMessage.message }}
+    </p>
+    <span *ngIf="user.lastMessage" class="msg-time">{{
+      user.lastMessage.sendDate | timeAgo
+    }}</span>
+  </div>
+  <span *ngIf="user.unreadCount" class="unread-tag"
+    >{{ user.unreadCount }} Unread</span
+  >
 </ng-container>

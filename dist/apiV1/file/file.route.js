@@ -6,6 +6,7 @@ const file_controller_1 = require("./file.controller");
 const file = express_1.Router();
 const controller = new file_controller_1.default();
 // Retrieve all Users
-file.post('/upload', verifyToken_1.default, controller.uploadFile);
+file.post('/upload', verifyToken_1.default, controller.post);
+file.get('/get/:id/:name', controller.get);
 exports.default = file;
 //# sourceMappingURL=file.route.js.map

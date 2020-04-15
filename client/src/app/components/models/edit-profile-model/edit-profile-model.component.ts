@@ -23,7 +23,7 @@ export class EditProfileModelComponent implements OnInit {
   ngOnInit() {
     this.userService.userSubject.subscribe(d => {
       this.user = d;
-      if (d.profileImagePath)
+      if (d.profileImagePath && d.profileImagePath.indexOf("https://ui-avatars.com") === -1)
         this.profileImagePath = `${environment.SERVER_URL}${d.profileImagePath}`;
       this.profileForm = this.formBuilder.group({
         firstName: [this.user.firstName, Validators.required],

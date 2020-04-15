@@ -2,6 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { HttpClientModule } from "@angular/common/http";
 import { SocketIoModule, SocketIoConfig } from "ngx-socket-io";
 import { ToppyModule } from "toppy";
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 const config: SocketIoConfig = { url: environment.SERVER_URL, options: {} };
 
@@ -31,8 +32,12 @@ import { MessageListComponent } from "./components/chat-window/message-list/mess
 import { MessageComponent } from "./components/chat-window/message-list/message/message.component";
 import { environment } from 'src/environments/environment';
 import { LoaderComponent } from './components/loader/loader.component';
-import { IconsModule } from './modules/icons/icons.module';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { ProfilePanelComponent } from './components/profile-panel/profile-panel.component';
+import { TimeAgoPipe } from './pipes/time-ago.pipe';
+import { FilterPipe } from './pipes/filter.pipe';
+import { UserProfileImageComponent } from './components/user-profile-image/user-profile-image.component';
+import { RightPanelComponent } from './components/right-panel/right-panel.component';
 
 @NgModule({
   declarations: [
@@ -54,19 +59,24 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     UserListComponent,
     MessageListComponent,
     MessageComponent,
-    LoaderComponent
+    LoaderComponent,
+    ProfilePanelComponent,
+    TimeAgoPipe,
+    FilterPipe,
+    UserProfileImageComponent,
+    RightPanelComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
-    IconsModule,
     PickerModule,
     ReactiveFormsModule,
     SocketIoModule.forRoot(config),
     ToppyModule,
-    NgxFileHelpersModule
+    NgxFileHelpersModule,
+    ScrollingModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

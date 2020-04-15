@@ -6,6 +6,7 @@ const file: Router = Router();
 const controller = new Controller();
 
 // Retrieve all Users
-file.post('/upload', verifyToken, controller.uploadFile);
+file.post('/upload', verifyToken, controller.post);
+file.get('/get/:id/:name', controller.get);
 
 export default file;

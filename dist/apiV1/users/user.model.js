@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const db_1 = require("../../config/db");
+const chat_model_1 = require("../chat/chat.model");
 class User {
     getUserByUserId(userId) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -31,7 +32,7 @@ class User {
                 "linkedInProfileUrl",
                 "googlePlusProfileUrl",
                 "instagramProfileUrl",
-                "dribbleProfileUrl"
+                "dribbleProfileUrl",
             ]);
             if (user.length) {
                 return {
@@ -51,7 +52,7 @@ class User {
                     twitterProfileUrl: user[0].twitterProfileUrl,
                     googlePlusProfileUrl: user[0].googlePlusProfileUrl,
                     instagramProfileUrl: user[0].instagramProfileUrl,
-                    dribbleProfileUrl: user[0].dribbleProfileUrl
+                    dribbleProfileUrl: user[0].dribbleProfileUrl,
                 };
             }
             else {
@@ -61,9 +62,7 @@ class User {
     }
     updateUserProfile(id, data) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield db_1.default("users")
-                .where({ userId: id })
-                .update({
+            yield db_1.default("users").where({ userId: id }).update({
                 firstName: data.firstName,
                 lastName: data.lastName,
                 email: data.email,
@@ -79,7 +78,7 @@ class User {
                 twitterProfileUrl: data.twitterProfileUrl,
                 googlePlusProfileUrl: data.googlePlusProfileUrl,
                 instagramProfileUrl: data.instagramProfileUrl,
-                dribbleProfileUrl: data.dribbleProfileUrl
+                dribbleProfileUrl: data.dribbleProfileUrl,
             });
         });
     }
@@ -106,10 +105,12 @@ class User {
                 "linkedInProfileUrl",
                 "googlePlusProfileUrl",
                 "instagramProfileUrl",
-                "dribbleProfileUrl"
+                "dribbleProfileUrl",
             ]);
-            data.forEach(user => {
-                users.push({
+            for (let index = 0; index < data.length; index++) {
+                let user = data[index];
+                let message = yield new chat_model_1.default().lastMessage(id, user.userId);
+                yield users.push({
                     userId: user.userId,
                     firstName: user.firstName,
                     lastName: user.lastName,
@@ -127,9 +128,10 @@ class User {
                     twitterProfileUrl: user.twitterProfileUrl,
                     googlePlusProfileUrl: user.googlePlusProfileUrl,
                     instagramProfileUrl: user.instagramProfileUrl,
-                    dribbleProfileUrl: user.dribbleProfileUrl
+                    dribbleProfileUrl: user.dribbleProfileUrl,
+                    lastMessage: message[0],
                 });
-            });
+            }
             return users;
         });
     }

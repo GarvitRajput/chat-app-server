@@ -32,11 +32,11 @@ class Chat {
             })
                 .groupBy("userId")
                 .select(["userId"]);
-            data.forEach(user => {
+            data.forEach((user) => {
                 if (user.userId != id)
                     chat.push({
                         userId: user.userId,
-                        IsGroup: 0
+                        IsGroup: 0,
                     });
             });
             data = [];
@@ -47,9 +47,7 @@ class Chat {
                     .from("messages");
             })
                 .whereIn("groupId", function () {
-                this.select("groupId")
-                    .where("memberId", "=", id)
-                    .from("groupMembers");
+                this.select("groupId").where("memberId", "=", id).from("groupMembers");
             })
                 .select(["groupId"]);
             data.forEach((id) => __awaiter(this, void 0, void 0, function* () {
@@ -70,7 +68,7 @@ class Chat {
                     "senderId",
                     "message",
                     "messageType",
-                    "sendDate"
+                    "sendDate",
                 ]);
             }
             else {
@@ -87,7 +85,7 @@ class Chat {
                     "receiverId",
                     "message",
                     "messageType",
-                    "sendDate"
+                    "sendDate",
                 ]);
             }
         });
@@ -95,9 +93,9 @@ class Chat {
     getUserIdFromSocket(socket, io) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                let user = (yield db_1.default("users")
+                let user = yield db_1.default("users")
                     .where({ connectionId: socket.id })
-                    .select(["userId"]));
+                    .select(["userId"]);
                 console.log("user", user);
                 console.log("socket", socket.id);
                 if (user)
@@ -107,7 +105,7 @@ class Chat {
                     if (token) {
                         return yield new auth_model_1.default().updateUserConnection({
                             token: token,
-                            connectionId: socket.id
+                            connectionId: socket.id,
                         }, io);
                     }
                 }
@@ -130,7 +128,7 @@ class Chat {
                         isGroupChat: signal.isGroupMessage,
                         messageType: signal.type,
                         message: signal.message,
-                        sendDate: new Date()
+                        sendDate: new Date(),
                     });
                     let receiver = yield db_1.default("users")
                         .where({ userId: signal.to })
@@ -152,6 +150,20 @@ class Chat {
             catch (e) {
                 console.error(socket.id, e);
             }
+        });
+    }
+    lastMessage(senderId, receiverId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield db_1.default("messages")
+                .where(function () {
+                this.where("senderId", senderId).where("receiverId", receiverId);
+            })
+                .orWhere(function () {
+                this.where("receiverId", senderId).where("senderId", receiverId);
+            })
+                .orderBy("sendDate", "desc")
+                .limit(1)
+                .select(["messageId", "message", "messageType", "sendDate"]);
         });
     }
 }

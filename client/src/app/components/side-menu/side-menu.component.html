@@ -1,5 +1,5 @@
 <!-- navigation -->
-<nav class="navigation">
+<!-- <nav class="navigation">
   <div class="nav-group" [ngClass]="{ 'd-none': isMobile && !rightSwipe }">
     <ul>
       <li>
@@ -75,5 +75,46 @@
       </li>
     </ul>
   </div>
-</nav>
+</nav> -->
 <!-- ./ navigation -->
+
+<div class="col-md-1 col-sm-3 col-xs-3 left-profile-panel">
+  <div class="col-md-12 profile-pic">
+      <span class="profile-status available"></span>
+      <img src="assets/img/user.jfif ">
+      <div class="col-md-12 p-l-r-0">
+          <button type="button" class="btn btn-default dropdown-toggle status-change available-status" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Online <span class="caret"></span>
+            </button>
+          <ul class="dropdown-menu status-dropdown">
+              <li><a href="#">Online</a></li>
+              <li><a href="#">Busy</a></li>
+              <li><a href="#">Idle</a></li>
+          </ul>
+      </div>
+      <div class="col-md-12 p-l-r-0 m-t-100">
+          <ul class="profile-option">
+              <li>
+                  <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                  <span class="notification-lit"></span>
+              </li>
+              <li>
+                  <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+              </li>
+              <li>
+                  <span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>
+              </li>
+              <li>
+                  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                  <span class="notification-lit"></span>
+              </li>
+              <li>
+                  <span class="glyphicon glyphicon-bell" aria-hidden="true"></span>
+              </li>
+          </ul>
+      </div>
+      <div class="col-md-12 p-l-r-0 profile-setting">
+          <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+      </div>
+  </div>
+</div>

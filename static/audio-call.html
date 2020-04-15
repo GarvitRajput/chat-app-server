@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ChatBox</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/chatbox.style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="assets/js/bootstrap.js" type="text/javascript"></script>
+    <script src="https://use.fontawesome.com/1a20cfafbb.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!--LEFT Panel-->
+            <div class="col-md-2 minimized-video">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <video controls autoplay loop class="embed-responsive-item">
+                        <source src="https://file-examples.com/wp-content/uploads/2017/04/file_example_MP4_480_1_5MG.mp4" type="video/mp4">
+                        <source src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+            <div class="col-md-1 col-sm-3 col-xs-3 left-profile-panel">
+                <div class="col-md-12 profile-pic">
+                    <span class="profile-status available"></span>
+                    <img src="assets/img/user.jfif ">
+                    <div class="col-md-12 p-l-r-0">
+                        <button type="button" class="btn btn-default dropdown-toggle status-change available-status" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Online <span class="caret"></span>
+                          </button>
+                        <ul class="dropdown-menu status-dropdown">
+                            <li><a href="#">Online</a></li>
+                            <li><a href="#">Busy</a></li>
+                            <li><a href="#">Idle</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-12 p-l-r-0 m-t-100">
+                        <ul class="profile-option">
+                            <li>
+                                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                                <span class="notification-lit"></span>
+                            </li>
+                            <li>
+                                <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                            </li>
+                            <li>
+                                <span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>
+                            </li>
+                            <li>
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                <span class="notification-lit"></span>
+                            </li>
+                            <li>
+                                <span class="glyphicon glyphicon-bell" aria-hidden="true"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-12 p-l-r-0 profile-setting">
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-9 col-xs-9 col-md-offset-1 col-sm-offset-3 msg-list">
+                <div class="col-md-12">
+                    <input type="text" class="searchbox" placeholder="Search for messages">
+                </div>
+                <div class="col-md-12 sorting">
+                    <div class="btn-group">
+                        <label class="">
+                            Sort By:
+                        </label>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn dropdown-toggle sort-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Last received <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-12 msg-items">
+                    <div class="col-md-12 msg-card">
+                        <div class="col-md-3 user-img">
+                            <img src="assets/img/user2.jfif">
+                            <span class="friends-status available"></span>
+                        </div>
+                        <div class="col-md-9 friend-details">
+                            <h4 class="friend-name">
+                                Andrew Pollard
+                            </h4>
+                            <p class="friend-msg">
+                                Let's have a cup of tea in my office, what say?
+                            </p>
+                            <span class="msg-time">Moments ago</span>
+                        </div>
+                        <span class="unread-tag">Unread</span>
+                    </div>
+
+                    <div class="col-md-12 msg-card">
+                        <div class="col-md-3 user-img">
+                            <img src="assets/img/user3.jpg">
+                            <span class="friends-status offline"></span>
+                        </div>
+                        <div class="col-md-9 friend-details">
+                            <h4 class="friend-name">
+                                Jenny Smith
+                            </h4>
+                            <p class="friend-msg">
+                                I am in love with Garvit Rajput Bijnor wale
+                            </p>
+                            <span class="msg-time">35 minutes ago</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 msg-card">
+                        <div class="col-md-3 user-img">
+                            <img src="assets/img/user4.jpg">
+                            <span class="friends-status idle"></span>
+                        </div>
+                        <div class="col-md-9 friend-details">
+                            <h4 class="friend-name">
+                                Howdy Cambell
+                            </h4>
+                            <p class="friend-msg">
+                                Sorry but what was my tracking number
+                            </p>
+                            <span class="msg-time">1 hr ago</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 msg-card active">
+                        <div class="col-md-3 user-img">
+                            <img src="assets/img/user5.jpg">
+                            <span class="friends-status busy"></span>
+                        </div>
+                        <div class="col-md-9 friend-details">
+                            <h4 class="friend-name">
+                                Oli Schwartz
+                            </h4>
+                            <p class="friend-msg">
+                                All the following are required, so the text must
+                            </p>
+                            <span class="msg-time">5 hr ago</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 msg-card">
+                        <div class="col-md-3 user-img">
+                            <img src="assets/img/user6.jfif">
+                            <span class="friends-status idle"></span>
+                        </div>
+                        <div class="col-md-9 friend-details">
+                            <h4 class="friend-name">
+                                Neil Arnold
+                            </h4>
+                            <p class="friend-msg">
+                                Screen readers will have trouble with your forms if you don't include a
+                            </p>
+                            <span class="msg-time">14 hr ago</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 msg-card">
+                        <div class="col-md-3 user-img">
+                            <img src="assets/img/user7.jfif">
+                            <span class="friends-status idle"></span>
+                        </div>
+                        <div class="col-md-9 friend-details">
+                            <h4 class="friend-name">
+                                Chithra Annamalai
+                            </h4>
+                            <p class="friend-msg">
+                                Align nav links, forms, buttons, or text, using the .navbar-left
+                            </p>
+                            <span class="msg-time">2 days ago</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 msg-card">
+                        <div class="col-md-3 user-img">
+                            <img src="assets/img/user8.jfif">
+                            <span class="friends-status busy"></span>
+                        </div>
+                        <div class="col-md-9 friend-details">
+                            <h4 class="friend-name">
+                                Mark Andrewson
+                            </h4>
+                            <p class="friend-msg">
+                                The background-size property specifies the size of the background images.
+                            </p>
+                            <span class="msg-time">2 days ago</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 msg-card">
+                        <div class="col-md-3 user-img">
+                            <img src="assets/img/user9.jpeg">
+                            <span class="friends-status offline"></span>
+                        </div>
+                        <div class="col-md-9 friend-details">
+                            <h4 class="friend-name">
+                                Symonds Nolder
+                            </h4>
+                            <p class="friend-msg">
+                                Simple pagination inspired by Rdio, great for apps and search results.
+                            </p>
+                            <span class="msg-time">2 days ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-md-offset-4 p-l-r-0 msg-chatbox">
+                <div class="col-md-12 audio-call">
+                    <div class="col-md-12">
+                        <p>
+                            <span class="glyphicon glyphicon-star fav-icon" aria-hidden="true"></span>
+                            <span class="caller-name">Garvit Rajput</span> | <span class="call-time">14:28</span>
+                        </p>
+                    </div>
+                    <div class="col-md-12 callers-section">
+                        <div class="col-md-6">
+
+                        </div>
+                        <div class="col-md-6 callers-list">
+                            <div class="col-md-3 caller">
+                                <img src="assets/img/user4.jpg">
+                            </div>
+                            <div class="col-md-3 caller">
+                                <img src="assets/img/user5.jpg">
+                            </div>
+                            <div class="col-md-3 caller add-caller">
+                                <img src="assets/img/add-call.png">
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <ul class="call-action">
+                            <li>
+                                <a href="javascript:void(0);" class="screenshare">
+
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" class="mute">
+
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" class="disconnect">
+
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" class="chat">
+
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-12 msg-chat-header">
+                    <div class="col-md-1 msg-chatbox-img">
+                        <img src="assets/img/user.jfif">
+                        <span class="friends-status busy"></span>
+                    </div>
+                    <div class="col-md-3 friend-details">
+                        <h4 class="friend-name">
+                            Symonds Nolder
+                        </h4>
+                    </div>
+                    <div class="col-md-4 status-details">
+                        <ul>
+                            <li>Offline</li>
+                            <li><span class="glyphicon glyphicon-time" aria-hidden="true"></span>Last seen 2 hrs ago</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <ul class="setting">
+                            <li>
+                                <a href="javascript:void(0);" class="privatechat">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" class="call">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" class="settings">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-12 msg-container minimized-audio">
+                    <!--RECEIVED MESSAGE-->
+                    <div class="col-md-12 msg receive">
+                        <div class="col-md-1 msg-user-img">
+                            <img src="assets/img/user.jfif">
+                        </div>
+                        <div class="col-md-10 p-l-r-0">
+                            <div class="col-md-12 p-l-r-0">
+                                <span class="msg-name">Garvit Rajput</span>
+                            </div>
+                            <div class="col-md-12 msg-content">
+                                <p>
+                                    If you're creating controls with no other text (such as a that only contains an icon), you should always provide alternative content to identify the purpose of the control, so that it will make sense to users of assistive technologies. In this case, you
+                                    could add an aria-label attribute on the control itself.
+                                </p>
+                            </div>
+                            <div class="col-md-12 p-l-r-0">
+                                <span class="msg-time">Yesterday 6:40 am</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--RECEIVED MESSAGE FOR IMAGE-->
+                    <div class="col-md-12 msg receive">
+                        <div class="col-md-1 msg-user-img">
+                            <img src="assets/img/user.jfif">
+                        </div>
+                        <div class="col-md-5 p-l-r-0">
+                            <div class="col-md-12 p-l-r-0">
+                                <span class="msg-name">Garvit Rajput</span>
+                            </div>
+                            <div class="col-md-12 msg-content">
+                                <img src="https://i.picsum.photos/id/50/700/1000.jpg">
+                            </div>
+                            <div class="col-md-12 p-l-r-0">
+                                <span class="msg-time">Yesterday 6:40 am</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--RECEIVED MESSAGE FOR URL-->
+                    <div class="col-md-12 msg receive">
+                        <div class="col-md-1 msg-user-img">
+                            <img src="assets/img/user.jfif">
+                        </div>
+                        <div class="col-md-10 p-l-r-0">
+                            <div class="col-md-12 p-l-r-0">
+                                <span class="msg-name">Garvit Rajput</span>
+                            </div>
+                            <div class="col-md-12 msg-content url">
+                                <div class="col-md-3">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Facebook_F_icon.svg/1200px-Facebook_F_icon.svg.png">
+                                </div>
+                                <div class="col-md-8">
+                                    <p>
+                                        <span>Facebook</span> - Create an account or log in to Facebook. Connect with friends, family and other people you know. Share photos and videos, send messages and get updates.
+                                    </p>
+                                    <a href="https://facebook.com" target="_blank">www.facebook.com</a>
+                                </div>
+                            </div>
+                            <div class="col-md-12 p-l-r-0">
+                                <span class="msg-time">Yesterday 6:40 am</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--SEND MESSAGE-->
+                    <div class="col-md-12 msg send">
+                        <div class="col-md-10 col-md-offset-1 p-l-r-0">
+                            <div class="col-md-12 p-l-r-0">
+                                <span class="msg-name">Garvit Rajput</span>
+                            </div>
+                            <div class="col-md-12 msg-content">
+                                <p>
+                                    Manish
+                                </p>
+                            </div>
+                            <div class="col-md-12 p-l-r-0">
+                                <span class="msg-time">Yesterday 6:40 am</span>
+                            </div>
+                        </div>
+                        <div class="col-md-1 msg-user-img">
+                            <img src="assets/img/user2.jfif">
+                        </div>
+                    </div>
+
+                    <!--SEND MESSAGE FOR URL-->
+                    <div class="col-md-12 msg send">
+                        <div class="col-md-10 col-md-offset-1 p-l-r-0">
+                            <div class="col-md-12 p-l-r-0">
+                                <span class="msg-name">Garvit Rajput</span>
+                            </div>
+                            <div class="col-md-12 msg-content url">
+                                <div class="col-md-3">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Facebook_F_icon.svg/1200px-Facebook_F_icon.svg.png">
+                                </div>
+                                <div class="col-md-8">
+                                    <p>
+                                        <span>Facebook</span> - Create an account or log in to Facebook. Connect with friends, family and other people you know. Share photos and videos, send messages and get updates.
+                                    </p>
+                                    <a href="https://facebook.com" target="_blank">www.facebook.com</a>
+                                </div>
+                            </div>
+                            <div class="col-md-12 p-l-r-0">
+                                <span class="msg-time">Yesterday 6:40 am</span>
+                            </div>
+                        </div>
+                        <div class="col-md-1 msg-user-img">
+                            <img src="assets/img/user2.jfif">
+                        </div>
+                    </div>
+
+                    <!--SEND MESSAGE FOR IMAGE-->
+                    <div class="col-md-12 msg send">
+                        <div class="col-md-5 col-md-offset-6 p-l-r-0">
+                            <div class="col-md-12 p-l-r-0">
+                                <span class="msg-name">Garvit Rajput</span>
+                            </div>
+                            <div class="col-md-12 msg-content">
+                                <img src="https://i.picsum.photos/id/21/1500/1000.jpg">
+                            </div>
+                            <div class="col-md-12 p-l-r-0">
+                                <span class="msg-time">Yesterday 6:40 am</span>
+                            </div>
+                        </div>
+                        <div class="col-md-1 msg-user-img">
+                            <img src="assets/img/user2.jfif">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-12 msgbox-container">
+                    <div class="col-md-12">
+                        <input type="text" class="msgbox" placeholder="Type your message here...">
+                        <ul class="action-item">
+                            <li>
+                                <a href="javascript:void(0);" class="attachment-icon"></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" class="smiley-icon"></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" class="send-icon"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-md-offset-10 profile-panel">
+                <div class="col-md-12 profile-owner">
+                    <a href="javascript:void(0);" class="option" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Online</a></li>
+                        <li><a href="#">Busy</a></li>
+                        <li><a href="#">Idle</a></li>
+                    </ul>
+                    <div class="col-md-2 p-l-r-0">
+                        <img src="assets/img/user.jfif">
+                        <span class="profile-status available"></span>
+                    </div>
+                    <div class="col-md-8">
+                        <h5>
+                            GV Rajput
+                        </h5>
+                        <p>
+                            <span class="status-details">Online</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-12 profile-owner-option">
+                    <ul>
+                        <!-- <li>
+                            <a href="javascript:void(0);">
+                                <span class="glyphicon glyphicon-comment" aria-hidden="true"></span> Chat
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">
+                                <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span> Favorite
+                            </a>
+                        </li> -->
+                        <li>
+                            <a href="javascript:void(0);">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">
+                                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Settings
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">
+                                <span class="glyphicon glyphicon-off" aria-hidden="true"></span> Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Message } from "src/app/models/message";
 import { ChatService } from 'src/app/services/chat.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: "[app-message-list]",
@@ -10,10 +11,12 @@ import { ChatService } from 'src/app/services/chat.service';
 export class MessageListComponent implements OnInit {
   @Input() messages: Message[];
   activeUser;
-  constructor(private chatService: ChatService) {
+  user;
+  constructor(private chatService: ChatService,userService:UserService) {
     this.chatService.activeUserSubject.subscribe(user => {
       this.activeUser = user;
     });
+    this.user=userService.getUser();
   }
 
   ngOnInit() {}

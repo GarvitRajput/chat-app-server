@@ -1,33 +1,41 @@
-<div *ngIf="message.type == 1" class="message-content">
-  {{ message.content }}
+<div *ngIf="isReceived" class="col-md-1 msg-user-img">
+  <img [src]="activeUser?.profileImagePath" />
 </div>
-<div class="card" *ngIf="message.type == 2" style="width: 18rem;">
-  <img [src]="message.content" class="card-img-top" [alt]="message.content" />
-</div>
-<div *ngIf="message.type == 3" class="message-content message-file">
-  <div class="file-icon">
-    <i class="ti-file"></i>
+<div [ngClass]="{ 'col-md-offset-1': !isReceived }" class="col-md-10 p-l-r-0">
+  <div class="col-md-12 p-l-r-0">
+    <span class="msg-name">{{
+      isReceived
+        ? activeUser.firstName + " " + activeUser.lastName
+        : user.firstName + " " + user.lastName
+    }}</span>
   </div>
-  <div>
-    <div>{{ message.fileName }}</div>
-    <ul class="list-inline">
-      <li class="list-inline-item">
-        <a [href]="message.content" target="_blank">Download</a>
-      </li>
-    </ul>
-  </div>
-</div>
-<div class="card" *ngIf="message.type == 4" style="width: 18rem;">
-  <video
-    controls
-    [src]="message.content"
-    class="card-img-top"
-    alt="message.content"
-  ></video>
-</div>
-<div *ngIf="message.type == 5">
-  <div class="card mb-3" style="max-width: 540px;">
-    <div class="row no-gutters">
+  <div
+    class="col-md-12 msg-content"
+    [ngClass]="{
+      url: message.type == 5
+    }"
+  >
+    <p *ngIf="message.type == 1">
+      {{ message.content }}
+    </p>
+    <img
+      [src]="message.content+'?size=300'"
+      *ngIf="message.type == 2"
+      [alt]="message.content"
+    />
+    <div *ngIf="message.type == 3">
+      <p>{{ message.fileName }}</p>
+      <a [href]="message.content" target="_blank">Download</a>
+    </div>
+    <video
+      *ngIf="message.type == 4"
+      controls
+      [src]="message.content"
+      class="card-img-top"
+      alt="message.content"
+    ></video>
+
+    <div *ngIf="message.type == 5">
       <div
         *ngIf="metadata && (metadata.video || metadata.imagePath)"
         [ngClass]="{
@@ -38,18 +46,12 @@
         <img
           *ngIf="metadata.imagePath"
           [src]="metadata.imagePath"
-          class="card-img message-media"
           [alt]="metadata.title"
         />
-        <video
-          *ngIf="!metadata.imagePath"
-          class="card-img  message-media"
-          [src]="metadata.video"
-        ></video>
+        <video *ngIf="!metadata.imagePath" [src]="metadata.video"></video>
       </div>
-      <div class="message-content" *ngIf="!metadata">
-        <p>{{ message.content }}</p>
-      </div>
+
+      <p *ngIf="!metadata">{{ message.content }}</p>
       <div
         *ngIf="metadata && !hideinfo"
         [ngClass]="{
@@ -57,23 +59,18 @@
           'col-md-12': !(metadata.video || metadata.imagePath)
         }"
       >
-        <div class="card-body">
-          <h5 class="card-title">{{ metadata.title }}</h5>
-          <p class="card-text">
-            {{ metadata.description }}
-          </p>
-          <p class="card-text">
-            <small
-              ><a [href]="metadata.url" target="_blank" class="text-muted">{{
-                metadata.url
-              }}</a></small
-            >
-          </p>
-        </div>
+        <p>
+          <span>{{ metadata.title }}</span> - {{ metadata.description }}
+        </p>
+        <a [href]="metadata.url" target="_blank">{{ metadata.url }}</a>
       </div>
     </div>
   </div>
+  <div class="col-md-12 p-l-r-0">
+    <span class="msg-time">{{ message.timeStamp | timeAgo }}</span>
+  </div>
 </div>
-<div class="message-action">
-  {{ message.relativeTimeStamp }}
+
+<div *ngIf="!isReceived" class="col-md-1 msg-user-img">
+  <img [src]="user?.profileImagePath" />
 </div>
