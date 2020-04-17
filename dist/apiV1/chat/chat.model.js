@@ -116,34 +116,52 @@ class Chat {
             }
         });
     }
-    processMessage(signal, socket, io) {
+    processMessage(incomingsignal, socket, io) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 let userId = yield this.getUserIdFromSocket(socket, io);
-                console.log("userid from socket", userId);
-                if (userId) {
-                    yield db_1.default("messages").insert({
-                        senderId: userId,
-                        receiverId: signal.to,
-                        isGroupChat: signal.isGroupMessage,
-                        messageType: signal.type,
-                        message: signal.message,
-                        sendDate: new Date(),
-                    });
-                    let receiver = yield db_1.default("users")
-                        .where({ userId: signal.to })
-                        .select(["connectionId"]);
-                    console.log("receiver", receiver[0]);
-                    if (receiver.length) {
-                        let outgoingSignal = new signal_1.OutgoingSignal();
-                        outgoingSignal.from = userId;
-                        outgoingSignal.groupId = 0;
-                        outgoingSignal.type = signal.type;
-                        outgoingSignal.message = signal.message;
-                        outgoingSignal.to = Number(signal.to);
-                        socket
-                            .to(receiver[0].connectionId)
-                            .emit("message", JSON.stringify(outgoingSignal));
+                let receiver = yield db_1.default("users")
+                    .where({ userId: incomingsignal.data.to })
+                    .select(["connectionId"]);
+                if (incomingsignal.type == signal_1.SignalType.call) {
+                    console.log(incomingsignal.data);
+                    let outgoingSignal = new signal_1.OutgoingSignal();
+                    outgoingSignal.data = new signal_1.OutgoingSignalData();
+                    outgoingSignal.data.from = userId;
+                    outgoingSignal.data.groupId = 0;
+                    outgoingSignal.data.type = incomingsignal.data.type;
+                    outgoingSignal.type = incomingsignal.type;
+                    outgoingSignal.data.message = incomingsignal.data.message;
+                    outgoingSignal.data.to = Number(incomingsignal.data.to);
+                    socket
+                        .to(receiver[0].connectionId)
+                        .emit("message", JSON.stringify(outgoingSignal));
+                }
+                else {
+                    let signal = incomingsignal.data;
+                    if (userId) {
+                        yield db_1.default("messages").insert({
+                            senderId: userId,
+                            receiverId: signal.to,
+                            isGroupChat: signal.isGroupMessage,
+                            messageType: signal.type,
+                            message: signal.message,
+                            sendDate: new Date(),
+                        });
+                        console.log("receiver", receiver[0]);
+                        if (receiver.length) {
+                            let outgoingSignal = new signal_1.OutgoingSignal();
+                            outgoingSignal.type = signal_1.SignalType.message;
+                            outgoingSignal.data = new signal_1.OutgoingSignalData();
+                            outgoingSignal.data.from = userId;
+                            outgoingSignal.data.groupId = 0;
+                            outgoingSignal.data.type = signal.type;
+                            outgoingSignal.data.message = signal.message;
+                            outgoingSignal.data.to = Number(signal.to);
+                            socket
+                                .to(receiver[0].connectionId)
+                                .emit("message", JSON.stringify(outgoingSignal));
+                        }
                     }
                 }
             }

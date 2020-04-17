@@ -4,6 +4,11 @@ export class IncomingSignal {
 }
 
 export class OutgoingSignal {
+  type: SignalType;
+  data: OutgoingSignalData;
+}
+
+export class OutgoingSignalData {
   from: number;
   type: SignalDataType;
   groupId: number;
@@ -18,7 +23,8 @@ export class UserStatusUpdate {
 
 export enum SignalType {
   register = 1,
-  message = 2
+  message = 2,
+  call = 3,
 }
 
 export class IncomingSignalData {
@@ -33,5 +39,7 @@ export enum SignalDataType {
   image = 2,
   file = 3,
   video = 4,
-  url = 5
+  url = 5,
+  initiateCall = 6,
+  acceptCall = 7
 }

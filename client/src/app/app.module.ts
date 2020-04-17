@@ -2,7 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { HttpClientModule } from "@angular/common/http";
 import { SocketIoModule, SocketIoConfig } from "ngx-socket-io";
 import { ToppyModule } from "toppy";
-import {ScrollingModule} from '@angular/cdk/scrolling';
+import { AngularDraggableModule } from 'angular2-draggable';
 
 const config: SocketIoConfig = { url: environment.SERVER_URL, options: {} };
 
@@ -78,7 +78,7 @@ import { IncomingCallComponent } from './components/incoming-call/incoming-call.
     SocketIoModule.forRoot(config),
     ToppyModule,
     NgxFileHelpersModule,
-    ScrollingModule
+    AngularDraggableModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

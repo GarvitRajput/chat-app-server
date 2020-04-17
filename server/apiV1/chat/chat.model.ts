@@ -4,6 +4,9 @@ import {
   IncomingSignalData,
   SignalDataType,
   OutgoingSignal,
+  SignalType,
+  IncomingSignal,
+  OutgoingSignalData,
 } from "../../helpers/signal";
 import User from "../users/user.model";
 import Authentication from "../auth/auth.model";
@@ -111,33 +114,52 @@ export default class Chat {
     }
   }
 
-  async processMessage(signal: IncomingSignalData, socket, io) {
+  async processMessage(incomingsignal: IncomingSignal, socket, io) {
     try {
       let userId = await this.getUserIdFromSocket(socket, io);
-      console.log("userid from socket", userId);
-      if (userId) {
-        await db("messages").insert({
-          senderId: userId,
-          receiverId: signal.to,
-          isGroupChat: signal.isGroupMessage,
-          messageType: signal.type,
-          message: signal.message,
-          sendDate: new Date(),
-        });
-        let receiver = await db("users")
-          .where({ userId: signal.to })
-          .select(["connectionId"]);
-        console.log("receiver", receiver[0]);
-        if (receiver.length) {
-          let outgoingSignal = new OutgoingSignal();
-          outgoingSignal.from = userId;
-          outgoingSignal.groupId = 0;
-          outgoingSignal.type = signal.type;
-          outgoingSignal.message = signal.message;
-          outgoingSignal.to = Number(signal.to);
-          socket
-            .to(receiver[0].connectionId)
-            .emit("message", JSON.stringify(outgoingSignal));
+      let receiver = await db("users")
+        .where({ userId: incomingsignal.data.to })
+        .select(["connectionId"]);
+      if (incomingsignal.type == SignalType.call) {
+        console.log(incomingsignal.data);
+        let outgoingSignal = new OutgoingSignal();
+        outgoingSignal.data = new OutgoingSignalData();
+        outgoingSignal.data.from = userId;
+        outgoingSignal.data.groupId = 0;
+        outgoingSignal.data.type = incomingsignal.data.type;
+        outgoingSignal.type = incomingsignal.type;
+        outgoingSignal.data.message = incomingsignal.data.message;
+        outgoingSignal.data.to = Number(incomingsignal.data.to);
+        socket
+          .to(receiver[0].connectionId)
+          .emit("message", JSON.stringify(outgoingSignal));
+      } else {
+        let signal = incomingsignal.data;
+
+        if (userId) {
+          await db("messages").insert({
+            senderId: userId,
+            receiverId: signal.to,
+            isGroupChat: signal.isGroupMessage,
+            messageType: signal.type,
+            message: signal.message,
+            sendDate: new Date(),
+          });
+
+          console.log("receiver", receiver[0]);
+          if (receiver.length) {
+            let outgoingSignal = new OutgoingSignal();
+            outgoingSignal.type = SignalType.message;
+            outgoingSignal.data = new OutgoingSignalData();
+            outgoingSignal.data.from = userId;
+            outgoingSignal.data.groupId = 0;
+            outgoingSignal.data.type = signal.type;
+            outgoingSignal.data.message = signal.message;
+            outgoingSignal.data.to = Number(signal.to);
+            socket
+              .to(receiver[0].connectionId)
+              .emit("message", JSON.stringify(outgoingSignal));
+          }
         }
       }
     } catch (e) {

@@ -32,8 +32,10 @@ export class ChatService {
       this.user = user;
     });
 
-    this.socketService.event("message").subscribe((signal: string) => {
-      let msg = JSON.parse(signal);
+    this.socketService.event("message").subscribe((_signal: string) => {
+      let signal= JSON.parse(_signal);
+      if(signal.type==SignalType.message){
+        let msg = signal.data
       if (msg) {
         let message = this.formatMessage(
           msg.message,
@@ -46,6 +48,7 @@ export class ChatService {
           this.trigerNotification(msg);
         }
       }
+    }
     });
   }
 

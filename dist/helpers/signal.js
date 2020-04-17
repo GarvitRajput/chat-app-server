@@ -6,6 +6,9 @@ exports.IncomingSignal = IncomingSignal;
 class OutgoingSignal {
 }
 exports.OutgoingSignal = OutgoingSignal;
+class OutgoingSignalData {
+}
+exports.OutgoingSignalData = OutgoingSignalData;
 class UserStatusUpdate {
 }
 exports.UserStatusUpdate = UserStatusUpdate;
@@ -13,6 +16,7 @@ var SignalType;
 (function (SignalType) {
     SignalType[SignalType["register"] = 1] = "register";
     SignalType[SignalType["message"] = 2] = "message";
+    SignalType[SignalType["call"] = 3] = "call";
 })(SignalType = exports.SignalType || (exports.SignalType = {}));
 class IncomingSignalData {
 }
@@ -24,5 +28,7 @@ var SignalDataType;
     SignalDataType[SignalDataType["file"] = 3] = "file";
     SignalDataType[SignalDataType["video"] = 4] = "video";
     SignalDataType[SignalDataType["url"] = 5] = "url";
+    SignalDataType[SignalDataType["initiateCall"] = 6] = "initiateCall";
+    SignalDataType[SignalDataType["acceptCall"] = 7] = "acceptCall";
 })(SignalDataType = exports.SignalDataType || (exports.SignalDataType = {}));
 //# sourceMappingURL=signal.js.map

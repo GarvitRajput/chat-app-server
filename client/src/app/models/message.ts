@@ -5,7 +5,7 @@ export interface Message {
   type: MessageType;
   timeStamp: Date;
   relativeTimeStamp?: string;
-  fileName?:string;
+  fileName?: string;
 }
 
 export enum MessageType {
@@ -13,5 +13,7 @@ export enum MessageType {
   Image = 2,
   File = 3,
   Video = 4,
-  Url = 5
+  Url = 5,
+  InitiateCall = 6,
+  AcceptCall = 7,
 }

@@ -61,7 +61,7 @@ export class AuthService {
             this.registerUserOnSocker(res.data.token);
           }, 0);
           if (!res.data.user.profileImagePath) {
-            res.data.user.profileImagePath = `https://ui-avatars.com/api/?name=${res.data.user.firstName}+${res.data.user.lastName}&background=0D8ABC&color=fff&rounded=true`;
+            res.data.user.profileImagePath = `https://ui-avatars.com/api/?name=${res.data.user.firstName}+${res.data.user.lastName}&background=0D8ABC&color=fff&rounded=true&size=150`;
           }
           this.userService.setUser(res.data.user);
           o.next(true);

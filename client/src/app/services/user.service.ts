@@ -5,7 +5,7 @@ import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
 import { Socket } from "ngx-socket-io";
 import { SocketService } from "./socket.service";
-import { MessageType } from '../models/message';
+import { MessageType } from "../models/message";
 
 @Injectable({
   providedIn: "root",
@@ -39,11 +39,13 @@ export class UserService {
   }
 
   setUser(user) {
+    if (!user.profileImagePath) {
+      user.profileImagePath = `https://ui-avatars.com/api/?name=${user.firstName}+${user.lastName}&background=0D8ABC&color=fff&rounded=true&size=150`;
+    } else {
+      user.profileImagePath = environment.SERVER_URL + user.profileImagePath;
+    }
     this._user = user;
     this.populateUser();
-    if (!user.profileImagePath) {
-      user.profileImagePath = `https://ui-avatars.com/api/?name=${user.firstName}+${user.lastName}&background=0D8ABC&color=fff&rounded=true`;
-    }
     this.userSubject.next(user);
     document.title = `${user.firstName} ${user.lastName} - ChatApp`;
     this.getAllUsers();
@@ -53,7 +55,10 @@ export class UserService {
     this.apiService.get("/user/profile").subscribe((res) => {
       if (res.success) {
         if (!res.data.user.profileImagePath) {
-          res.data.user.profileImagePath = `https://ui-avatars.com/api/?name=${res.data.user.firstName}+${res.data.user.lastName}&background=0D8ABC&color=fff&rounded=true`;
+          res.data.user.profileImagePath = `https://ui-avatars.com/api/?name=${res.data.user.firstName}+${res.data.user.lastName}&background=0D8ABC&color=fff&rounded=true&size=150`;
+        } else {
+          res.data.user.profileImagePath =
+            environment.SERVER_URL + res.data.user.profileImagePath;
         }
         this._user = res.data.user;
         this.userSubject.next(this._user);
@@ -96,7 +101,7 @@ export class UserService {
           message.type === MessageType.Video ||
           message.type === MessageType.File
         ) {
-          content=message.content.split("/").slice(-1).pop();
+          content = message.content.split("/").slice(-1).pop();
         }
         this.users[index].lastMessage = {
           message: content,
@@ -152,7 +157,7 @@ export class UserService {
     ) {
       user.profileImagePath = `${environment.SERVER_URL}${user.profileImagePath}`;
     } else
-      user.profileImagePath = `https://ui-avatars.com/api/?name=${user.firstName}+${user.lastName}&background=0D8ABC&color=fff&rounded=true`;
+      user.profileImagePath = `https://ui-avatars.com/api/?name=${user.firstName}+${user.lastName}&background=0D8ABC&color=fff&rounded=true&size=150`;
     return user;
   }
 }

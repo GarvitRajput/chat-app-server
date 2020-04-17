@@ -28,7 +28,6 @@ export class MessageComponent implements OnInit {
     ) {
       this.message.content = environment.SERVER_URL + this.message.content;
     }
-    console.log(this.user.profileImagePath);
     if (this.message.type === MessageType.Url) {
       this.chatService.getUrlMetadata(this.message.content).subscribe((res) => {
         if (res.success) {

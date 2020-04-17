@@ -4,6 +4,7 @@ import { Message, MessageType } from "src/app/models/message";
 import { UserService } from "src/app/services/user.service";
 import { ReadFile, FilePickerDirective } from "ngx-file-helpers";
 import { environment } from "src/environments/environment";
+import { CallService } from "src/app/services/call.service";
 
 @Component({
   selector: "[app-chat-window]",
@@ -23,7 +24,8 @@ export class ChatWindowComponent implements OnInit {
   chatMessages: Message[] = [];
   constructor(
     private chatService: ChatService,
-    private userService: UserService
+    private userService: UserService,
+    private callService: CallService
   ) {
     this.chatService.activeUserSubject.subscribe((user) => {
       this.activeUser = user;
@@ -42,6 +44,11 @@ export class ChatWindowComponent implements OnInit {
     this.userService.viewProfile(this.activeUser.userId);
   }
 
+  call() {
+    console.log(this.activeUser);
+    this.callService.makeCall(this.activeUser.userId);
+  }
+
   toggleEmojiPicker() {
     this.showEmojiPicker = !this.showEmojiPicker;
   }
@@ -53,6 +60,7 @@ export class ChatWindowComponent implements OnInit {
   }
 
   toggleCall() {
+    this.call();
     this.ongoingCall = !this.ongoingCall;
     this.resetHeight();
   }

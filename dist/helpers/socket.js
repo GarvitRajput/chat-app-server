@@ -11,25 +11,40 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const signal_1 = require("./signal");
 const auth_model_1 = require("../apiV1/auth/auth.model");
 const chat_model_1 = require("../apiV1/chat/chat.model");
+const cookie = require("cookie");
 let io;
 exports = module.exports = function socket(_io) {
     io = _io;
     io.on("connection", socketHandler);
+    io.on("connect", (d) => {
+        updateUserConnection(io, d);
+    });
 };
+function updateUserConnection(io, socket) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let token = cookie.parse(socket.handshake.headers.cookie).token;
+        yield new auth_model_1.default().updateUserConnection({
+            token: token,
+            connectionId: socket.id,
+            io,
+        }, io);
+    });
+}
 function socketHandler(socket) {
     return __awaiter(this, void 0, void 0, function* () {
         socket.on("message", (_signal) => __awaiter(this, void 0, void 0, function* () {
             try {
                 let signal = JSON.parse(_signal);
+                console.log(signal.type, socket.id);
                 if (signal.type === signal_1.SignalType.register) {
                     yield new auth_model_1.default().updateUserConnection({
                         token: signal.data.message,
                         connectionId: socket.id,
-                        io
+                        io,
                     }, io);
                 }
                 else {
-                    yield new chat_model_1.default().processMessage(signal.data, socket, io);
+                    yield new chat_model_1.default().processMessage(signal, socket, io);
                 }
             }
             catch (e) { }

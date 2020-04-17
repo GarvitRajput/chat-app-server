@@ -14,7 +14,8 @@ export class IncomingSignal {
 
 export enum SignalType {
   register = 1,
-  message = 2
+  message = 2,
+  call=3
 }
 
 export interface IncomingSignalData {

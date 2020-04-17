@@ -1,12 +1,12 @@
-<div class="col-md-12 p-l-r-0 incoming-call-window">
+<div ngDraggable *ngIf="callingUser" class="col-md-12 p-l-r-0 incoming-call-window">
     <div class="col-md-8 col-md-offset-2 incoming-caller">
         <div class="col-md-12 animation-border">
-            <img src="assets/img/user7.jfif">
+            <img [src]="callingUser.profileImagePath">
         </div>
     </div>
     <div class="col-md-12">
         <h4>
-            Chithra Annamalai
+            {{callingUser.firstName + " " + callingUser.lastName}}
         </h4>
     </div>
     <div class="col-md-8 col-md-offset-2 m-t-25">
@@ -14,7 +14,7 @@
             <a href="javascript:void(0);"></a>
             <span>Confirm</span>
         </div>
-        <div class="call-option cancel">
+        <div (click)="reject()" class="call-option cancel">
             <a href="javascript:void(0);"></a>
             <span>Reject</span>
         </div>
