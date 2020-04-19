@@ -1,22 +1,17 @@
 <div class="col-md-12 profile-panel-header">
-  <div class="col-md-3 col-md-offset-1">
-    <img [src]="user?.profileImagePath" />
-  </div>
-  <div class="col-md-8 p-l-0">
-    <button
-      type="button"
-      class="btn dropdown-toggle name"
-      data-toggle="dropdown"
-      aria-haspopup="true"
-      aria-expanded="false"
-    >
+    <div class="col-md-3 col-md-offset-1">
+        <img [src]="user?.profileImagePath" />
+    </div>
+    <div class="col-md-8 p-l-0">
+        <button type="button" class="btn dropdown-toggle name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       {{ user.firstName + " " + user.lastName }}<span class="caret"></span>
     </button>
-    <ul class="dropdown-menu">
-      <li><a href="#">Settings</a></li>
-      <li><a [routerLink]="['/login']">Logout</a></li>
-    </ul>
-  </div>
+        <ul class="dropdown-menu">
+            <li><a href="#">Settings</a></li>
+            <li><a [routerLink]="['/login']">Logout</a></li>
+        </ul>
+    </div>
 </div>
 <app-profile-panel></app-profile-panel>
 <app-incoming-call></app-incoming-call>
+<app-min-call-window></app-min-call-window>

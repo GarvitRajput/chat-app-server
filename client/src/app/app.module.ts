@@ -39,6 +39,7 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { UserProfileImageComponent } from './components/user-profile-image/user-profile-image.component';
 import { RightPanelComponent } from './components/right-panel/right-panel.component';
 import { IncomingCallComponent } from './components/incoming-call/incoming-call.component';
+import { MinCallWindowComponent } from './components/min-call-window/min-call-window.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { IncomingCallComponent } from './components/incoming-call/incoming-call.
     FilterPipe,
     UserProfileImageComponent,
     RightPanelComponent,
-    IncomingCallComponent
+    IncomingCallComponent,
+    MinCallWindowComponent
   ],
   imports: [
     BrowserModule,
