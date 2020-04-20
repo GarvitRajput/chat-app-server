@@ -1,22 +1,26 @@
-<div ngDraggable *ngIf="callingUser" class="col-md-12 p-l-r-0 incoming-call-window">
-    <div class="col-md-8 col-md-offset-2 incoming-caller">
-        <div class="col-md-12 animation-border">
-            <img [src]="callingUser.profileImagePath">
-        </div>
+<div
+  ngDraggable
+  *ngIf="callingUser"
+  class="col-md-12 p-l-r-0 incoming-call-window"
+>
+  <div class="col-md-8 col-md-offset-2 incoming-caller">
+    <div class="col-md-12 animation-border">
+      <img [src]="callingUser.profileImagePath" />
     </div>
-    <div class="col-md-12">
-        <h4>
-            {{callingUser.firstName + " " + callingUser.lastName}}
-        </h4>
+  </div>
+  <div class="col-md-12">
+    <h4>
+      {{ callingUser.firstName + " " + callingUser.lastName }}
+    </h4>
+  </div>
+  <div class="col-md-8 col-md-offset-2 m-t-25">
+    <div (click)="accept()" class="call-option accept">
+      <a href="javascript:void(0);"></a>
+      <span>Confirm</span>
     </div>
-    <div class="col-md-8 col-md-offset-2 m-t-25">
-        <div class="call-option accept">
-            <a href="javascript:void(0);"></a>
-            <span>Confirm</span>
-        </div>
-        <div (click)="reject()" class="call-option cancel">
-            <a href="javascript:void(0);"></a>
-            <span>Reject</span>
-        </div>
+    <div (click)="reject()" class="call-option cancel">
+      <a href="javascript:void(0);"></a>
+      <span>Reject</span>
     </div>
+  </div>
 </div>

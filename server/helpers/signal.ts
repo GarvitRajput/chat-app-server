@@ -14,6 +14,7 @@ export class OutgoingSignalData {
   groupId: number;
   message: string;
   to: number;
+  data: any;
 }
 
 export class UserStatusUpdate {
@@ -31,6 +32,7 @@ export class IncomingSignalData {
   to: string;
   type: SignalDataType;
   message: string;
+  data: any;
   isGroupMessage: boolean;
 }
 
@@ -41,5 +43,8 @@ export enum SignalDataType {
   video = 4,
   url = 5,
   initiateCall = 6,
-  acceptCall = 7
+  acceptCall = 7,
+  rejectCall = 8,
+  disconnect = 9,
+  busy = 10,
 }
