@@ -19,6 +19,11 @@ export class IncomingCallComponent implements OnInit {
     });
   }
   reject(){
+    this.callService.rejectCall(this.callingUser.userId);
+    this.callingUser=null;
+  }
+  accept(){
+    this.callService.acceptCall(this.callingUser.userId);
     this.callingUser=null;
   }
 

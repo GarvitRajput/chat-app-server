@@ -30,5 +30,6 @@ export class OutgoingSignalData {
   type: MessageType;
   message: string;
   isGroupMessage: boolean;
+  data:any
 }
 

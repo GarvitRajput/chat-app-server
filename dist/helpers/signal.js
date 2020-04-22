@@ -30,5 +30,8 @@ var SignalDataType;
     SignalDataType[SignalDataType["url"] = 5] = "url";
     SignalDataType[SignalDataType["initiateCall"] = 6] = "initiateCall";
     SignalDataType[SignalDataType["acceptCall"] = 7] = "acceptCall";
+    SignalDataType[SignalDataType["rejectCall"] = 8] = "rejectCall";
+    SignalDataType[SignalDataType["disconnect"] = 9] = "disconnect";
+    SignalDataType[SignalDataType["busy"] = 10] = "busy";
 })(SignalDataType = exports.SignalDataType || (exports.SignalDataType = {}));
 //# sourceMappingURL=signal.js.map

@@ -61,7 +61,7 @@ export class ChatWindowComponent implements OnInit {
 
   toggleCall() {
     this.call();
-    this.ongoingCall = !this.ongoingCall;
+    //this.ongoingCall = !this.ongoingCall;
     this.resetHeight();
   }
 

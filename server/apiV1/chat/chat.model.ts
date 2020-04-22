@@ -129,6 +129,7 @@ export default class Chat {
         outgoingSignal.data.type = incomingsignal.data.type;
         outgoingSignal.type = incomingsignal.type;
         outgoingSignal.data.message = incomingsignal.data.message;
+        outgoingSignal.data.data = incomingsignal.data.data;
         outgoingSignal.data.to = Number(incomingsignal.data.to);
         socket
           .to(receiver[0].connectionId)

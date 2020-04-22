@@ -16,4 +16,10 @@ export enum MessageType {
   Url = 5,
   InitiateCall = 6,
   AcceptCall = 7,
+  RejectCall = 8,
+  Disconnect = 9,
+  Busy = 10,
+  Offer = 11,
+  Answer = 12,
+  Candidate = 13,
 }
