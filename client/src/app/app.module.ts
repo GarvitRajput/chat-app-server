@@ -40,6 +40,7 @@ import { UserProfileImageComponent } from './components/user-profile-image/user-
 import { RightPanelComponent } from './components/right-panel/right-panel.component';
 import { IncomingCallComponent } from './components/incoming-call/incoming-call.component';
 import { MinCallWindowComponent } from './components/min-call-window/min-call-window.component';
+import { MaxVideoCallComponent } from './components/max-video-call/max-video-call.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { MinCallWindowComponent } from './components/min-call-window/min-call-wi
     UserProfileImageComponent,
     RightPanelComponent,
     IncomingCallComponent,
-    MinCallWindowComponent
+    MinCallWindowComponent,
+    MaxVideoCallComponent
   ],
   imports: [
     BrowserModule,

@@ -128,36 +128,27 @@
 <!-- ./ sidebar group -->
 
 <div class="col-md-3 msg-list">
-  <div class="col-md-12 search-bar-container">
-    <input type="text" class="searchbox" placeholder="Search user" [(ngModel)]="query" />
-  </div>
-  <div class="col-md-12 sorting">
-    <div class="btn-group">
-      <label class="">
+    <div class="col-md-12 search-bar-container">
+        <input type="text" class="searchbox" placeholder="Search user" [(ngModel)]="query" />
+    </div>
+    <div class="col-md-12 sorting">
+        <div class="btn-group">
+            <label class="">
         Sort By:
       </label>
-    </div>
-    <div class="btn-group">
-      <button
-        type="button"
-        class="btn dropdown-toggle sort-dropdown"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
-      >
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn dropdown-toggle sort-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Last received <span class="caret"></span>
       </button>
-      <ul class="dropdown-menu">
-        <li><a href="#">Action</a></li>
-        <li><a href="#">Another action</a></li>
-        <li><a href="#">Something else here</a></li>
-        <li role="separator" class="divider"></li>
-        <li><a href="#">Separated link</a></li>
-      </ul>
+            <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+            </ul>
+        </div>
     </div>
-  </div>
-  <app-user-list
-    [users]="users | filter:query"
-    (updateUser)="updateActiveUser($event)"
-  ></app-user-list>
+    <app-user-list [users]="users | filter:query" (updateUser)="updateActiveUser($event)"></app-user-list>
 </div>

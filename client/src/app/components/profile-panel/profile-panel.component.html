@@ -1,49 +1,46 @@
-
 <div *ngIf="activeUser" class="col-md-12 p-l-r-0 chat-user-details">
-  <div class="col-md-6 col-md-offset-3 user-img">
-    <img [src]="activeUser.profileImagePath" />
-    <span class="user-status available"></span>
-    <span
-      class="user-status"
-      [ngClass]="{ available: activeUser.online, busy: !activeUser.online }"
-    ></span>
-  </div>
-  <div class="col-md-12">
-    <h4>
-      {{ activeUser.firstName + " " + activeUser.lastName }}
-    </h4>
-    <span class="status available-status-details">{{
+    <div class="col-md-6 col-md-offset-3 user-img">
+        <img [src]="activeUser.profileImagePath" />
+        <span class="user-status available"></span>
+        <span class="user-status" [ngClass]="{ available: activeUser.online, busy: !activeUser.online }"></span>
+    </div>
+    <div class="col-md-12">
+        <h4>
+            {{ activeUser.firstName + " " + activeUser.lastName }}
+        </h4>
+        <span class="status available-status-details">{{
       activeUser.online ? "Active Now" : "Offline"
     }}</span>
-  </div>
-  <div class="col-md-12 p-l-r-0 chat-user-option m-t-25">
-    <h5>Options</h5>
-    <ul>
-      <li>
-        <a href="javascript:void(0);" class="search">
+    </div>
+    <div class="col-md-12 p-l-r-0 chat-user-option m-t-25">
+        <h5>Options</h5>
+        <ul>
+            <li>
+                <!-- <a href="javascript:void(0);" class="search">
           Search in Conversation
-        </a>
-      </li>
-      <li>
-        <a href="javascript:void(0);" class="starred">
+        </a> -->
+                <input type="text" placeholder="Search in Conversation">
+            </li>
+            <li>
+                <a href="javascript:void(0);" class="starred">
           Starred Message
         </a>
-      </li>
-    </ul>
-  </div>
-  <div class="col-md-12 p-l-r-0 chat-user-option">
-    <h5>Shared Files</h5>
-    <ul>
-      <li>
-        <a href="javascript:void(0);" class="audio">
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-12 p-l-r-0 chat-user-option">
+        <h5>Shared Files</h5>
+        <ul>
+            <li>
+                <a href="javascript:void(0);" class="audio">
           SOneya.mp3
         </a>
-      </li>
-      <li>
-        <a href="javascript:void(0);" class="doc">
+            </li>
+            <li>
+                <a href="javascript:void(0);" class="doc">
           Peoject-Proposal.docx
         </a>
-      </li>
-    </ul>
-  </div>
+            </li>
+        </ul>
+    </div>
 </div>
