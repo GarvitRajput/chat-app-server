@@ -9,14 +9,12 @@ import {
 } from "../models/signal";
 import { MessageType } from "../models/message";
 import { OngoingCall, CallStatus } from "../models/call";
+import { PeerConnection } from "../helper/PeerConnection";
+import { StreamOptions } from "../models/stream";
+import { UserService } from "./user.service";
+import { IfStmt } from "@angular/compiler";
 
-var pcConfig = {
-  iceServers: [
-    {
-      urls: "stun:stun.l.google.com:19302",
-    },
-  ],
-};
+var pcConfig = PeerConnection.getPeerConnectionConfig();
 
 // Set up audio and video regardless of what devices are present.
 var sdpConstraints = {
@@ -34,18 +32,28 @@ const dataChannelOptions = {
 })
 export class CallService {
   incomingCall = new BehaviorSubject<any>({});
+  maximizeWindow = new BehaviorSubject<boolean>(false);
   localStreamSubject = new BehaviorSubject<any>({});
   remoteStreamSubject = new BehaviorSubject<any>({});
+  streamSubject = new BehaviorSubject<any>({});
   ongoingCall: OngoingCall;
   localStream;
+  isMaximizedWindow = false;
   pc;
+  user;
   remoteStream: any;
   sender: any;
   dataChannel;
+  localPeer = {};
+  peer = {};
 
-  constructor(private socketService: SocketService) {
+  constructor(
+    private socketService: SocketService,
+    private userService: UserService
+  ) {
     this.ongoingCall = new OngoingCall();
     this.ongoingCall.status = CallStatus.Idle;
+    this.user = this.userService.getUser();
     this.socketService.event("message").subscribe(async (_signal: string) => {
       let signal = JSON.parse(_signal);
       if (signal.type == SignalType.call) {
@@ -107,38 +115,93 @@ export class CallService {
   }
 
   async makeCall(id) {
-    this.localStream = await this.requestStream();
-    this.localStreamSubject.next(this.localStream);
+    this.localStream = await this.requestStream(StreamOptions.Audio);
     this.ongoingCall.status = CallStatus.Outgoing;
     this.sendCallSignal(id, MessageType.InitiateCall);
   }
 
   disableVideo() {
-    let videoTrack = this.localStream.getVideoTracks()[0];
-    videoTrack.stop();
-    this.pc.removeTrack(this.localStream);
-    this.localStream.removeTrack(this.sender);
+    let streamId = this.user.userId + "_video";
+    if (this.peer[streamId]) {
+      this.peer[streamId].closeConnection();
+      this.localStreamSubject.next({});
+      this.peer[streamId] = null;
+      this.sendSignalOverDataChannel({ type: "close", id: streamId });
+    }
   }
 
   async enableVideo() {
-    let stream: any = await this.requestStream();
-    let videoTrack = stream.getVideoTracks()[0];
-    this.localStream.addTrack(stream.getVideoTracks()[0]);
-    this.pc.addTrack(videoTrack, stream);
+    let videoStream = <any>await this.requestStream(StreamOptions.Video);
+    this.localStreamSubject.next(videoStream);
+    let videoTrack = videoStream.getVideoTracks()[0];
+    let streamId = this.user.userId + "_video";
+    this.peer[streamId] = new PeerConnection(
+      streamId,
+      videoTrack,
+      videoStream,
+      this.dataChannerSender.bind(this),
+      null
+    );
+    this.peer[streamId].initialize();
+  }
+
+  disableScreen() {
+    let streamId = this.user.userId + "_screen";
+    if (this.peer[streamId]) {
+      this.peer[streamId].closeConnection();
+      this.peer[streamId] = null;
+      this.sendSignalOverDataChannel({ type: "close", id: streamId });
+    }
+  }
+  toggleMute() {
+    let audioTrack = this.localStream.getAudioTracks()[0];
+    audioTrack.enabled = !audioTrack.enabled;
+  }
+
+  async enableScreen() {
+    let videoStream = <any>await this.requestScreen();
+    let videoTrack = videoStream.getVideoTracks()[0];
+    let streamId = this.user.userId + "_screen";
+    this.peer[streamId] = new PeerConnection(
+      streamId,
+      videoTrack,
+      videoStream,
+      this.dataChannerSender.bind(this),
+      null
+    );
+    this.peer[streamId].initialize();
+  }
+
+  toggleWindow() {
+    this.isMaximizedWindow = !this.isMaximizedWindow;
+    this.maximizeWindow.next(this.isMaximizedWindow);
   }
   disableAudio() {}
 
   disconnect() {
+    this.sendSignalOverDataChannel({ type: "disconnect" });
+    this.closeAllConnections();
+  }
+
+  closeAllConnections() {
+    this.disableScreen();
+    this.disableVideo();
+    this.dataChannel.close();
+    this.dataChannel = null;
     this.pc.close();
     this.pc = null;
+
+    this.localStreamSubject.next({});
+    this.remoteStreamSubject.next({});
     this.ongoingCall.status = CallStatus.Idle;
+    this.isMaximizedWindow = false;
+    this.maximizeWindow.next(this.isMaximizedWindow);
   }
   busy(id) {
     this.sendCallSignal(id, MessageType.Busy);
   }
   async acceptCall(id) {
-    this.localStream = await this.requestStream();
-    this.localStreamSubject.next(this.localStream);
+    this.localStream = await this.requestStream(StreamOptions.Audio);
     this.ongoingCall.status = CallStatus.InCall;
     this.ongoingCall.connectedUserId = id;
     this.ongoingCall.callStartTime = new Date();
@@ -223,17 +286,19 @@ export class CallService {
     this.addLog("createOffer() error: ", event);
   }
 
-  requestStream() {
+  requestStream(op) {
     return new Promise((resolve, reject) => {
+      let audio = false;
+      let video = false;
+      if (op == StreamOptions.Audio) audio = true;
+      if (op == StreamOptions.Video) video = true;
       window["navigator"].mediaDevices
         .getUserMedia({
-          audio: true,
-          video: false,
+          audio: audio,
+          video: video,
         })
         .then((stream) => {
           this.addLog("Adding local stream.");
-          // var localVideo = document.querySelector("#localVideo");
-          // localVideo["srcObject"] = stream;
           resolve(stream);
         })
         .catch(function (e) {
@@ -243,13 +308,24 @@ export class CallService {
     });
   }
 
+  async requestScreen() {
+    let captureStream = null;
+
+    try {
+      captureStream = await navigator.mediaDevices["getDisplayMedia"]();
+    } catch (err) {
+      console.error("Error: " + err);
+    }
+    return captureStream;
+  }
+
   addLog(...arg) {
-    console.log(...arg);
+    //console.log(...arg);
   }
 
   createPeerConnection(createDC = false) {
     try {
-      this.pc = new RTCPeerConnection(null);
+      this.pc = new RTCPeerConnection(pcConfig);
       window["pc"] = this.pc;
       if (createDC) this.createDataChannel();
       this.pc.onicecandidate = this.handleIceCandidate.bind(this);
@@ -259,7 +335,6 @@ export class CallService {
       this.pc.onconnectionstatechange = this.handlePeerConnectionStateChange.bind(
         this
       );
-      this.pc.on;
       this.addLog("Created RTCPeerConnnection");
     } catch (e) {
       this.addLog("Failed to create PeerConnection, exception: " + e.message);
@@ -269,11 +344,10 @@ export class CallService {
   }
 
   onDataChannel(event) {
-    console.log("data channel created");
+    this.addLog("data channel created");
     if (!this.dataChannel) {
-      console.log(event);
+      this.addLog(event);
       this.dataChannel = event.channel;
-      event.channel.send("hiii");
       this.attachEventsToDataChannel();
     }
   }
@@ -321,8 +395,6 @@ export class CallService {
     this.addLog("Remote stream added.");
     this.remoteStream = event.stream;
     this.remoteStreamSubject.next(this.remoteStream);
-    // var remoteVideo = document.querySelector("#remoteVideo");
-    // remoteVideo["srcObject"] = this.remoteStream;
   }
   handleRemoteStreamRemoved(event) {
     this.remoteStreamSubject.next(null);
@@ -338,22 +410,61 @@ export class CallService {
   }
 
   attachEventsToDataChannel() {
-    console.log("called");
+    this.addLog("called");
     this.dataChannel.onerror = (error) => {
-      console.log("Data Channel Error:", error);
+      this.addLog("Data Channel Error:", error);
     };
 
     this.dataChannel.addEventListener("message", (event) => {
       const message = event.data;
-      console.log("Got Data Channel Message:", event.data);
+      let signal = JSON.parse(message);
+      if (signal.type == "dc") {
+        let data = JSON.parse(signal.data);
+        if (!this.peer[data.id]) {
+          this.peer[data.id] = new PeerConnection(
+            data.id,
+            null,
+            null,
+            this.dataChannerSender.bind(this),
+            this.processPeerStream.bind(this)
+          );
+        }
+        this.peer[data.id].processSignal(data);
+      } else if (signal.type == "close") {
+        this.closePeerConnection(signal);
+      } else if (signal.type == "disconnect") {
+        this.closeAllConnections();
+      }
+      this.addLog("Got Data Channel Message:", event.data);
     });
     this.dataChannel.onopen = () => {
-      console.log(arguments);
-      this.dataChannel.send("Hello World!");
+      this.addLog(arguments);
     };
 
     this.dataChannel.onclose = () => {
-      console.log("The Data Channel is Closed");
+      this.addLog("The Data Channel is Closed");
     };
+  }
+
+  processPeerStream(id, stream) {
+    this.streamSubject.next({ id: id, stream: stream });
+  }
+
+  closePeerConnection(data) {
+    this.peer[data.id].closeConnection();
+    this.peer[data.id] = null;
+    this.streamSubject.next({ id: data.id, stream: null });
+  }
+
+  dataChannerSender(data) {
+    let signal = {
+      type: "dc",
+      data: JSON.stringify(data),
+    };
+    this.sendSignalOverDataChannel(signal);
+  }
+  sendSignalOverDataChannel(signal) {
+    if (this.dataChannel)
+    this.dataChannel.send(JSON.stringify(signal));
   }
 }
