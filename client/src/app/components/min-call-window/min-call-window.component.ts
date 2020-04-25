@@ -12,8 +12,9 @@ export class MinCallWindowComponent implements OnInit {
   videoDisabled = true;
   streams = {};
   videoStream;
-  screenDisabled=true;
+  screenDisabled = true;
   audioDisabled = false;
+  maxWindow: boolean=false;
   constructor(
     private callService: CallService,
     private cdr: ChangeDetectorRef
@@ -32,15 +33,23 @@ export class MinCallWindowComponent implements OnInit {
       if (s.id) this.streams[s.id] = s.stream;
       this.cdr.detectChanges();
     });
+    this.callService.maximizeWindow.subscribe((flag) => {
+      this.maxWindow = flag;
+      this.cdr.detectChanges();
+    });
   }
 
   getMainVideoStream() {
-    if (this.streams[this.callService.ongoingCall.connectedUserId + "_screen"])
+    if (
+      this.streams[this.callService.ongoingCall.connectedUserId + "_screen"] &&
+      this.streams[this.callService.ongoingCall.connectedUserId + "_screen"].id
+    )
       return this.streams[
         this.callService.ongoingCall.connectedUserId + "_screen"
       ];
     else if (
-      this.streams[this.callService.ongoingCall.connectedUserId + "_video"]
+      this.streams[this.callService.ongoingCall.connectedUserId + "_video"] &&
+      this.streams[this.callService.ongoingCall.connectedUserId + "_video"].id
     )
       return this.streams[
         this.callService.ongoingCall.connectedUserId + "_video"
@@ -50,7 +59,10 @@ export class MinCallWindowComponent implements OnInit {
   getSecondaryVideoStream() {
     if (
       this.streams[this.callService.ongoingCall.connectedUserId + "_screen"] &&
-      this.streams[this.callService.ongoingCall.connectedUserId + "_video"]
+      this.streams[this.callService.ongoingCall.connectedUserId + "_screen"]
+        .id &&
+      this.streams[this.callService.ongoingCall.connectedUserId + "_video"] &&
+      this.streams[this.callService.ongoingCall.connectedUserId + "_video"].id
     ) {
       return this.streams[
         this.callService.ongoingCall.connectedUserId + "_video"
@@ -83,7 +95,7 @@ export class MinCallWindowComponent implements OnInit {
     this.audioDisabled = !this.audioDisabled;
   }
 
-  disconnect(){
+  disconnect() {
     this.callService.disconnect();
   }
 }

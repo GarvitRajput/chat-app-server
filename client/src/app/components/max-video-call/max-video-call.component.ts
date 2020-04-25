@@ -45,12 +45,16 @@ export class MaxVideoCallComponent implements OnInit {
   }
 
   getMainVideoStream() {
-    if (this.streams[this.callService.ongoingCall.connectedUserId + "_screen"])
+    if (
+      this.streams[this.callService.ongoingCall.connectedUserId + "_screen"] &&
+      this.streams[this.callService.ongoingCall.connectedUserId + "_screen"].id
+    )
       return this.streams[
         this.callService.ongoingCall.connectedUserId + "_screen"
       ];
     else if (
-      this.streams[this.callService.ongoingCall.connectedUserId + "_video"]
+      this.streams[this.callService.ongoingCall.connectedUserId + "_video"] &&
+      this.streams[this.callService.ongoingCall.connectedUserId + "_video"].id
     )
       return this.streams[
         this.callService.ongoingCall.connectedUserId + "_video"
@@ -60,7 +64,10 @@ export class MaxVideoCallComponent implements OnInit {
   getSecondaryVideoStream() {
     if (
       this.streams[this.callService.ongoingCall.connectedUserId + "_screen"] &&
-      this.streams[this.callService.ongoingCall.connectedUserId + "_video"]
+      this.streams[this.callService.ongoingCall.connectedUserId + "_screen"]
+        .id &&
+      this.streams[this.callService.ongoingCall.connectedUserId + "_video"] &&
+      this.streams[this.callService.ongoingCall.connectedUserId + "_video"].id
     ) {
       return this.streams[
         this.callService.ongoingCall.connectedUserId + "_video"

@@ -190,6 +190,8 @@ export class CallService {
     this.dataChannel = null;
     this.pc.close();
     this.pc = null;
+    let audioTrack = this.localStream.getAudioTracks()[0];
+    audioTrack.stop();
 
     this.localStreamSubject.next({});
     this.remoteStreamSubject.next({});
@@ -310,9 +312,19 @@ export class CallService {
 
   async requestScreen() {
     let captureStream = null;
-
+    var displayMediaStreamConstraints = {
+      video: true, // or pass HINTS
+    };
     try {
-      captureStream = await navigator.mediaDevices["getDisplayMedia"]();
+      if (navigator.mediaDevices["getDisplayMedia"]) {
+        captureStream = await navigator.mediaDevices["getDisplayMedia"](
+          displayMediaStreamConstraints
+        );
+      } else {
+        captureStream = await navigator["getDisplayMedia"](
+          displayMediaStreamConstraints
+        );
+      }
     } catch (err) {
       console.error("Error: " + err);
     }
@@ -464,7 +476,6 @@ export class CallService {
     this.sendSignalOverDataChannel(signal);
   }
   sendSignalOverDataChannel(signal) {
-    if (this.dataChannel)
-    this.dataChannel.send(JSON.stringify(signal));
+    if (this.dataChannel) this.dataChannel.send(JSON.stringify(signal));
   }
 }
