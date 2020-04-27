@@ -130,6 +130,7 @@ export class ChatWindowComponent implements OnInit {
           break;
       }
       this.chatMessages.push({
+        id: "",
         content: content,
         from: this.user.userId,
         to: this.activeUser.userId,
