@@ -11,6 +11,7 @@ import { MessageType } from "src/app/models/message";
 export class ProfilePanelComponent implements OnInit {
   user;
   activeUser;
+  query="";
   files = [];
   constructor(
     private chatService: ChatService,
@@ -21,6 +22,8 @@ export class ProfilePanelComponent implements OnInit {
     });
     this.chatService.activeUserSubject.subscribe((user) => {
       this.activeUser = user;
+      this.query="";
+      this.queryChange();
     });
     this.chatService.activeMessages.subscribe((messages) => {
       if (!messages) messages = [];
@@ -39,6 +42,10 @@ export class ProfilePanelComponent implements OnInit {
         }
       });
     });
+  }
+
+  queryChange(){
+    this.chatService.updateSearchQuery(this.query);
   }
 
   getFileName(msg) {

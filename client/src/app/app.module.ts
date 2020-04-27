@@ -41,6 +41,7 @@ import { RightPanelComponent } from './components/right-panel/right-panel.compon
 import { IncomingCallComponent } from './components/incoming-call/incoming-call.component';
 import { MinCallWindowComponent } from './components/min-call-window/min-call-window.component';
 import { MaxVideoCallComponent } from './components/max-video-call/max-video-call.component';
+import { MessagePipe } from './pipes/message.pipe';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { MaxVideoCallComponent } from './components/max-video-call/max-video-cal
     RightPanelComponent,
     IncomingCallComponent,
     MinCallWindowComponent,
-    MaxVideoCallComponent
+    MaxVideoCallComponent,
+    MessagePipe
   ],
   imports: [
     BrowserModule,

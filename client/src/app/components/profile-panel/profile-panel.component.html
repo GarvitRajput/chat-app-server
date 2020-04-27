@@ -22,7 +22,7 @@
         <!-- <a href="javascript:void(0);" class="search">
           Search in Conversation
         </a> -->
-        <input type="text" placeholder="Search in Conversation" />
+        <input type="text" [(ngModel)]="query" (keydown)="queryChange()" placeholder="Search in Conversation" />
       </li>
       <li>
         <a href="javascript:void(0);" class="starred">
