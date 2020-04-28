@@ -14,11 +14,15 @@ export class UserListItemComponent implements OnInit {
 
   ngOnInit() {
     if (
-      this.user.lastMessage.messageType === MessageType.Image ||
-      this.user.lastMessage.messageType === MessageType.Video ||
-      this.user.lastMessage.messageType === MessageType.File
+      this.user.lastMessage &&
+      (this.user.lastMessage.messageType === MessageType.Image ||
+        this.user.lastMessage.messageType === MessageType.Video ||
+        this.user.lastMessage.messageType === MessageType.File)
     ) {
-      this.user.lastMessage.message=this.user.lastMessage.message.split("/").slice(-1).pop();
+      this.user.lastMessage.message = this.user.lastMessage.message
+        .split("/")
+        .slice(-1)
+        .pop();
     }
   }
   viewProfile() {

@@ -1,5 +1,5 @@
 <div
-  *ngIf="maxWindow && getMainVideoStream()"
+  *ngIf="maxWindow && remoteStream.id"
   class="max-video-call container-fluid embed-responsive embed-responsive-4by3"
 >
   <video
@@ -42,17 +42,31 @@
           href="javascript:void(0);"
           (click)="toggleScreen()"
           class="screenshare"
+          [ngClass]="{ active: screenDisabled }"
         >
         </a>
       </li>
       <li>
-        <a href="javascript:void(0);" (click)="toggleMute()" class="mute"> </a>
+        <a
+          href="javascript:void(0);"
+          (click)="toggleMute()"
+          [ngClass]="{ active: audioDisabled }"
+          class="mute"
+        >
+        </a>
       </li>
       <li>
-        <a href="javascript:void(0);" (click)="disconnect()" class="disconnect"> </a>
+        <a href="javascript:void(0);" (click)="disconnect()" class="disconnect">
+        </a>
       </li>
       <li>
-        <a href="javascript:void(0);" (click)="toggleVideo()" class="chat"> </a>
+        <a
+          href="javascript:void(0);"
+          (click)="toggleVideo()"
+          [ngClass]="{ active: videoDisabled }"
+          class="video"
+        >
+        </a>
       </li>
     </ul>
   </div>

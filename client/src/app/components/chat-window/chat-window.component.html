@@ -78,7 +78,7 @@
             </ul>
         </div>
     </div>
-    <div class="col-md-12 msg-container" app-message-list [messages]="chatMessages"></div>
+    <div class="col-md-12 msg-container" app-message-list [messages]="chatMessages|message:query"></div>
 
     <emoji-mart class="emoji-mart" color="#3db16b" [showPreview]="false" [style]="{ position: 'absolute', bottom: '97px', right: '330px' }" (emojiSelect)="addEmoji($event)" *ngIf="showEmojiPicker" title="Pick your emoji…"></emoji-mart>
     <div class="col-md-12 msgbox-container">

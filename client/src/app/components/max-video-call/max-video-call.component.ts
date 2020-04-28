@@ -13,7 +13,7 @@ export class MaxVideoCallComponent implements OnInit {
   screenDisabled = true;
   streams = {};
   videoStream;
-  audioDisabled=false;
+  audioDisabled = false;
   maxWindow = false;
   constructor(
     private callService: CallService,
@@ -35,6 +35,7 @@ export class MaxVideoCallComponent implements OnInit {
     });
     this.callService.maximizeWindow.subscribe((flag) => {
       this.maxWindow = flag;
+      console.log("called");
       this.cdr.detectChanges();
     });
   }
@@ -82,6 +83,7 @@ export class MaxVideoCallComponent implements OnInit {
       this.callService.disableVideo();
     }
     this.videoDisabled = !this.videoDisabled;
+    this.cdr.detectChanges();
   }
 
   toggleScreen() {
@@ -91,13 +93,14 @@ export class MaxVideoCallComponent implements OnInit {
       this.callService.disableScreen();
     }
     this.screenDisabled = !this.screenDisabled;
+    this.cdr.detectChanges();
   }
-
   toggleMute() {
     this.callService.toggleMute();
     this.audioDisabled = !this.audioDisabled;
+    this.cdr.detectChanges();
   }
-  disconnect(){
+  disconnect() {
     this.callService.disconnect();
   }
 }

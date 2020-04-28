@@ -1,5 +1,5 @@
 body {
-    font-family: 'Raleway', sans-serif !important;
+    font-family: "Raleway", sans-serif !important;
 }
 
 .p-l-0 {
@@ -152,7 +152,7 @@ body {
 
 .left-profile-panel .profile-option li {
     list-style: none;
-    opacity: .5;
+    opacity: 0.5;
     color: #ffffff;
     font-size: 40px;
     margin-bottom: 30px;
@@ -177,7 +177,7 @@ body {
 }
 
 .left-profile-panel .profile-setting {
-    opacity: .5;
+    opacity: 0.5;
     color: #ffffff;
     font-size: 40px;
     margin-top: 200px;
@@ -213,7 +213,7 @@ body {
     width: 100%;
     padding: 10px 50px 10px 50px;
     color: #868686;
-    background-image: url('/assets/img/search-icon.png');
+    background-image: url("/assets/img/search-icon.png");
     background-size: 20px 20px;
     background-repeat: no-repeat;
     background-position: 15px 10px;
@@ -261,12 +261,12 @@ body {
 
 .msg-list .msg-items::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    background-color: #F5F5F5;
+    background-color: #f5f5f5;
 }
 
 .msg-list .msg-items::-webkit-scrollbar {
     width: 6px;
-    background-color: #F5F5F5;
+    background-color: #f5f5f5;
 }
 
 .msg-list .msg-items::-webkit-scrollbar-thumb {
@@ -448,23 +448,23 @@ body {
 }
 
 .msg-chat-header ul.setting li a.call {
-    background-image: url('/assets/img/call-icon.png');
+    background-image: url("/assets/img/call-icon.png");
 }
 
 .msg-chat-header ul.setting li a.settings {
-    background-image: url('/assets/img/settings-icon.png');
+    background-image: url("/assets/img/settings-icon.png");
 }
 
 .msg-chat-header ul.setting li a.privatechat {
-    background-image: url('/assets/img/privatechat-icon.png');
+    background-image: url("/assets/img/privatechat-icon.png");
 }
 
 .msg-chat-header ul.setting li a.videocall {
-    background-image: url('/assets/img/videocall-icon.svg');
+    background-image: url("/assets/img/videocall-icon.svg");
 }
 
 .msg-chat-header ul.setting li a.screenshare {
-    background-image: url('/assets/img/screenshare-icon.svg');
+    background-image: url("/assets/img/screenshare-icon.svg");
 }
 
 .msg-chatbox .msg-container {
@@ -481,12 +481,12 @@ body {
 
 .msg-chatbox .msg-container::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    background-color: #F5F5F5;
+    background-color: #f5f5f5;
 }
 
 .msg-chatbox .msg-container::-webkit-scrollbar {
     width: 6px;
-    background-color: #F5F5F5;
+    background-color: #f5f5f5;
 }
 
 .msg-chatbox .msg-container::-webkit-scrollbar-thumb {
@@ -528,15 +528,15 @@ body {
 }
 
 .attachment-icon {
-    background-image: url('/assets/img/attachment-icon.png');
+    background-image: url("/assets/img/attachment-icon.png");
 }
 
 .smiley-icon {
-    background-image: url('/assets/img/smiley-icon.png');
+    background-image: url("/assets/img/smiley-icon.png");
 }
 
 .send-icon {
-    background-image: url('/assets/img/send-icon.png');
+    background-image: url("/assets/img/send-icon.png");
 }
 
 .msgbox-container .msg-sent-btn a {
@@ -668,7 +668,7 @@ body {
 
 .user-auth-static {
     padding: 50px;
-    background-image: url('/assets/img/login-img-bg-3.png');
+    background-image: url("/assets/img/login-img-bg-3.png");
     background-repeat: no-repeat;
     background-position: 50% 50%;
     background-size: cover;
@@ -700,7 +700,7 @@ body {
 
 .fb {
     background-color: #1d4db6;
-    background-image: url('/assets/img/fb.png');
+    background-image: url("/assets/img/fb.png");
     background-size: 20px 20px;
     background-position: 20px;
     background-repeat: no-repeat;
@@ -708,7 +708,7 @@ body {
 
 .tw {
     background-color: #248cec;
-    background-image: url('/assets/img/tw.png');
+    background-image: url("/assets/img/tw.png");
     background-size: 20px 20px;
     background-position: 20px;
     background-repeat: no-repeat;
@@ -818,7 +818,7 @@ form {
     height: 0px;
 }
 
-.user-auth-form input[type=checkbox]:focus {
+.user-auth-form input[type="checkbox"]:focus {
     outline: none;
 }
 
@@ -854,7 +854,7 @@ form {
   outline: 2px auto #62a52d;
 } */
 
-.check-box input[type=checkbox]:checked+.user-auth-form-checkbox::before {
+.check-box input[type="checkbox"]:checked+.user-auth-form-checkbox::before {
     background: url(/assets/img/checkbox-on.png) !important;
     background-size: contain !important;
 }
@@ -906,7 +906,7 @@ ul.footer-link li:first-child {
 }
 
 ul.footer-link li:first-child::after {
-    content: '|';
+    content: "|";
     position: absolute;
     right: 0;
 }
@@ -1147,19 +1147,19 @@ ul.footer-link li a {
 }
 
 .chat-user-details .chat-user-option ul li a.search {
-    background-image: url('/assets/img/search-icon.png');
+    background-image: url("/assets/img/search-icon.png");
 }
 
 .chat-user-details .chat-user-option ul li a.starred {
-    background-image: url('/assets/img/starred-icon.png');
+    background-image: url("/assets/img/starred-icon.png");
 }
 
 .chat-user-details .chat-user-option ul li a.audio {
-    background-image: url('/assets/img/audio-icon.png');
+    background-image: url("/assets/img/audio-icon.png");
 }
 
 .chat-user-details .chat-user-option ul li a.doc {
-    background-image: url('/assets/img/doc-icon.png');
+    background-image: url("/assets/img/doc-icon.png");
 }
 
 .profile-owner {
@@ -1290,7 +1290,7 @@ ul.footer-link li a {
     display: block;
     height: 30px;
     width: 30px;
-    background-image: url('/assets/img/add-user.png');
+    background-image: url("/assets/img/add-user.png");
     background-size: contain;
     position: absolute;
     top: 25%;
@@ -1326,7 +1326,7 @@ ul.footer-link li a {
     height: 50px;
     width: 50px;
     background-color: #000000;
-    opacity: .5;
+    opacity: 0.5;
 }
 
 .audio-call ul.call-action li a:hover,
@@ -1365,6 +1365,18 @@ ul.footer-link li a {
     background-size: 25px 25px;
     background-repeat: no-repeat;
     background-position: 50% 50%;
+}
+
+.audio-call ul.call-action li a.video,
+.call-action ul li a.video {
+    background-image: url(/assets/img/video-icon.png);
+    background-size: 25px 25px;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+.call-action ul li a.active {
+    background-color: #e14a3a !important;
 }
 
 .display-none {
@@ -1472,14 +1484,14 @@ ul.footer-link li a {
     display: block;
     height: 30px;
     width: 30px;
-    background-image: url('/assets/img/maximize-icon.svg');
+    background-image: url("/assets/img/maximize-icon.svg");
     background-size: 20px 20px;
     background-position: 50% 50%;
     background-repeat: no-repeat;
     top: 5px;
     right: 2px;
     opacity: 0.5;
-    transition: all .3s;
+    transition: all 0.3s;
 }
 
 .min-call-window a.maximize:hover {
@@ -1559,14 +1571,14 @@ ul.footer-link li a {
     display: block;
     height: 30px;
     width: 30px;
-    background-image: url('/assets/img/minimize-fff-icon.svg');
+    background-image: url("/assets/img/minimize-fff-icon.svg");
     background-size: 20px 20px;
     background-position: 50% 50%;
     background-repeat: no-repeat;
     top: 50px;
     right: 50px;
     opacity: 0.5;
-    transition: all .3s;
+    transition: all 0.3s;
 }
 
 .max-video-call a.minimize:hover {
@@ -1598,6 +1610,10 @@ ul.footer-link li a {
 
 .max-video-call .call-action ul li a.screenshare {
     background-image: url(/assets/img/screenshare-000-icon.svg);
+}
+
+.max-video-call .call-action ul li a.video {
+    background-image: url(/assets/img/video-icon.png);
 }
 
 .max-video-call .call-action ul li a.mute {

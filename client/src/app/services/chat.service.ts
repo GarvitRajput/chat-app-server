@@ -17,6 +17,7 @@ import { NotificationService } from "./notification.service";
 export class ChatService {
   activeUserSubject = new BehaviorSubject<any>(null);
   activeMessages = new BehaviorSubject<any>(null);
+  searchSubject = new BehaviorSubject<any>("");
   private _activeUser;
   private user;
   private _metadata = {};
@@ -63,6 +64,10 @@ export class ChatService {
         ob.next(res.success);
       });
     });
+  }
+
+  updateSearchQuery(query){
+    this.searchSubject.next(query);
   }
 
   getUrlMetadata(url) {

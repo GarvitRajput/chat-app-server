@@ -17,6 +17,7 @@ export class MessageComponent implements OnInit {
   @Input() activeUser;
   @Input() user;
   ngOnInit() {
+    this.message.id = this.message.timeStamp.valueOf().toString();
     this.message.relativeTimeStamp = this.chatService.getTimeStamp(
       this.message.timeStamp
     );

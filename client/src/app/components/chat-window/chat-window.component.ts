@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from "@angular/core";
 import { ChatService } from "src/app/services/chat.service";
 import { Message, MessageType } from "src/app/models/message";
 import { UserService } from "src/app/services/user.service";
@@ -21,11 +21,13 @@ export class ChatWindowComponent implements OnInit {
   activeUser;
   ongoingCall = false;
   messageText = "";
+  query = "";
   chatMessages: Message[] = [];
   constructor(
     private chatService: ChatService,
     private userService: UserService,
-    private callService: CallService
+    private callService: CallService,
+    private cdr:ChangeDetectorRef
   ) {
     this.chatService.activeUserSubject.subscribe((user) => {
       this.activeUser = user;
@@ -36,6 +38,9 @@ export class ChatWindowComponent implements OnInit {
       this.chatMessages = [...messages];
       window["scrollToBottom"]();
       this.resetHeight();
+    });
+    this.chatService.searchSubject.subscribe((q) => {
+      this.query = q;
     });
     this.resetHeight();
     this.user = this.userService.getUser();
@@ -130,6 +135,7 @@ export class ChatWindowComponent implements OnInit {
           break;
       }
       this.chatMessages.push({
+        id: "",
         content: content,
         from: this.user.userId,
         to: this.activeUser.userId,
