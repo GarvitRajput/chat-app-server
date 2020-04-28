@@ -65,6 +65,9 @@
                 <div class="progress-bar-value"></div>
             </div>
             <div class="col-md-12 col-xs-12 m-t-25">
+                <svg class="spinner" *ngIf="waitingResponse" width="40px" height="40px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                 </svg>
                 <a *ngIf="!waitingResponse" (click)="signIn()" class="btn auth-btn active-screen">
               Login
             </a>
