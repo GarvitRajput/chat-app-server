@@ -15,6 +15,18 @@ body {
     padding-right: 0px;
 }
 
+.m-t-10 {
+    margin-top: 10px;
+}
+
+.m-t-15 {
+    margin-top: 15px;
+}
+
+.m-t-20 {
+    margin-top: 20px;
+}
+
 .m-t-25 {
     margin-top: 25px;
 }
@@ -665,7 +677,8 @@ body {
 }
 
 .user-auth-form-container {
-    padding: 150px 100px
+    padding: 150px 100px;
+    padding-bottom: 100px;
 }
 
 .user-auth-form h3 {
@@ -782,6 +795,20 @@ form {
 .field-container input:not(:placeholder-shown)+label,
 .field-container input:focus+label {
     transform: translate(0, 0) scale(1);
+    cursor: pointer;
+}
+
+.user-auth-form p.redirect {
+    font-size: 15px;
+}
+
+.user-auth-form p.redirect a {
+    display: inline-block;
+    font-size: 15px;
+    color: #1737a2;
+}
+
+.user-auth-form p.redirect a:hover {
     cursor: pointer;
 }
 
