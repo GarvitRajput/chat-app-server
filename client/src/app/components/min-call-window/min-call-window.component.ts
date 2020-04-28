@@ -80,6 +80,7 @@ export class MinCallWindowComponent implements OnInit {
       this.callService.disableVideo();
     }
     this.videoDisabled = !this.videoDisabled;
+    this.cdr.detectChanges();
   }
 
   toggleScreen() {
@@ -89,10 +90,12 @@ export class MinCallWindowComponent implements OnInit {
       this.callService.disableScreen();
     }
     this.screenDisabled = !this.screenDisabled;
+    this.cdr.detectChanges();
   }
   toggleMute() {
     this.callService.toggleMute();
     this.audioDisabled = !this.audioDisabled;
+    this.cdr.detectChanges();
   }
 
   disconnect() {
