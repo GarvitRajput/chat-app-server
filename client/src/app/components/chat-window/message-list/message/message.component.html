@@ -1,76 +1,53 @@
-<div *ngIf="isReceived" class="col-md-1 msg-user-img">
-  <img [src]="activeUser?.profileImagePath" />
+<div *ngIf="isReceived" class="col-lg-1 col-md-2 col-xs-2 msg-user-img">
+    <img [src]="activeUser?.profileImagePath" />
 </div>
-<div [id]="message.id" [ngClass]="{ 'col-md-offset-1': !isReceived }" class="col-md-10 p-l-r-0">
-  <div class="col-md-12 p-l-r-0">
-    <span class="msg-name">{{
+<div [id]="message.id" [ngClass]="{ 'col-md-offset-1': !isReceived }" class="col-lg-10 col-md-9 col-xs-10 p-l-r-0">
+    <div class="col-md-12 col-xs-12 p-l-r-0">
+        <span class="msg-name">{{
       isReceived
         ? activeUser.firstName + " " + activeUser.lastName
         : user.firstName + " " + user.lastName
     }}</span>
-  </div>
-  <div
-    class="col-md-12 msg-content"
-    [ngClass]="{
-      url: message.type == 5
-    }"
-  >
-    <p *ngIf="message.type == 1">
-      {{ message.content }}
-    </p>
-    <img
-      [src]="message.content+'?size=300'"
-      *ngIf="message.type == 2"
-      [alt]="message.content"
-    />
-    <div *ngIf="message.type == 3">
-      <p>{{ message.fileName }}</p>
-      <a [href]="message.content" target="_blank">Download</a>
     </div>
-    <video
-      *ngIf="message.type == 4"
-      controls
-      [src]="message.content"
-      class="card-img-top"
-      alt="message.content"
-    ></video>
+    <div class="col-md-12 col-xs-12 msg-content" [ngClass]="{
+      url: message.type == 5
+    }">
+        <p *ngIf="message.type == 1">
+            {{ message.content }}
+        </p>
+        <img [src]="message.content+'?size=300'" *ngIf="message.type == 2" [alt]="message.content" />
+        <div *ngIf="message.type == 3">
+            <p>{{ message.fileName }}</p>
+            <a [href]="message.content" target="_blank">Download</a>
+        </div>
+        <video *ngIf="message.type == 4" controls [src]="message.content" class="card-img-top" alt="message.content"></video>
 
-    <div *ngIf="message.type == 5">
-      <div
-        *ngIf="metadata && (metadata.video || metadata.imagePath)"
-        [ngClass]="{
+        <div *ngIf="message.type == 5">
+            <div *ngIf="metadata && (metadata.video || metadata.imagePath)" [ngClass]="{
           'col-md-4': metadata && !hideinfo,
           'col-md-12': !(metadata && !hideinfo)
-        }"
-      >
-        <img
-          *ngIf="metadata.imagePath"
-          [src]="metadata.imagePath"
-          [alt]="metadata.title"
-        />
-        <video *ngIf="!metadata.imagePath" [src]="metadata.video"></video>
-      </div>
+        }">
+                <img *ngIf="metadata.imagePath" [src]="metadata.imagePath" [alt]="metadata.title" />
+                <video *ngIf="!metadata.imagePath" [src]="metadata.video"></video>
+            </div>
 
-      <p *ngIf="!metadata">{{ message.content }}</p>
-      <div
-        *ngIf="metadata && !hideinfo"
-        [ngClass]="{
+            <p *ngIf="!metadata">{{ message.content }}</p>
+            <div *ngIf="metadata && !hideinfo" [ngClass]="{
           'col-md-8': metadata.video || metadata.imagePath,
           'col-md-12': !(metadata.video || metadata.imagePath)
-        }"
-      >
-        <p>
-          <span>{{ metadata.title }}</span> - {{ metadata.description }}
-        </p>
-        <a [href]="metadata.url" target="_blank">{{ metadata.url }}</a>
-      </div>
+        }">
+                <p>
+                    <span>{{ metadata.title }}</span> - {{ metadata.description }}
+                </p>
+                <a [href]="metadata.url" target="_blank">{{ metadata.url }}</a>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="col-md-12 p-l-r-0">
-    <span class="msg-time">{{ message.timeStamp | timeAgo }}</span>
-  </div>
+    <div class="col-md-12 col-xs-12 p-l-r-0">
+        <span class="msg-time">{{ message.timeStamp | timeAgo }}</span>
+    </div>
 </div>
 
-<div *ngIf="!isReceived" class="col-md-1 msg-user-img">
-  <img [src]="user?.profileImagePath" />
+<div *ngIf="!isReceived" class="col-lg-1 col-md-2 col-xs-2 msg-user-img">
+    <img [src]="user?.profileImagePath" />
 </div>

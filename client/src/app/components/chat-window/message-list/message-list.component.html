@@ -7,16 +7,7 @@
 ></div> -->
 
 <!--RECEIVED MESSAGE-->
-<div
-  class="col-md-12 msg"
-  [ngClass]="{
+<div class="col-md-12 col-xs-12 msg" [ngClass]="{
     'send': message.to === activeUser?.userId,
     'receive': message.to !== activeUser?.userId
-  }"
-  app-message
-  *ngFor="let message of messages"
-  [message]="message"
-  [activeUser]="activeUser"
-  [user]="user"
-  [isReceived] = "message.to !== activeUser?.userId"
-></div>
+  }" app-message *ngFor="let message of messages" [message]="message" [activeUser]="activeUser" [user]="user" [isReceived]="message.to !== activeUser?.userId"></div>

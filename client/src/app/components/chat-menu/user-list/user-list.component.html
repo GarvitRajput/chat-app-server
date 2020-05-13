@@ -9,17 +9,9 @@
   ></li>
 </ul> -->
 
-<div class="col-md-12 msg-items">
-  <div class="col-md-12 msg-card"
-  
-  app-user-list-item
-    [ngClass]="{ 'active': user.opened }"
-    *ngFor="let user of users; let i = index"
-    [user]="user"
-    (click)="updateActiveUser(i)"
-  
-  >
-      
-  </div>
+<div class="col-md-12 col-xs-12 msg-items">
+    <div class="col-md-12 col-xs-12 msg-card" app-user-list-item [ngClass]="{ 'active': user.opened }" *ngFor="let user of users; let i = index" [user]="user" (click)="updateActiveUser(i)">
+
+    </div>
 
 </div>

@@ -10,18 +10,18 @@
             <div class="col-md-12 col-xs-12 p-l-r-0">
                 <div class="col-md-5 col-xs-6">
                     <a href="javascript:void(0);" class="btn social-login fb">
-            Facebook
-          </a>
+                        Facebook
+                    </a>
                 </div>
                 <div class="col-md-5 col-xs-6">
                     <a href="javascript:void(0);" class="btn social-login tw">
-            Twitter
-          </a>
+                        Twitter
+                    </a>
                 </div>
             </div>
             <div class="col-md-12 col-xs-12 m-t-50">
                 <span class="seprator">
-          <span class="seprator-content">OR</span>
+                    <span class="seprator-content">OR</span>
                 </span>
             </div>
             <div class="col-md-9 m-t-10" *ngIf="message!==''">
@@ -31,52 +31,52 @@
             </div>
             <div class="col-md-9 col-xs-12 field-container ">
                 <div class="field ">
-                    <input formControlName="firstName " type="text " placeholder="First name " name="firstName " id="firstName " required [ngClass]="{ 'form-control-invalid': submitted && f.firstName.errors && f.firstName.errors.required } " />
+                    <input formControlName="firstName" type="text" placeholder="First name" name="firstName" id="firstName" required [ngClass]="{ 'form-control-invalid': submitted && f.firstName.errors && f.firstName.errors.required }" />
                     <label for="firstName ">First Name</label>
                 </div>
 
                 <div class="field ">
-                    <input formControlName="lastName " type="text " [ngClass]="{ 'form-control-invalid': submitted && f.lastName.errors && f.lastName.errors.required } " placeholder="Lastname " placeholder="Last Name " id="lastName " required />
+                    <input formControlName="lastName" type="text" [ngClass]="{ 'form-control-invalid': submitted && f.lastName.errors && f.lastName.errors.required }" placeholder="Lastname" placeholder="Last Name" id="lastName" required />
                     <label for="lastName ">Last Name</label>
                 </div>
 
                 <div class="field ">
-                    <input formControlName="email " type="email " [ngClass]="{ 'form-control-invalid': submitted && f.email.errors && (f.email.errors.required || f.email.errors.email) } " placeholder="Email " required name="email " id="email" placeholder="jane.appleseed@example.com "
+                    <input formControlName="email" type="email" [ngClass]="{ 'form-control-invalid': submitted && f.email.errors && (f.email.errors.required || f.email.errors.email) }" placeholder="Email " required name="email" id="email" placeholder="jane.appleseed@example.com"
                     />
                     <label for="email">Email Address</label>
                 </div>
 
                 <div class="field ">
-                    <input formControlName="password " type="password " placeholder="Password " [ngClass]="{ 'form-control-invalid': submitted && f.password.errors && (f.password.errors.required || f.password.errors.minlength) } " required name="password
-                " id="password " placeholder="******** " />
-                    <label for="password ">Password</label>
+                    <input formControlName="password" type="password" placeholder="Password" [ngClass]="{ 'form-control-invalid': submitted && f.password.errors && (f.password.errors.required || f.password.errors.minlength) }" required name="password" id="password" placeholder="********"
+                    />
+                    <label for="password">Password</label>
                 </div>
             </div>
-            <div *ngIf="waitingResponse " class="progress-bar ">
+            <div *ngIf="waitingResponse" class="progress-bar">
                 <div class="progress-bar-value "></div>
             </div>
             <div class="col-md-12 col-xs-12 ">
-                <a class="btn auth-btn active-screen " *ngIf="!waitingResponse " (click)="register() " href="javascript:void(0) ">
-          Sign Up
-        </a>
+                <a class="btn auth-btn active-screen" *ngIf="!waitingResponse" (click)="register()" href="javascript:void(0)">
+                    Sign Up
+                </a>
 
             </div>
-            <div class="col-md-12 col-xs-12 m-t-15 ">
-                <p class="redirect ">
+            <div class="col-md-12 col-xs-12 m-t-15">
+                <p class="redirect">
                     Already have an account? <a routerLink="/login">Sign in!</a>
                 </p>
             </div>
-            <div class="col-md-12 col-xs-12 m-t-20 ">
+            <div class="col-md-12 col-xs-12 m-t-20">
                 <ul class="footer-link ">
                     <li>
-                        <a href="javascript:void(0); ">
-              Terms and Conditions
-            </a>
+                        <a href="javascript:void(0);">
+                            Terms and Conditions
+                        </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0); ">
-              Privacy Policy
-            </a>
+                        <a href="javascript:void(0);">
+                            Privacy Policy
+                        </a>
                     </li>
                 </ul>
             </div>
