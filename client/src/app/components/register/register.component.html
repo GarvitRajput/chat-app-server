@@ -1,6 +1,5 @@
 <div class="col-md-7 hidden-xs user-auth-static"></div>
 <div class="col-md-5 col-md-offset-7 col-xs-12 user-auth-form-container">
-<<<<<<< HEAD
     <form [formGroup]="registerForm">
         <div class="col-dm-12 col-xs-12 user-auth-form">
             <div class="col-xs-12">
@@ -11,56 +10,72 @@
             <div class="col-md-12 col-xs-12 p-l-r-0">
                 <div class="col-md-5 col-xs-6">
                     <a href="javascript:void(0);" class="btn social-login fb">
-                        Facebook
-                    </a>
+            Facebook
+          </a>
                 </div>
                 <div class="col-md-5 col-xs-6">
                     <a href="javascript:void(0);" class="btn social-login tw">
-                        Twitter
-                    </a>
+            Twitter
+          </a>
                 </div>
             </div>
             <div class="col-md-12 col-xs-12 m-t-50">
                 <span class="seprator">
-                    <span class="seprator-content">OR</span>
+          <span class="seprator-content">OR</span>
                 </span>
             </div>
-            <div class="col-md-9 m-t-10" *ngIf="message!==''">
-                <div class=" alert alert-danger ">
+            <div class="col-md-9 m-t-10" *ngIf="message !== ''">
+                <div class="alert alert-danger">
                     <strong>Failure!</strong> {{ message }}
                 </div>
             </div>
-            <div class="col-md-9 col-xs-12 field-container ">
-                <div class="field ">
-                    <input formControlName="firstName" type="text" placeholder="First name" name="firstName" id="firstName" required [ngClass]="{ 'form-control-invalid': submitted && f.firstName.errors && f.firstName.errors.required }" />
-                    <label for="firstName ">First Name</label>
+            <div class="col-md-9 col-xs-12 field-container">
+                <div class="field">
+                    <input formControlName="firstName" type="text" placeholder="First name" name="firstName" id="firstName" required [ngClass]="{
+              'form-control-invalid':
+                submitted && f.firstName.errors && f.firstName.errors.required
+            }" />
+                    <label for="firstName">First Name</label>
                 </div>
 
-                <div class="field ">
-                    <input formControlName="lastName" type="text" [ngClass]="{ 'form-control-invalid': submitted && f.lastName.errors && f.lastName.errors.required }" placeholder="Lastname" placeholder="Last Name" id="lastName" required />
-                    <label for="lastName ">Last Name</label>
+                <div class="field">
+                    <input formControlName="lastName" type="text" [ngClass]="{
+              'form-control-invalid':
+                submitted && f.lastName.errors && f.lastName.errors.required
+            }" placeholder="Lastname" placeholder="Last Name" id="lastName" required />
+                    <label for="lastName">Last Name</label>
                 </div>
 
-                <div class="field ">
-                    <input formControlName="email" type="email" [ngClass]="{ 'form-control-invalid': submitted && f.email.errors && (f.email.errors.required || f.email.errors.email) }" placeholder="Email " required name="email" id="email" placeholder="jane.appleseed@example.com"
-                    />
+                <div class="field">
+                    <input formControlName="email" type="email" [ngClass]="{
+              'form-control-invalid':
+                submitted &&
+                f.email.errors &&
+                (f.email.errors.required || f.email.errors.email)
+            }" placeholder="Email" required name="email" id="email" placeholder="jane.appleseed@example.com" />
                     <label for="email">Email Address</label>
                 </div>
 
-                <div class="field ">
-                    <input formControlName="password" type="password" placeholder="Password" [ngClass]="{ 'form-control-invalid': submitted && f.password.errors && (f.password.errors.required || f.password.errors.minlength) }" required name="password" id="password" placeholder="********"
-                    />
+                <div class="field">
+                    <input formControlName="password" type="password" placeholder="Password" [ngClass]="{
+              'form-control-invalid':
+                submitted &&
+                f.password.errors &&
+                (f.password.errors.required || f.password.errors.minlength)
+            }" required name="password" id="password" placeholder="********" />
                     <label for="password">Password</label>
                 </div>
             </div>
             <div *ngIf="waitingResponse" class="progress-bar">
-                <div class="progress-bar-value "></div>
+                <div class="progress-bar-value"></div>
             </div>
-            <div class="col-md-12 col-xs-12 ">
+            <div class="col-md-12 col-xs-12">
+                <svg class="spinner" *ngIf="waitingResponse" width="40px" height="40px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+            <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+         </svg>
                 <a class="btn auth-btn active-screen" *ngIf="!waitingResponse" (click)="register()" href="javascript:void(0)">
-                    Sign Up
-                </a>
-
+          Sign Up
+        </a>
             </div>
             <div class="col-md-12 col-xs-12 m-t-15">
                 <p class="redirect">
@@ -68,159 +83,19 @@
                 </p>
             </div>
             <div class="col-md-12 col-xs-12 m-t-20">
-                <ul class="footer-link ">
+                <ul class="footer-link">
                     <li>
                         <a href="javascript:void(0);">
-                            Terms and Conditions
-                        </a>
+              Terms and Conditions
+            </a>
                     </li>
                     <li>
                         <a href="javascript:void(0);">
-                            Privacy Policy
-                        </a>
+              Privacy Policy
+            </a>
                     </li>
                 </ul>
             </div>
         </div>
     </form>
 </div>
-=======
-  <form [formGroup]="registerForm">
-    <div class="col-dm-12 col-xs-12 user-auth-form">
-      <div class="col-xs-12">
-        <h3>
-          Hey Ambrose! Please Register Your Account!
-        </h3>
-      </div>
-      <div class="col-md-12 col-xs-12 p-l-r-0">
-        <div class="col-md-5 col-xs-6">
-          <a href="javascript:void(0);" class="btn social-login fb">
-            Facebook
-          </a>
-        </div>
-        <div class="col-md-5 col-xs-6">
-          <a href="javascript:void(0);" class="btn social-login tw">
-            Twitter
-          </a>
-        </div>
-      </div>
-      <div class="col-md-12 col-xs-12 m-t-50">
-        <span class="seprator">
-          <span class="seprator-content">OR</span>
-        </span>
-      </div>
-      <div class="col-md-9 m-t-10" *ngIf="message !== ''">
-        <div class="alert alert-danger">
-          <strong>Failure!</strong> {{ message }}
-        </div>
-      </div>
-      <div class="col-md-9 col-xs-12 field-container">
-        <div class="field">
-          <input
-            formControlName="firstName"
-            type="text"
-            placeholder="First name"
-            name="firstName"
-            id="firstName"
-            required
-            [ngClass]="{
-              'form-control-invalid':
-                submitted && f.firstName.errors && f.firstName.errors.required
-            }"
-          />
-          <label for="firstName">First Name</label>
-        </div>
-
-        <div class="field">
-          <input
-            formControlName="lastName"
-            type="text"
-            [ngClass]="{
-              'form-control-invalid':
-                submitted && f.lastName.errors && f.lastName.errors.required
-            }"
-            placeholder="Lastname"
-            placeholder="Last Name"
-            id="lastName"
-            required
-          />
-          <label for="lastName">Last Name</label>
-        </div>
-
-        <div class="field">
-          <input
-            formControlName="email"
-            type="email"
-            [ngClass]="{
-              'form-control-invalid':
-                submitted &&
-                f.email.errors &&
-                (f.email.errors.required || f.email.errors.email)
-            }"
-            placeholder="Email"
-            required
-            name="email"
-            id="email"
-            placeholder="jane.appleseed@example.com"
-          />
-          <label for="email">Email Address</label>
-        </div>
-
-        <div class="field">
-          <input
-            formControlName="password"
-            type="password"
-            placeholder="Password"
-            [ngClass]="{
-              'form-control-invalid':
-                submitted &&
-                f.password.errors &&
-                (f.password.errors.required || f.password.errors.minlength)
-            }"
-            required
-            name="password"
-            id="password"
-            placeholder="********"
-          />
-          <label for="password">Password</label>
-        </div>
-      </div>
-      <div *ngIf="waitingResponse" class="progress-bar">
-        <div class="progress-bar-value"></div>
-      </div>
-      <div class="col-md-12 col-xs-12">
-        <svg class="spinner" *ngIf="waitingResponse" width="40px" height="40px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-            <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
-         </svg>
-        <a
-          class="btn auth-btn active-screen"
-          *ngIf="!waitingResponse"
-          (click)="register()"
-          href="javascript:void(0)"
-        >
-          Sign Up
-        </a>
-      </div>
-      <div class="col-md-12 col-xs-12 m-t-15">
-        <p class="redirect">
-          Already have an account? <a routerLink="/login">Sign in!</a>
-        </p>
-      </div>
-      <div class="col-md-12 col-xs-12 m-t-20">
-        <ul class="footer-link">
-          <li>
-            <a href="javascript:void(0);">
-              Terms and Conditions
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0);">
-              Privacy Policy
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </form>
-</div>
->>>>>>> ac673677d128265b0e2d91f6c48afa9bdba5070a
